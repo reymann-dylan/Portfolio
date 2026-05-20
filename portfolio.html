@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Reymann Dylan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =====================================================================
+           MOTEUR VISUEL & VARIABLES
+        ====================================================================== */
+        :root {
+            --bg-deep: #0a0a0a; --bg-panel: rgba(20, 20, 20, 0.85);
+            --text-main: #E0E0E0; --text-pure: #FFFFFF;
+            --gold-gradient: linear-gradient(135deg, #B38728 0%, #FBF5B7 40%, #D4AF37 60%, #AA771C 100%);
+            --silver-gradient: linear-gradient(135deg, #8ba3b5 0%, #e0eaf5 40%, #9cb1c4 60%, #5d7485 100%);
+            --red-gradient: linear-gradient(135deg, #d32f2f 0%, #ff6659 100%);
+            --gold-solid: #D4AF37; --silver-solid: #a0b2c1; --red-solid: #d32f2f;
+            --accent-dim: rgba(212, 175, 55, 0.15); 
+            --font-title: 'Bebas Neue', sans-serif; --font-data: 'Inter', sans-serif; --font-code: 'Roboto Mono', monospace;
+            --transition-snap: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        * { box-sizing: border-box; border-radius: 0 !important; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        /* Flexbox sur le body pour repousser le footer tout en bas */
+        body { 
+            background-color: var(--bg-deep); color: var(--text-main); font-family: var(--font-data); overflow-x: hidden; 
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        
+        /* GESTION DYNAMIQUE DES THÈMES PERSONNALISÉS */
+        .card.hover-custom:hover {
+            border-color: var(--custom-base) !important;
+            box-shadow: -10px 0 30px color-mix(in srgb, var(--custom-base) 15%, transparent) !important;
+        }
+        .text-custom {
+            background: linear-gradient(135deg, var(--custom-dark) 0%, var(--custom-light) 40%, var(--custom-base) 60%, var(--custom-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .bg-grid-standard { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; z-index: -2; pointer-events: none; }
+
+        /* UTILITAIRES COULEURS TEXTE */
+        .text-gold { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-silver { background: var(--silver-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-red { background: var(--red-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-white { color: var(--text-pure); }
+        .border-fade { border: 1px solid transparent; border-image: linear-gradient(135deg, rgba(212,175,55,0.7) 0%, transparent 30%, transparent 70%, rgba(212,175,55,0.7) 100%) 1; }
+
+        /* HEADER & NAV */
+        header { position: fixed; top: 0; width: 100%; height: 90px; background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+        nav { display: flex; gap: 40px; }
+        nav a { color: var(--text-main); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-snap); padding-bottom: 5px; border-bottom: 1px solid transparent; }
+        nav a:hover, nav a.active { color: var(--gold-solid); border-bottom: 1px solid var(--gold-solid); }
+        .header-actions { display: flex; align-items: center; gap: 25px; }
+        .icon-link svg { fill: var(--text-main); transition: var(--transition-snap); }
+        .icon-link:hover svg { fill: var(--gold-solid); }
+        .btn-solid { background-color: var(--gold-solid); color: var(--bg-deep); font-family: var(--font-data); font-weight: 900; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 28px; border: none; cursor: pointer; transition: var(--transition-snap); display: inline-block; text-decoration: none; }
+        .btn-solid:hover { background-color: var(--text-pure); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        /* =====================================================================
+           ARCHITECTURE PORTFOLIO (ALIGNEMENT À GAUCHE)
+        ====================================================================== */
+        /* Conteneur principal qui pousse le footer */
+        .main-content { flex: 1; display: flex; flex-direction: column; width: 100%; }
+
+        .page-header { padding: 160px 60px 40px 60px; max-width: 1400px; width: 100%; text-align: left; }
+        .page-title { font-family: var(--font-title); font-size: 5rem; line-height: 1.1; margin: 0 0 10px 0; border-left: 4px solid var(--gold-solid); padding-left: 20px; text-transform: uppercase; }
+        .page-subtitle { font-family: var(--font-code); font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; padding-left: 24px; }
+
+        .portfolio-section { padding: 0 60px 100px 60px; position: relative; z-index: 2; }
+        .portfolio-wrapper { max-width: 1400px; width: 100%; margin: 0; }
+
+        .section-header { font-family: var(--font-title); font-size: 3rem; color: var(--text-pure); margin-top: 60px; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; width: 100%; }
+        
+        .list-layout { display: flex; flex-direction: column; gap: 40px; margin-bottom: 60px; width: 100%; }
+        
+        /* DESIGN DES CARTES HORIZONTALES */
+        .card { 
+            background: var(--bg-panel); 
+            transition: var(--transition-snap); cursor: pointer; position: relative; 
+            display: flex; flex-direction: row; 
+            align-items: stretch;
+            min-width: 0; border: 1px solid rgba(255,255,255,0.1); 
+            overflow: hidden; 
+        }
+        .card:hover { transform: translateX(10px); background: rgba(30, 30, 30, 0.95); }
+        
+        /* Thèmes de bordure au survol */
+        .card.hover-gold:hover { border-color: var(--gold-solid); box-shadow: -10px 0 30px rgba(212, 175, 55, 0.1); }
+        .card.hover-silver:hover { border-color: var(--silver-solid); box-shadow: -10px 0 30px rgba(160, 178, 193, 0.1); }
+        .card.hover-red:hover { border-color: var(--red-solid); box-shadow: -10px 0 30px rgba(211, 47, 47, 0.15); }
+
+        .card-content { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        
+        .card-type { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; font-weight: 900; }
+        .card-title { font-size: 3rem; font-family: var(--font-title); margin: 0 0 20px 0; text-transform: uppercase; line-height: 1.1; }
+        .card-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
+        
+        /* Conteneur de l'image (Côté droit) */
+        .card-img-wrapper { 
+            flex: 0 0 450px; 
+            border-left: 1px solid rgba(255,255,255,0.1); 
+            display: flex; align-items: center; justify-content: center; 
+            position: relative; background: #000; overflow: hidden;
+        }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0.85; }
+        .card:hover .card-img-wrapper img { transform: scale(1.08); opacity: 1; }
+
+        /* Fallback Image manquante */
+        .smart-img-container.missing { background: rgba(255, 255, 255, 0.03); border-left: 1px dashed rgba(255, 255, 255, 0.2); }
+        .smart-img-container.missing img { display: none; }
+        .smart-img-container.missing::after { 
+            content: "[ IMG MANQUANTE ]\A" attr(data-path) "\A(Idéal : 800x600px)"; 
+            position: absolute; font-family: var(--font-code); font-size: 11px; font-weight: 700;
+            color: #666; 
+            letter-spacing: 1px; text-align: center; padding: 20px; z-index: 1; width: 100%; box-sizing: border-box; white-space: pre-wrap; line-height: 1.6;
+        }
+
+        footer { padding: 40px 60px; border-top: 1px solid var(--accent-dim); display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 1px; color: #666; background-color: var(--bg-deep); z-index: 2; position: relative;}
+
+        /* =====================================================================
+           SYSTÈME DE CONTACT COULISSANT
+        ====================================================================== */
+        .contact-panel { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: rgba(10, 10, 10, 0.98); border-left: 2px solid var(--gold-solid); z-index: 3000; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+        .contact-panel.open { transform: translateX(-450px); }
+        .contact-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+        .contact-overlay.open { opacity: 1; pointer-events: auto; }
+        .contact-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;}
+        .contact-header h3 { font-family: var(--font-title); font-size: 2.5rem; color: var(--gold-solid); margin: 0; }
+        .close-btn { background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: var(--red-alert); transform: rotate(90deg); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-family: var(--font-code); font-size: 10px; color: var(--gold-solid); margin-bottom: 8px; letter-spacing: 1px; }
+        .form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: var(--text-pure); padding: 12px; font-family: var(--font-data); font-size: 14px; transition: 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold-solid); background: rgba(255,255,255,0.08); }
+
+        /* =====================================================================
+           ADAPTATION MOBILE 100% FIABLE
+        ====================================================================== */
+        @media (max-width: 992px) {
+            header { padding: 0 20px; height: 70px; }
+            nav { display: none; }
+            .page-header { padding: 120px 20px 20px 20px; }
+            .page-title { font-size: 3.5rem; }
+            .portfolio-section { padding: 20px 20px 60px 20px; }
+            
+            /* Sur mobile, on empile le texte puis l'image en dessous */
+            .card { flex-direction: column; }
+            .card-content { padding: 30px; }
+            .card-img-wrapper { flex: auto; height: 250px; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; }
+            .card:hover { transform: translateY(-5px); } 
+            
+            .contact-panel { width: 100%; right: -100%; }
+            .contact-panel.open { transform: translateX(-100%); }
+            footer { flex-direction: column; align-items: center; gap: 15px; text-align: center; padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid-standard"></div>
+
+    <header>
+		<nav>
+            <a href="index.html">Accueil</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="geopolitique.html">Géopolitique</a>
+            <a href="analyses.html">Analyses & Veille</a>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="https://github.com/reymann-dylan" target="_blank" class="icon-link" title="GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/dylan-reymann/" target="_blank" class="icon-link" title="LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <button class="btn-solid" onclick="toggleContact()">ME CONTACTER</button>
+        </div>
+    </header>
+
+    <div id="contact-overlay" class="contact-overlay" onclick="toggleContact()"></div>
+    <div id="contact-panel" class="contact-panel">
+        <div class="contact-header">
+            <h3>ME CONTACTER</h3>
+            <button class="close-btn" onclick="toggleContact()">✕</button>
+        </div>
+        <form id="contact-form">
+            <div class="form-group"><label>ADRESSE EMAIL</label><input type="email" id="sender-email" required placeholder="votre@email.com"></div>
+            <div class="form-group"><label>MOTIF DE CONTACT</label><input type="text" id="sender-reason" required placeholder="Mission, Échange, Demande d'analyse..."></div>
+            <div class="form-group"><label>MESSAGE</label><textarea id="sender-text" required placeholder="Détaillez votre requête ici..." rows="6"></textarea></div>
+            <button type="submit" class="btn-solid" style="width: 100%; text-align: center; margin-top: 10px;">TRANSMETTRE LA REQUÊTE</button>
+        </form>
+    </div>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title text-gold">ARCHIVES OPÉRATIONNELLES</h1>
+            <div class="page-subtitle">Dossiers de recherche, analyses et développements</div>
+        </div>
+
+        <section class="portfolio-section">
+            <div class="portfolio-wrapper">
+                
+                <h2 class="section-header">RECHERCHE ACADÉMIQUE</h2>
+                <div class="list-layout">
+                    
+                    <div class="card hover-gold" onclick="window.location.href='dossiers/geopolitique-espace.html'">
+                        <div class="card-content">
+                            <div class="card-type text-gold">MÉMOIRE PRINCIPAL</div>
+                            <h3 class="card-title text-gold">Géopolitique de l'Espace</h3>
+                            <p class="card-desc">Analyse complète des dynamiques de pouvoir extra-atmosphériques, de la militarisation de l'orbite basse et des enjeux de souveraineté spatiale. Intègre une modélisation éthique des conflits supra-orbitaux.</p>
+                        </div>
+                        <div class="smart-img-container card-img-wrapper" data-path="assets/images/cover-espace.jpg">
+                            <img src="assets/images/cover-espace.jpg" alt="Couverture Espace" onerror="this.parentElement.classList.add('missing');">
+                        </div>
+                    </div>
+
+                    <div class="card hover-silver" onclick="window.location.href='dossiers/guerre-information.html'">
+                        <div class="card-content">
+                            <div class="card-type text-silver">MÉMOIRE SECONDAIRE</div>
+                            <h3 class="card-title text-silver">Guerre de l'Information</h3>
+                            <p class="card-desc">Construire le réel et manipuler les masses : étude approfondie des nouveaux vecteurs de déstabilisation étatique et du concept de "post-vérité" dans l'espace stratégique numérique.</p>
+                        </div>
+                        <div class="smart-img-container card-img-wrapper" data-path="assets/images/cover-info.jpg">
+                            <img src="assets/images/cover-info.jpg" alt="Couverture Info" onerror="this.parentElement.classList.add('missing');">
+                        </div>
+                    </div>
+					
+					<div class="card hover-gold" onclick="window.location.href='dossiers/golden_dome.html'">
+                        <div class="card-content">
+                            <div class="card-type text-gold">DOSSIER</div>
+                            <h3 class="card-title text-gold">IDS & GOLDEN DOME</h3>
+                            <p class="card-desc">En quoi le programme « Golden Dome » constitue-t-il une réplique ou une réinterprétation moderne de l’Initiative de défense stratégique (IDS), et quelles différences fondamentales en découlent ?</p>
+                        </div>
+                        <div class="smart-img-container card-img-wrapper" data-path="assets/images/IDS.jpg">
+                            <img src="assets/images/IDS.jpg" alt="Couverture IDS" onerror="this.parentElement.classList.add('missing');">
+                        </div>
+                    </div>
+					
+
+                </div>
+
+                <h2 class="section-header">PROJETS</h2>
+                
+                <div id="dynamic-projects" class="list-layout">
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>DESIGN OPEN SOURCE SUR GITHUB</div>
+        <div>© 2026 - REYMANN DYLAN - TOUS DROITS RÉSERVÉS.</div>
+    </footer>
+
+    <script>
+        /* --- 1. GESTION DU CONTACT --- */
+        function toggleContact() {
+            document.getElementById('contact-panel').classList.toggle('open');
+            document.getElementById('contact-overlay').classList.toggle('open');
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('sender-email').value;
+            const reason = document.getElementById('sender-reason').value;
+            const text = document.getElementById('sender-text').value;
+            const formattedMessage = "Envoyé depuis mon portfolio\nContact: " + email + "\nMotif: " + reason + "\n\n" + text;
+            
+            const formEndpoint = "https://formspree.io/f/mlgakqzk"; 
+
+            try {
+                const response = await fetch(formEndpoint, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, message: formattedMessage, _subject: "Requête Portfolio : " + reason })
+                });
+                if (response.ok) {
+                    alert("Transmission sécurisée effectuée avec succès.");
+                    document.getElementById('contact-form').reset();
+                    toggleContact();
+                } else {
+                    alert("Échec de la connexion au réseau Formspree.");
+                }
+            } catch (error) { alert("Erreur de transmission réseau."); }
+        });
+
+        /* --- 2. BASE DE DONNÉES DYNAMIQUE DES PROJETS --- */
+        const projectsDB = [
+            {
+                theme: 'gold',
+                type: 'ARTWORKS',
+                title: 'GéOPOLITIQUE DE L\'Espace',
+                desc: 'Visuels créés pour le mémoire Géopolitique de l\'espace, réalisés avec Photoshop.',
+                image: 'assets/images/this-is-war.jpg',
+                link: 'dossiers/geopolitique-espace - Artwork.html'
+            },
+            {
+                theme: 'silver',
+                type: 'PROJET VIDÉO',
+                title: 'EXCLU DU RÉEL',
+                desc: 'Un projet de série documentaire explorant les thèmes de la géopolitique et de la désinformation, de la psychologie et des  logiques de marché, et du secteur de la défense.',
+                image: 'SOON TM',
+                link: 'dossiers/exclu-du-réel.html'
+            }
+        ];
+
+        // Lancement du rendu dynamique
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('dynamic-projects');
+            
+            if (container) {
+                projectsDB.forEach(project => {
+                    const hoverClass = `hover-${project.theme}`;
+                    const textClass = `text-${project.theme}`;
+                    
+                    // Injection des variables de couleur si le thème est "custom"
+                    const customStyles = project.theme === 'custom' 
+                        ? `style="--custom-base: ${project.customBase}; --custom-light: ${project.customLight}; --custom-dark: ${project.customDark};"` 
+                        : '';
+                    
+                    const cardHTML = `
+                        <div class="card ${hoverClass}" ${customStyles} onclick="window.location.href='${project.link}'">
+                            <div class="card-content">
+                                <div class="card-type ${textClass}">${project.type}</div>
+                                <h3 class="card-title ${textClass}">${project.title}</h3>
+                                <p class="card-desc">${project.desc}</p>
+                            </div>
+                            <div class="smart-img-container card-img-wrapper" data-path="${project.image}">
+                                <img src="${project.image}" alt="${project.title}" onerror="this.parentElement.classList.add('missing');">
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
