@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Géopolitique de l'espace Artworks | Reymann Dylan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-deep: #0a0a0a; --bg-panel: rgba(20, 20, 20, 0.85);
+            --text-main: #E0E0E0; --text-pure: #FFFFFF;
+            --gold-gradient: linear-gradient(135deg, #B38728 0%, #FBF5B7 40%, #D4AF37 60%, #AA771C 100%);
+            --silver-gradient: linear-gradient(135deg, #8ba3b5 0%, #e0eaf5 40%, #9cb1c4 60%, #5d7485 100%);
+            --red-gradient: linear-gradient(135deg, #d32f2f 0%, #ff6659 100%);
+            --gold-solid: #D4AF37; --silver-solid: #a0b2c1; --red-solid: #d32f2f;
+            --font-title: 'Bebas Neue', sans-serif; --font-data: 'Inter', sans-serif; --font-code: 'Roboto Mono', monospace;
+        }
+        :root { --active-theme-color: var(--gold-solid); }
+.theme-text { color: var(--gold-solid); }
+        * { box-sizing: border-box; border-radius: 0 !important; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-deep); color: var(--text-main); font-family: var(--font-data); overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        
+        .bg-grid-standard { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; z-index: -2; pointer-events: none; }
+        .text-gold { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-silver { background: var(--silver-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-red { background: var(--red-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-pure { color: var(--text-pure); }
+        .content-link { color: var(--gold-solid); text-decoration: underline; text-underline-offset: 3px; transition: 0.2s; }
+        .content-link:hover { color: var(--text-pure); }
+        
+        header { position: fixed; top: 0; width: 100%; height: 90px; background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .header-actions { display: flex; align-items: center; gap: 25px; }
+        .icon-link svg { fill: var(--text-main); transition: var(--transition-snap); }
+        .icon-link:hover svg { fill: var(--gold-solid); }
+        
+        .btn-outline { background: transparent; border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 10px 20px; font-family: var(--font-code); font-size: 11px; text-transform: uppercase; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; }
+        .btn-solid { background-color: var(--gold-solid); color: var(--bg-deep); font-family: var(--font-data); font-weight: 900; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 28px; border: none; cursor: pointer; text-decoration: none; transition: 0.3s;}
+        .btn-solid:hover { background-color: var(--text-pure); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        .dossier-hero { position: relative; padding: 180px 60px 80px 60px; width: 100%; overflow: hidden; border-bottom: 1px solid rgba(255,255,255, 0.1); margin-bottom: 60px; }
+        .hero-space-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('../assets/images/bg-osint.jpg'); background-size: cover; background-position: center; z-index: 1; opacity: 0.3; }
+        .hero-scanline { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(10,10,10,0) 50%, rgba(0,0,0,0.25) 50%); background-size: 100% 4px; z-index: 2; pointer-events: none;}
+        .hero-gradient { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, var(--bg-deep) 0%, transparent 100%); z-index: 3; }
+        
+        .hero-content { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; text-align: center; }
+        
+        .dossier-tag { font-family: var(--font-code); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: inline-block; padding: 5px 15px; color: var(--gold-solid); border: 1px solid var(--gold-solid); background: rgba(15,15,15,0.8); backdrop-filter: blur(4px); }
+        .dossier-title { font-family: var(--font-title); font-size: 5.5rem; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; }
+        .dossier-subtitle { font-size: 18px; color: #ccc; max-width: 900px; margin: 0 auto; line-height: 1.6; }
+
+        .dossier-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; max-width: 1500px; margin: 0 auto 100px auto; padding: 0 60px; width: 100%; position: relative; z-index: 10; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Styles pour images manquantes dynamiques (Prévisualisation) */
+        .schema-container.missing, .gallery-img-container.missing { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3) !important; display: flex; align-items: center; justify-content: center; min-height: 200px; }
+        .schema-container.missing img, .gallery-img-container.missing img { display: none; }
+        .schema-container.missing::before, .gallery-img-container.missing::before { content: attr(data-fallback); position: absolute; font-family: var(--font-code); font-size: 10px; color: #888; z-index: 1; text-align: center; padding: 20px; white-space: pre-wrap; line-height: 1.5; }
+
+        /* =====================================================================
+           SYSTÈME DE CONTACT COULISSANT
+        ====================================================================== */
+        .contact-panel { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: rgba(10, 10, 10, 0.98); border-left: 2px solid var(--gold-solid); z-index: 3000; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+        .contact-panel.open { transform: translateX(-450px); }
+        .contact-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+        .contact-overlay.open { opacity: 1; pointer-events: auto; }
+        .contact-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;}
+		.contact-header h3 { font-family: var(--font-title); font-size: 2.5rem; color: var(--gold-solid); margin: 0; }
+        .close-btn { background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: var(--red-solid); transform: rotate(90deg); }
+        .form-group { margin-bottom: 25px; display: block; }
+        .form-group label { display: block; font-family: var(--font-code); font-size: 10px; color: var(--gold-solid); margin-bottom: 8px; letter-spacing: 1px; }
+        .form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: var(--text-pure); padding: 12px; font-family: var(--font-data); font-size: 14px; transition: 0.3s; box-sizing: border-box;}
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold-solid); background: rgba(255,255,255,0.08); }
+
+        @media (max-width: 992px) { 
+            .dossier-layout { grid-template-columns: 1fr; padding: 0 20px; }
+            header { padding: 0 20px; }
+            .dossier-hero { padding: 140px 20px 60px 20px; }
+            .contact-panel { width: 100%; right: -100%; }
+            .contact-panel.open { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets\audio\53-Mass-Effect-3-Score-The-Crucible.mp3" type="audio/mpeg" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;this.parentElement.load();}">
+    </audio>
+    <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic(event)" style="position: fixed; bottom: 30px; right: 30px; z-index: 2000; background: rgba(5, 5, 5, 0.95); border: 1px solid rgba(255,255,255,0.2); border-left: 2px solid var(--gold-solid); color: var(--text-main); font-family: var(--font-code); padding: 10px 15px; display: flex; align-items: center; gap: 15px; text-align: right; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+        <div class="audio-wave" style="display: flex; gap: 2px; height: 12px; align-items: flex-end;">
+            <span style="width: 3px; background: var(--gold-solid); height: 3px;"></span>
+            <span style="width: 3px; background: var(--gold-solid); height: 3px;"></span>
+            <span style="width: 3px; background: var(--gold-solid); height: 3px;"></span>
+        </div>
+        <div class="poi-audio-info" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center;">
+            <span id="music-text" class="poi-audio-title text-gold" style="font-size: 12px; font-weight: 700; letter-spacing: 1px;">PLAY AUDIO</span>
+            <span id="music-status" class="poi-audio-status" style="font-size: 8px; color: #888; text-transform: uppercase; margin-top: 3px; letter-spacing: 0.5px;">[ STATUS : STANDBY ]</span>
+        </div>
+    </button>
+    <style>
+        .playing .audio-wave span:nth-child(1) { animation: wave 1s infinite alternate; }
+        .playing .audio-wave span:nth-child(2) { animation: wave 1.2s infinite alternate; }
+        .playing .audio-wave span:nth-child(3) { animation: wave 0.8s infinite alternate; }
+        @keyframes wave { 0% { height: 3px; } 100% { height: 12px; } }
+    </style>
+
+    <div class="bg-grid-standard"></div>
+
+    <header>
+        <a class="btn-outline" href="../portfolio.html">← RETOUR AU PORTFOLIO</a>
+        <div class="header-actions">
+            <a href="https://github.com/reymann-dylan" target="_blank" class="icon-link" title="GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/dylan-reymann/" target="_blank" class="icon-link" title="LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <button class="btn-solid" onclick="toggleContact()">ME CONTACTER</button>
+        </div>
+    </header>
+
+    <div id="contact-overlay" class="contact-overlay" onclick="toggleContact()"></div>
+    <div id="contact-panel" class="contact-panel">
+        <div class="contact-header">
+            <h3>ME CONTACTER</h3>
+            <button class="close-btn" onclick="toggleContact()">✕</button>
+        </div>
+        
+        <form id="contact-form">
+            <div class="form-group">
+                <label>ADRESSE EMAIL</label>
+                <input type="email" id="sender-email" required placeholder="votre@email.com">
+            </div>
+            
+            <div class="form-group">
+                <label>MOTIF DE CONTACT</label>
+                <input type="text" id="sender-reason" required placeholder="Mission, Échange, Demande d'analyse...">
+            </div>
+
+            <div class="form-group">
+                <label>MESSAGE</label>
+                <textarea id="sender-text" required placeholder="Détaillez votre requête ici..." rows="6"></textarea>
+            </div>
+
+            <button type="submit" class="btn-solid" style="width: 100%; text-align: center; margin-top: 10px;">TRANSMETTRE LA REQUÊTE</button>
+        </form>
+    </div>
+
+    <div class="dossier-hero">
+        <div class="hero-space-bg"></div><div class="hero-scanline"></div><div class="hero-gradient"></div>
+        <div class="hero-content">
+            <div class="dossier-tag">ARTWORKS | PHOTOSHOP</div>
+            <h1 class="dossier-title text-gold">Géopolitique de l'espace Artworks</h1>
+            <p class="dossier-subtitle">Visuelles crée sur Photoshop entre Novembre 2025 & Mars 2026</p>
+        </div>
+    </div>
+
+    <main class="dossier-layout">
+        <div class="dossier-main" style="display:flex; flex-direction:column;">
+            <div class="sidebar-widget" style="border: 1px solid rgba(255,255,255,0.15); background: var(--bg-panel); padding: 30px; margin: 60px 0;">
+                <div class="gallery-stacked" style="display:flex; flex-direction:column; gap:40px;">
+                    <h4 class="widget-header text-gold" style="font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">Galerie Photo</h4>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\War-Never-end.jpg)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\War-Never-end.jpg" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">PARTIE I - L’ESPACE AU 21E SIÈCLE : UNE RECONFIGURATION DU POUVOIR A L’ÈRE DU MONDE MULTIPOLAIR </span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\Moon Landing Exploitation.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Moon Landing Exploitation.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">PARTIE II – L’ESPACE EXTRA-ATMOSPHERIQUE COMME NOUVEAU THÉÂTRE DE PUISSANCE : ACTEURS, DOCTRINES ET TENSIONS </span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\Situation Room.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Situation Room.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">PARTIE III – MODALITÉS D'ACTION ET LOGIQUES STRATÉGIQUES : QUELLES IMPASSES STRATÉGIQUES ET ÉTHIQUES ?</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\WarBuilding.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\WarBuilding.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">PARTIE IV - VERS UNE ÉTHIQUE DE LA GUERRE DANS L’ESPACE : GUERRE JUSTE, DROIT SPATIAL & DISSUASION</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\This is War.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\This is War.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">PARTIE V – PERCEPTION, ÉTUDES DE CAS ET SIMULATIONS </span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\What is Space War.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\What is Space War.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">CONCLUSION : A WAR WITHOUT BOUNDARIES  </span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Galerie Photo.jpg ]&#10;(Lien: assets\images\Space-Artwork\Golden Dome representation.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Golden Dome representation.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">Golden Dome</span></div>
+                    </div>
+                </div>
+            </div></div>
+        <aside class="dossier-sidebar" style="display:flex; flex-direction:column; gap:40px;">
+            <div class="sidebar-widget" style="border: 1px solid rgba(255,255,255,0.15); background: var(--bg-panel); padding: 30px; margin: 60px 0;">
+                <div class="gallery-stacked" style="display:flex; flex-direction:column; gap:40px;">
+                    <h4 class="widget-header text-gold" style="font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">Infographies</h4>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Infographies.jpg ]&#10;(Lien: assets\images\Space-Artwork\Golden Dome representation.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Golden Dome representation.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-gold">Golden Dome</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Infographies.jpg ]&#10;(Lien: assets\images\Space-Artwork\point de Lagrange.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\point de Lagrange.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-silver">Points de lagranges</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Infographies.jpg ]&#10;(Lien: assets\images\Space-Artwork\Saturation Orbital.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Saturation Orbital.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-silver">Saturation Orbital</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Infographies.jpg ]&#10;(Lien: assets\images\Space-Artwork\Senario 1 - COLLISION.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Senario 1 - COLLISION.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-silver">scénario 1 - COLLISION</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Infographies.jpg ]&#10;(Lien: assets\images\Space-Artwork\Senario 2 - subversion.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Senario 2 - subversion.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-silver">scénario 2 - SUBVERSION</span></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="gallery-img-container" data-fallback="[ INSÉRER IMAGE : Infographies.jpg ]&#10;(Lien: assets\images\Space-Artwork\Senario 5 Puissance L.png)" style="position:relative; display:flex; justify-content:center; align-items:center; width:100%; min-height: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                            <img src="assets\images\Space-Artwork\Senario 5 Puissance L.png" style="width:100%; max-height:700px; object-fit:contain;" onerror="if(!this.dataset.retried){this.dataset.retried=true;var s=this.getAttribute('src');this.src=s.startsWith('../')?s.replace('../',''):'../'+s;}else{this.parentElement.classList.add('missing');}">
+                        </div>
+                        <div style="text-align:left; font-family:var(--font-data); font-size:13px; color:#bbb; line-height:1.6; padding: 0 10px;"><span class="text-red">Scénario 5</span></div>
+                    </div>
+                </div>
+            </div></aside>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('video').forEach(v => v.volume = 0.05);
+            const bgEl = document.querySelector('.hero-space-bg');
+            if(bgEl) {
+                const bgUrl = '../assets/images/bg-osint.jpg';
+                const img = new Image();
+                img.onerror = () => { bgEl.style.backgroundImage = "url('" + (bgUrl.startsWith('../') ? bgUrl.replace('../', '') : '../' + bgUrl) + "')"; };
+                img.src = bgUrl;
+            }
+        });
+        window.musicStarted = false;
+        const defaultTitle = 'Mass Effect 3 Score The Crucible';
+        window.updateAudioTerminalUI = (isPlaying) => {
+            const btn = document.getElementById('music-toggle'), text = document.getElementById('music-text'), status = document.getElementById('music-status');
+            if(btn && text && status) {
+                if(isPlaying) { btn.classList.add('playing'); text.innerHTML = "PAUSE AUDIO"; status.innerText = "[ STATUS : PLAYING - " + defaultTitle + " ]"; } 
+                else { btn.classList.remove('playing'); text.innerHTML = "PLAY AUDIO"; status.innerText = "[ STATUS : STANDBY ]"; }
+            }
+        };
+        window.startAudioFurtivement = (ev) => {
+            if(ev.target && ev.target.closest && ev.target.closest('#music-toggle')) return;
+            if (!window.musicStarted) {
+                const audio = document.getElementById('bg-music');
+                if (audio && audio.paused) { 
+                    audio.volume = 0.05; 
+                    audio.play().then(() => { 
+                        window.musicStarted = true; 
+                        window.updateAudioTerminalUI(true); 
+                        ['click','scroll','keydown','touchstart'].forEach(evt => window.removeEventListener(evt, window.startAudioFurtivement)); 
+                    }).catch(() => {}); 
+                }
+            }
+        };
+        ['click','scroll','keydown','touchstart'].forEach(evt => window.addEventListener(evt, window.startAudioFurtivement));
+        
+        window.toggleMusic = function(e) {
+            if(e) e.stopPropagation();
+            const audio = document.getElementById('bg-music');
+            if(audio) { 
+                audio.volume = 0.05; 
+                if(audio.paused) { 
+                    audio.play().then(() => { 
+                        window.musicStarted = true; 
+                        window.updateAudioTerminalUI(true); 
+                    }).catch(err => {
+                        console.error("Erreur audio:", err);
+                        alert("Le fichier audio est introuvable. Le chemin est peut-être incorrect.");
+                    }); 
+                } else { 
+                    audio.pause(); 
+                    window.updateAudioTerminalUI(false); 
+                } 
+            }
+        };
+        
+        
+        function updateGalleryCounter(cId, total) {
+            const container = document.getElementById(cId);
+            const index = Math.round(container.scrollLeft / (container.offsetWidth * 0.92)) + 1;
+            const counter = document.getElementById('counter_' + cId);
+            if(counter) counter.innerText = '[ ' + Math.min(index, total) + ' / ' + total + ' ]';
+        }
+        
+        function toggleContact() {
+            var panel = document.getElementById('contact-panel');
+            var overlay = document.getElementById('contact-overlay');
+            if (panel && overlay) {
+                panel.classList.toggle('open');
+                overlay.classList.toggle('open');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    var email = document.getElementById('sender-email').value;
+                    var reason = document.getElementById('sender-reason').value;
+                    var text = document.getElementById('sender-text').value;
+                    var formattedMessage = "Envoyé depuis un Dossier (CMS)\nContact: " + email + "\nMotif: " + reason + "\n\n" + text;
+                    
+                    try {
+                        var response = await fetch("https://formspree.io/f/mlgakqzk", {
+                            method: 'POST',
+                            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: email, message: formattedMessage, _subject: "Demande depuis Dossier : " + reason })
+                        });
+                        if (response.ok) {
+                            alert("Transmission réussie.");
+                            document.getElementById('contact-form').reset();
+                            toggleContact();
+                        } else {
+                            alert("Échec de la connexion Formspree.");
+                        }
+                    } catch (error) { alert("Erreur réseau."); }
+                });
+            }
+        });
+    </script>
+    <!-- REYMANN_CMS_STATE:eyJtZXRhIjp7Im1ldGEtdGhlbWUiOiJnb2xkIiwibWV0YS1jdXN0b20tYmFzZSI6IiMxOTc2ZDIiLCJtZXRhLWN1c3RvbS1saWdodCI6IiM2NGI1ZjYiLCJtZXRhLWN1c3RvbS1kYXJrIjoiIzBkNDdhMSIsIm1ldGEtdGFnIjoiQVJUV09SS1MgfCBQSE9UT1NIT1AiLCJtZXRhLWRhdGUiOiIiLCJtZXRhLXRpdGxlIjoiR8Opb3BvbGl0aXF1ZSBkZSBsJ2VzcGFjZSBBcnR3b3JrcyIsIm1ldGEtc3VidGl0bGUiOiJWaXN1ZWxsZXMgY3LDqWUgc3VyIFBob3Rvc2hvcCBlbnRyZSBOb3ZlbWJyZSAyMDI1ICYgTWFycyAyMDI2IiwibWV0YS1iZyI6Ii4uL2Fzc2V0cy9pbWFnZXMvYmctb3NpbnQuanBnIiwibWV0YS1hdWRpbyI6ImFzc2V0c1xcYXVkaW9cXDUzLU1hc3MtRWZmZWN0LTMtU2NvcmUtVGhlLUNydWNpYmxlLm1wMyIsIm1ldGEtYXVkaW8tdGl0bGUiOiJNYXNzIEVmZmVjdCAzIFNjb3JlIFRoZSBDcnVjaWJsZSIsIm1ldGEtc2hvcnQtZGVzYyI6IkNhcnRvZ3JhcGhpZSBkZXMgbW91dmVtZW50cyB0YWN0aXF1ZXMuIiwibWV0YS1jb3ZlciI6ImFzc2V0cy9pbWFnZXMvY292ZXItb3NpbnQuanBnIiwibWV0YS1maWxlbmFtZSI6Im9zaW50LXVrcmFpbmUuaHRtbCJ9LCJtYWluIjpbeyJ0eXBlIjoiZ2FsbGVyeSIsInZhbHMiOlsiR2FsZXJpZSBQaG90byIsIiIsInN0YWNrZWQiLCJsZWZ0IiwiYXNzZXRzXFxpbWFnZXNcXFNwYWNlLUFydHdvcmtcXFdhci1OZXZlci1lbmQuanBnIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LWdvbGRcIj5QQVJUSUUgSSAtIEzigJlFU1BBQ0UgQVUgMjFFIFNJw4hDTEUgOiBVTkUgUkVDT05GSUdVUkFUSU9OIERVIFBPVVZPSVIgQSBM4oCZw4hSRSBEVSBNT05ERSBNVUxUSVBPTEFJUiA8L3NwYW4+IiwiYXNzZXRzXFxpbWFnZXNcXFNwYWNlLUFydHdvcmtcXE1vb24gTGFuZGluZyBFeHBsb2l0YXRpb24ucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LWdvbGRcIj5QQVJUSUUgSUkg4oCTIEzigJlFU1BBQ0UgRVhUUkEtQVRNT1NQSEVSSVFVRSBDT01NRSBOT1VWRUFVIFRIw4nDglRSRSBERSBQVUlTU0FOQ0UgOiBBQ1RFVVJTLCBET0NUUklORVMgRVQgVEVOU0lPTlMgPC9zcGFuPiIsImFzc2V0c1xcaW1hZ2VzXFxTcGFjZS1BcnR3b3JrXFxTaXR1YXRpb24gUm9vbS5wbmciLCI8c3BhbiBjbGFzcz1cInRleHQtZ29sZFwiPlBBUlRJRSBJSUkg4oCTIE1PREFMSVTDiVMgRCdBQ1RJT04gRVQgTE9HSVFVRVMgU1RSQVTDiUdJUVVFUyA6IFFVRUxMRVMgSU1QQVNTRVMgU1RSQVTDiUdJUVVFUyBFVCDDiVRISVFVRVMgPzwvc3Bhbj4iLCJhc3NldHNcXGltYWdlc1xcU3BhY2UtQXJ0d29ya1xcV2FyQnVpbGRpbmcucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LWdvbGRcIj5QQVJUSUUgSVYgLSBWRVJTIFVORSDDiVRISVFVRSBERSBMQSBHVUVSUkUgREFOUyBM4oCZRVNQQUNFIDogR1VFUlJFIEpVU1RFLCBEUk9JVCBTUEFUSUFMICYgRElTU1VBU0lPTjwvc3Bhbj4iLCJhc3NldHNcXGltYWdlc1xcU3BhY2UtQXJ0d29ya1xcVGhpcyBpcyBXYXIucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LWdvbGRcIj5QQVJUSUUgViDigJMgUEVSQ0VQVElPTiwgw4lUVURFUyBERSBDQVMgRVQgU0lNVUxBVElPTlMgPC9zcGFuPiIsImFzc2V0c1xcaW1hZ2VzXFxTcGFjZS1BcnR3b3JrXFxXaGF0IGlzIFNwYWNlIFdhci5wbmciLCI8c3BhbiBjbGFzcz1cInRleHQtZ29sZFwiPkNPTkNMVVNJT04gOiBBIFdBUiBXSVRIT1VUIEJPVU5EQVJJRVMgIDwvc3Bhbj4iLCJhc3NldHNcXGltYWdlc1xcU3BhY2UtQXJ0d29ya1xcR29sZGVuIERvbWUgcmVwcmVzZW50YXRpb24ucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LWdvbGRcIj5Hb2xkZW4gRG9tZTwvc3Bhbj4iXX1dLCJzaWRlIjpbeyJ0eXBlIjoiZ2FsbGVyeSIsInZhbHMiOlsiSW5mb2dyYXBoaWVzIiwiIiwic3RhY2tlZCIsImxlZnQiLCJhc3NldHNcXGltYWdlc1xcU3BhY2UtQXJ0d29ya1xcR29sZGVuIERvbWUgcmVwcmVzZW50YXRpb24ucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LWdvbGRcIj5Hb2xkZW4gRG9tZTwvc3Bhbj4iLCJhc3NldHNcXGltYWdlc1xcU3BhY2UtQXJ0d29ya1xccG9pbnQgZGUgTGFncmFuZ2UucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LXNpbHZlclwiPlBvaW50cyBkZSBsYWdyYW5nZXM8L3NwYW4+IiwiYXNzZXRzXFxpbWFnZXNcXFNwYWNlLUFydHdvcmtcXFNhdHVyYXRpb24gT3JiaXRhbC5wbmciLCI8c3BhbiBjbGFzcz1cInRleHQtc2lsdmVyXCI+U2F0dXJhdGlvbiBPcmJpdGFsPC9zcGFuPiIsImFzc2V0c1xcaW1hZ2VzXFxTcGFjZS1BcnR3b3JrXFxTZW5hcmlvIDEgLSBDT0xMSVNJT04ucG5nIiwiPHNwYW4gY2xhc3M9XCJ0ZXh0LXNpbHZlclwiPnNjw6luYXJpbyAxIC0gQ09MTElTSU9OPC9zcGFuPiIsImFzc2V0c1xcaW1hZ2VzXFxTcGFjZS1BcnR3b3JrXFxTZW5hcmlvIDIgLSBzdWJ2ZXJzaW9uLnBuZyIsIjxzcGFuIGNsYXNzPVwidGV4dC1zaWx2ZXJcIj5zY8OpbmFyaW8gMiAtIFNVQlZFUlNJT048L3NwYW4+IiwiYXNzZXRzXFxpbWFnZXNcXFNwYWNlLUFydHdvcmtcXFNlbmFyaW8gNSBQdWlzc2FuY2UgTC5wbmciLCI8c3BhbiBjbGFzcz1cInRleHQtcmVkXCI+U2PDqW5hcmlvIDU8L3NwYW4+Il19XX0= -->
+</body>
+</html>
