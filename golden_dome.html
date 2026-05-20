@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Géopolitique de l'Espace | Reymann Dylan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =====================================================================
+           MOTEUR VISUEL & VARIABLES
+        ====================================================================== */
+        :root {
+            --bg-deep: #0a0a0a; --bg-panel: rgba(20, 20, 20, 0.85);
+            --text-main: #E0E0E0; --text-pure: #FFFFFF;
+            --gold-gradient: linear-gradient(135deg, #B38728 0%, #FBF5B7 40%, #D4AF37 60%, #AA771C 100%);
+            --gold-solid: #D4AF37; --accent-dim: rgba(212, 175, 55, 0.15); --red-alert: #d32f2f;
+            --font-title: 'Bebas Neue', sans-serif; --font-data: 'Inter', sans-serif; --font-code: 'Roboto Mono', monospace;
+            --transition-snap: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        * { box-sizing: border-box; border-radius: 0 !important; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-deep); color: var(--text-main); font-family: var(--font-data); overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+
+        .bg-grid-standard { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; z-index: -2; pointer-events: none; }
+        .text-gold { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .border-fade { border: 1px solid transparent; border-image: linear-gradient(135deg, rgba(212,175,55,0.7) 0%, transparent 30%, transparent 70%, rgba(212,175,55,0.7) 100%) 1; }
+
+        /* HEADER */
+        header { position: fixed; top: 0; width: 100%; height: 90px; background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+        
+        .btn-outline { background: transparent; border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 10px 20px; font-family: var(--font-code); font-size: 11px; text-transform: uppercase; font-weight: 700; cursor: pointer; transition: var(--transition-snap); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-outline:hover { background: var(--gold-solid); color: var(--bg-deep); }
+        
+        .btn-solid { background-color: var(--gold-solid); color: var(--bg-deep); font-family: var(--font-data); font-weight: 900; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 28px; border: none; cursor: pointer; transition: var(--transition-snap); display: inline-block; text-decoration: none; }
+        .btn-solid:hover { background-color: var(--text-pure); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        /* =====================================================================
+           ANIMATION SPATIALE & EN-TÊTE
+        ====================================================================== */
+        .dossier-hero { 
+            position: relative; 
+            padding: 180px 60px 80px 60px; 
+            width: 100%; 
+            overflow: hidden;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .hero-space-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('../assets/images/bg-espace.jpg');
+            background-size: cover; background-position: center;
+            z-index: 1; opacity: 0.4;
+            animation: slowZoom 30s linear infinite alternate;
+        }
+        @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.15); } }
+
+        .hero-scanline {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(10,10,10,0) 50%, rgba(0,0,0,0.25) 50%);
+            background-size: 100% 4px; z-index: 2; pointer-events: none;
+        }
+        
+        .hero-gradient {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, var(--bg-deep) 0%, transparent 100%); z-index: 3;
+        }
+
+        .hero-content { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; text-align: center; }
+        .dossier-tag { font-family: var(--font-code); font-size: 12px; color: var(--gold-solid); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: inline-block; padding: 5px 15px; border: 1px solid rgba(212, 175, 55, 0.3); background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
+        .dossier-title { font-family: var(--font-title); font-size: 5.5rem; color: var(--text-pure); line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .dossier-subtitle { font-size: 18px; color: #ccc; max-width: 900px; margin: 0 auto; line-height: 1.6; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+
+        /* =====================================================================
+           LAYOUT (55% Texte / 45% Widgets)
+        ====================================================================== */
+        .dossier-layout { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px; 
+            max-width: 1500px; 
+            margin: 0 auto 100px auto; 
+            padding: 0 60px; 
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* COLONNE GAUCHE (Texte) */
+        .dossier-main p { font-size: 1.15rem; line-height: 1.8; color: #ccc; margin-bottom: 30px; text-align: justify; }
+        .dossier-main h2 { font-family: var(--font-title); font-size: 2.8rem; color: var(--text-pure); margin: 60px 0 25px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; text-transform: uppercase; }
+        .dossier-main h3 { font-family: var(--font-title); font-size: 1.8rem; color: var(--gold-solid); margin: 40px 0 15px 0; text-transform: uppercase; }
+        
+        .quote-block { border-left: 4px solid var(--gold-solid); background: rgba(20, 20, 20, 0.6); padding: 30px; margin: 40px 0; font-style: italic; font-size: 1.3rem; line-height: 1.6; color: var(--text-pure); }
+        .quote-block span { display: block; margin-top: 15px; font-family: var(--font-code); font-size: 11px; font-style: normal; color: var(--gold-solid); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* COLONNE DROITE (Widgets) */
+        .dossier-sidebar { display: flex; flex-direction: column; gap: 40px; }
+
+        /* Bouton PDF Géant */
+        .pdf-download-card {
+            background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold-solid);
+            padding: 25px; text-align: center; cursor: pointer; transition: var(--transition-snap);
+            display: flex; flex-direction: column; align-items: center; gap: 15px; text-decoration: none;
+        }
+        .pdf-download-card:hover { background: var(--gold-solid); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(212,175,55,0.2); }
+        .pdf-download-card:hover .pdf-title, .pdf-download-card:hover .pdf-icon, .pdf-download-card:hover .pdf-subtitle { color: var(--bg-deep); }
+        .pdf-icon { font-size: 30px; color: var(--gold-solid); transition: 0.3s; }
+        .pdf-title { font-family: var(--font-code); font-size: 14px; font-weight: 700; color: var(--gold-solid); letter-spacing: 2px; transition: 0.3s; }
+        .pdf-subtitle { font-family: var(--font-data); font-size: 11px; color: #888; text-transform: uppercase; transition: 0.3s; margin-top: -10px; }
+
+        /* Vidéo */
+        .video-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.2); background: #000; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .video-wrapper video, .video-wrapper iframe { width: 100%; display: block; outline: none; border: none; }
+        .video-caption { background: var(--bg-panel); padding: 15px; font-family: var(--font-code); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--gold-solid); }
+
+        /* Widgets Concepts */
+        .sidebar-widget { background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.1); padding: 30px; position: relative; }
+        .widget-header { font-family: var(--font-title); font-size: 1.8rem; color: var(--gold-solid); margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
+        .sidebar-widget p { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 0; }
+        
+        /* Schéma Interactif - BORDURE CORRIGÉE (unie, sobre) */
+        .schema-container { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; cursor: zoom-in; overflow: hidden; position: relative; }
+        .schema-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; z-index: 2; position: relative; }
+        .schema-container:hover img { opacity: 1; transform: scale(1.05); }
+        .schema-container::after { content: "🔍 AGRANDIR LE SCHÉMA"; position: absolute; font-family: var(--font-code); font-size: 10px; color: #fff; background: rgba(0,0,0,0.8); padding: 5px 10px; bottom: 10px; right: 10px; z-index: 3; pointer-events: none; }
+        .schema-container.missing { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); }
+        .schema-container.missing img { display: none; }
+        .schema-container.missing::before { content: "[ LIEN IMAGE : ../assets/images/schema-spectre.jpg ]"; position: absolute; font-family: var(--font-code); font-size: 10px; color: #666; z-index: 1; }
+
+        footer { padding: 30px 40px; border-top: 1px solid var(--accent-dim); display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 1px; color: #666; background-color: var(--bg-deep); margin-top: auto; }
+
+        /* =====================================================================
+           PLAYER AUDIO FLOTTANT (STYLE TERMINAL POI - THEME OR)
+        ====================================================================== */
+        .poi-audio-btn {
+            position: fixed; bottom: 30px; right: 30px; z-index: 2000;
+            background: rgba(5, 5, 5, 0.95); border: 1px solid rgba(255,255,255,0.2);
+            border-left: 2px solid var(--gold-solid); 
+            color: var(--text-main); font-family: var(--font-code);
+            padding: 10px 15px; cursor: pointer; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); transition: var(--transition-snap);
+            text-align: right;
+        }
+        .poi-audio-btn:hover { border-color: var(--gold-solid); background: rgba(20,20,20,0.98); transform: translateY(-3px); }
+        
+        .poi-audio-info { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; }
+        .poi-audio-title { font-size: 12px; color: var(--gold-solid); font-weight: 700; letter-spacing: 1px; }
+        .poi-audio-status { font-size: 8px; color: #888; text-transform: uppercase; margin-top: 3px; letter-spacing: 0.5px; }
+
+        .audio-wave { display: flex; gap: 2px; height: 12px; align-items: flex-end; }
+        .audio-wave span { width: 3px; background: var(--gold-solid); height: 3px; transition: 0.2s; }
+        .playing .audio-wave span:nth-child(1) { animation: wave 1s infinite alternate; }
+        .playing .audio-wave span:nth-child(2) { animation: wave 1.2s infinite alternate; }
+        .playing .audio-wave span:nth-child(3) { animation: wave 0.8s infinite alternate; }
+        @keyframes wave { 0% { height: 3px; } 100% { height: 12px; } }
+
+        /* CONTACT COULISSANT */
+        .contact-panel { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: rgba(10, 10, 10, 0.98); border-left: 2px solid var(--gold-solid); z-index: 3000; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px; display: flex; flex-direction: column; }
+        .contact-panel.open { transform: translateX(-450px); }
+        .contact-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+        .contact-overlay.open { opacity: 1; pointer-events: auto; }
+        .contact-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;}
+        .contact-header h3 { font-family: var(--font-title); font-size: 2.5rem; color: var(--gold-solid); margin: 0; }
+        .close-btn { background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: var(--red-alert); transform: rotate(90deg); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-family: var(--font-code); font-size: 10px; color: var(--gold-solid); margin-bottom: 8px; letter-spacing: 1px; }
+        .form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: var(--text-pure); padding: 12px; font-family: var(--font-data); font-size: 14px; transition: 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold-solid); background: rgba(255,255,255,0.08); }
+
+        @media (max-width: 992px) {
+            header { padding: 0 20px; }
+            .dossier-hero { padding: 140px 20px 60px 20px; }
+            .dossier-title { font-size: 3.5rem; }
+            .dossier-layout { grid-template-columns: 1fr; gap: 40px; padding: 0 20px; }
+            .contact-panel { width: 100%; right: -100%; }
+            .contact-panel.open { transform: translateX(-100%); }
+            .poi-audio-btn { bottom: 15px; right: 15px; }
+            footer { flex-direction: column; align-items: center; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../assets/audio/ambiance-info.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic()">
+        <div class="audio-wave" id="wave-icon">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="poi-audio-info">
+            <span id="music-text" class="poi-audio-title">PLAY AUDIO</span>
+            <span id="music-status" class="poi-audio-status">[ STATUS : STANDBY ]</span>
+        </div>
+    </button>
+
+    <div class="bg-grid-standard"></div>
+
+    <header>
+        <a href="../portfolio.html" class="btn-outline">
+            <span>← RETOUR AU PORTFOLIO</span>
+        </a>
+        <button class="btn-solid" onclick="toggleContact()">ME CONTACTER</button>
+    </header>
+
+    <div id="contact-overlay" class="contact-overlay" onclick="toggleContact()"></div>
+    <div id="contact-panel" class="contact-panel">
+        <div class="contact-header">
+            <h3>ME CONTACTER</h3>
+            <button class="close-btn" onclick="toggleContact()">✕</button>
+        </div>
+        <form id="contact-form">
+            <div class="form-group"><label>ADRESSE EMAIL</label><input type="email" id="sender-email" required placeholder="votre@email.com"></div>
+            <div class="form-group"><label>MOTIF DE CONTACT</label><input type="text" id="sender-reason" required placeholder="Mission, Échange, Demande d'analyse..."></div>
+            <div class="form-group"><label>MESSAGE</label><textarea id="sender-text" required placeholder="Détaillez votre requête ici..." rows="6"></textarea></div>
+            <button type="submit" class="btn-solid" style="width: 100%; text-align: center; margin-top: 10px;">TRANSMETTRE LA REQUÊTE</button>
+        </form>
+    </div>
+
+    <div class="dossier-hero">
+        <div class="hero-space-bg"></div>
+        <div class="hero-scanline"></div>
+        <div class="hero-gradient"></div>
+        
+        <div class="hero-content">
+            <div class="dossier-tag">MÉMOIRE PRINCIPAL | RECHERCHE ACADÉMIQUE</div>
+            <h1 class="dossier-title text-gold">GÉOPOLITIQUE DE L'ESPACE :<br>L'ÉTHIQUE DE LA GUERRE SUPRA-ORBITALE</h1>
+            <p class="dossier-subtitle">Entre guerre hybride, astropolitique, astro-capitalisme et domination technologique : une approche systémique de la conflictualité moderne.</p>
+        </div>
+    </div>
+
+    <main class="dossier-layout">
+        
+        <div class="dossier-main">
+            <p>L'espace extra-atmosphérique constitue un objet d'étude d'une complexité singulière. Complexité scientifique d'abord, tant les contraintes physiques et techniques qui régissent son accès et son exploitation sont considérables. Complexité politique, économique et stratégique ensuite, à mesure que les sociétés humaines y projettent leurs intérêts, leurs rivalités et leurs ambitions.</p>
+
+            <p>Paradoxalement, alors même que nos sociétés contemporaines dépendent structurellement des infrastructures spatiales (télécommunications, géolocalisation, observation de la Terre, systèmes financiers), l'espace demeure largement invisibilisé dans le débat public. Cette invisibilisation contraste avec le caractère fondamental de l'écosystème spatial que nous avons progressivement bâti.</p>
+
+            <div class="quote-block">
+                « L'espace ne se gagne pas par la destruction du milieu, mais par sa saturation infrastructurelle : gagner, ce n'est pas anéantir, mais structurer et rendre ces infrastructures indispensables. »
+                <span>— REYMANN DYLAN</span>
+            </div>
+
+            <h2>L'Émergence du Complexe Techno-Orbital</h2>
+            
+            <p>Dans ce contexte, la transformation des acteurs joue un rôle moteur. L'émergence d'un véritable complexe techno-orbital est marquée par l'effacement des frontières entre les sphères étatiques et les intérêts privés du <em>New Space</em>. Cette convergence conduit à une redéfinition de la puissance : la souveraineté ne repose plus uniquement sur le contrôle d'un segment territorial, mais sur ce que l'on qualifie de Full Spectrum Space Power.</p>
+
+            <h2>L'Astro-Capitalisme et la Dynamique du "First Mover"</h2>
+            <p>L'appropriation de l'orbite basse par des entités privées (par le biais des méga-constellations) installe une logique impérialiste de <em>First Mover Advantage</em>. L'astro-capitalisme transforme l'espace en une nouvelle frontière d'extraction et d'occupation. Dans cette configuration géopolitique, la saturation orbitale devient, de facto, une stratégie de déni d'accès (A2/AD) et de guerre hybride non-déclarée, bloquant silencieusement l'émergence de nouveaux concurrents souverains.</p>
+
+            <h2>Space Mutual Vulnerability (S.M.V) et Jus Ante Bellum</h2>
+
+            <p>L'étude des modes d'action confirme cette transformation systémique. Les actions menées dans l'espace sont rarement destructrices au sens conventionnel, mais elles produisent des effets globaux. Ce travail mobilise la notion d'hyper-infrastructure pour saisir comment les systèmes spatiaux sont devenus les structures de soutien indispensables des sociétés modernes.</p>
+
+            <p>Cette situation conduit à une impasse stratégique majeure identifiée comme la <strong>Space Mutual Vulnerability (S.M.V.)</strong>. Par analogie avec la dissuasion nucléaire, mais avec des mécanismes physiques différents, la vulnérabilité est ici partagée : toute action agressive (générant des débris) risque de déclencher des réactions en chaîne, à l'image du syndrome de Kessler, condamnant l'orbite pour tous les belligérants.</p>
+
+            <div class="quote-block">
+                « Le déclenchement d'une guerre n'est jamais une décision isolée : il est la conséquence logique d'un ensemble de dispositifs qui ont progressivement réduit le champ des alternatives. »
+                <span>— LOGIQUE D'ESCALADE STRUCTURELLE</span>
+            </div>
+            
+            <p>Face à l'impossibilité de garantir la proportionnalité des dommages dans un milieu interdépendant, notre analyse introduit la nécessité de repenser le <em>jus ante bellum</em>. Cette approche déplace l'exigence éthique en amont du conflit, s'intéressant aux doctrines et à l'ingénierie qui rendent certaines actions inacceptables avant même leur mise en œuvre tactique.</p>
+        </div>
+
+        <aside class="dossier-sidebar">
+            
+            <a href="../assets/docs/geopolitique-espace.pdf" target="_blank" class="pdf-download-card">
+                <div class="pdf-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 18 15 15"></polyline></svg>
+                </div>
+                <span class="pdf-title">[À VENIR] TÉLÉCHARGER LE MÉMOIRE INTÉGRAL (.PDF)</span>
+            </a>
+
+            <div class="video-wrapper border-fade">
+				<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7331490530251452416?compact=1" height="399" width="100%" frameborder="0" allowfullscreen="" title="Post intégré"></iframe>
+				
+				<div class="video-caption">
+					<span class="text-gold">ARCHIVE VIDÉO</span>
+				</div>
+			</div>
+
+            <div class="sidebar-widget border-fade">
+                <h4 class="widget-header">S.M.V (Space Mutual Vulnerability)</h4>
+                <p>La vulnérabilité dans l'espace est partagée : toute action agressive risque de déclencher des réactions en chaîne (Syndrome de Kessler). La destruction physique annule le milieu pour l'agresseur lui-même, rendant les stratégies de domination absolue paradoxales.</p>
+            </div>
+
+            <div class="sidebar-widget border-fade">
+                <h4 class="widget-header">JUS ANTE BELLUM</h4>
+                <p>L'impossibilité d'une "guerre juste" dans l'espace impose de penser un "droit avant la guerre". Il s'agit d'encadrer en amont les technologies et les architectures militaires qui rendent l'escalade irréversible, avant même que la violence ne soit déclenchée.</p>
+            </div>
+
+            <div class="sidebar-widget border-fade">
+                <h4 class="widget-header">ASTRO-CAPITALISME</h4>
+                <p>L'expansion des logiques de marché dans l'espace extra-atmosphérique. Les entreprises privées (New Space) ne sont plus de simples sous-traitants, mais des acteurs géopolitiques autonomes capables de dicter l'accès à l'orbite et de saturer les fréquences.</p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h4 class="widget-header" style="font-size: 1.2rem; color: var(--text-pure);">SPECTRE DE LA CONFLICTUALITÉ</h4>
+                
+                <div class="schema-container" onclick="window.open('../assets/images/schema-spectre.jpg', '_blank')">
+                    <img src="../assets/images/schema-spectre.jpg" alt="Spectre de la conflictualité" onerror="this.parentElement.classList.add('missing');">
+                </div>
+                
+                <a href="geopolitique-espace - Artwork.html" class="pdf-download-card border-fade" style="margin-top: 20px; padding: 15px; border-color: rgba(212,175,55,0.4);">
+                    <span class="pdf-title text-gold" style="font-size: 12px; margin: 0;">CONSULTER LES ARCHIVES VISUELLES</span>
+                    <span style="font-family: var(--font-data); font-size: 10px; color: #888; margin-top: 5px;">CARTOGRAPHIES & SCHÉMAS STRATÉGIQUES</span>
+                </a>
+            </div>
+
+            <div class="sidebar-widget border-fade">
+                <h4 class="widget-header">ARMES DE DESTRUCTION MASSIVE NON CONVENTIONNELLES</h4>
+                <p>Capacités techniques ou cybernétiques capables de neutraliser des pans entiers de l'économie ou des systèmes vitaux sans destructions cinétiques classiques. Le brouillage massif d'infrastructures spatiales ou les cyberattaques systémiques s'inscrivent dans cette nouvelle grammaire de l'anéantissement sans explosion.</p>
+            </div>
+
+            <div class="sidebar-widget border-fade">
+                <h4 class="widget-header">HYPER-INFRASTRUCTURES</h4>
+                <p>Des infrastructures d'infrastructures à l'échelle globale. Les constellations de satellites ou encore Internet constituent les architectures sous-jacentes qui soutiennent l'ensemble de l'économie et de la sécurité mondiale. Leur centralisation fait de leur vulnérabilité un risque d'effondrement systémique immédiat.</p>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer>
+        <div>DESIGN OPEN SOURCE SUR GITHUB</div>
+        <div>© 2026 - REYMANN DYLAN - TOUS DROITS RÉSERVÉS.</div>
+    </footer>
+
+    <script>
+        // GESTION DES VOLUMES À 5% DÈS LE DÉMARRAGE
+        document.addEventListener('DOMContentLoaded', () => {
+            const vid = document.getElementById('dossier-video');
+            const audio = document.getElementById('bg-music');
+            
+            if(vid) { vid.volume = 0.05; }
+            if(audio) { audio.volume = 0.05; } // Bloque la musique à 5%
+        });
+
+        // AUTOPLAY MUSIQUE FURTIF ET GESTION DU STATUT TERMINAL
+        let musicStarted = false;
+        
+        const updateAudioTerminalUI = (isPlaying) => {
+            const btn = document.getElementById('music-toggle');
+            const text = document.getElementById('music-text');
+            const status = document.getElementById('music-status');
+            
+            if(isPlaying) {
+                btn.classList.add('playing');
+                text.innerText = "PAUSE AUDIO";
+                status.innerText = "[ STATUS : PLAYING - Take Some Time to War Game.MP3 ]";
+            } else {
+                btn.classList.remove('playing');
+                text.innerText = "PLAY AUDIO";
+                status.innerText = "[ STATUS : STANDBY ]";
+            }
+        };
+
+        const startAudioFurtivement = () => {
+            if (!musicStarted) {
+                const audio = document.getElementById('bg-music');
+                if (audio) {
+                    audio.volume = 0.05; 
+                    audio.play().then(() => {
+                        musicStarted = true;
+                        updateAudioTerminalUI(true);
+                        
+                        window.removeEventListener('click', startAudioFurtivement);
+                        window.removeEventListener('scroll', startAudioFurtivement);
+                        window.removeEventListener('keydown', startAudioFurtivement);
+                        window.removeEventListener('touchstart', startAudioFurtivement);
+                    }).catch(e => {
+                        console.warn("Autoplay en attente d'interaction.");
+                    });
+                }
+            }
+        };
+
+        window.addEventListener('click', startAudioFurtivement, { once: true });
+        window.addEventListener('scroll', startAudioFurtivement, { once: true });
+        window.addEventListener('keydown', startAudioFurtivement, { once: true });
+        window.addEventListener('touchstart', startAudioFurtivement, { once: true });
+
+        // GESTION MANUELLE DE LA MUSIQUE (Bouton)
+        function toggleMusic() {
+            const audio = document.getElementById('bg-music');
+            if(audio) { audio.volume = 0.05; }
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicStarted = true;
+                    updateAudioTerminalUI(true);
+                }).catch(err => {
+                    alert("Le fichier audio 'ambiance-info.mp3' est introuvable.");
+                });
+            } else {
+                audio.pause();
+                updateAudioTerminalUI(false);
+            }
+        }
+
+        // GESTION DU CONTACT AJAX
+        function toggleContact() {
+            document.getElementById('contact-panel').classList.toggle('open');
+            document.getElementById('contact-overlay').classList.toggle('open');
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('sender-email').value;
+            const reason = document.getElementById('sender-reason').value;
+            const text = document.getElementById('sender-text').value;
+            const formattedMessage = "Envoyé depuis mon portfolio (Page Dossier)\nContact: " + email + "\nMotif: " + reason + "\n\n" + text;
+            
+            const formEndpoint = "https://formspree.io/f/mlgakqzk"; 
+
+            try {
+                const response = await fetch(formEndpoint, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, message: formattedMessage, _subject: "Requête Portfolio : " + reason })
+                });
+                if (response.ok) {
+                    alert("Transmission sécurisée effectuée avec succès.");
+                    document.getElementById('contact-form').reset();
+                    toggleContact();
+                } else {
+                    alert("Échec de la connexion au réseau Formspree.");
+                }
+            } catch (error) { alert("Erreur de transmission réseau."); }
+        });
+    </script>
+</body>
+</html>
