@@ -1,0 +1,86 @@
+/* =====================================================================
+   STYLE CENTRALISÉ - PLATEFORME STRATÉGIQUE
+   ====================================================================== */
+
+:root {
+    --bg-deep: #0a0a0a;
+    --bg-panel: rgba(20, 20, 20, 0.9);
+    --text-main: #E0E0E0;
+    --text-pure: #FFFFFF;
+    --gold-gradient: linear-gradient(135deg, #B38728 0%, #FBF5B7 40%, #D4AF37 60%, #AA771C 100%);
+    --gold-solid: #D4AF37;
+    --accent-dim: rgba(212, 175, 55, 0.15);
+    --font-title: 'Bebas Neue', sans-serif;
+    --font-data: 'Inter', sans-serif;
+    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base & Reset */
+* { box-sizing: border-box; border-radius: 0 !important; }
+html { scroll-behavior: smooth; }
+body { 
+    margin: 0; 
+    background-color: var(--bg-deep); 
+    color: var(--text-main); 
+    font-family: var(--font-data); 
+    overflow-x: hidden; 
+}
+
+/* Grille de fond universelle */
+body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Header & Nav */
+header {
+    position: fixed; top: 0; width: 100%; height: 90px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+    backdrop-filter: blur(8px); z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+}
+
+nav { display: flex; gap: 30px; }
+nav a {
+    color: var(--text-main); text-decoration: none; font-size: 11px;
+    font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    transition: var(--transition-smooth); padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+nav a:hover, nav a.active { color: var(--gold-solid); border-bottom: 2px solid var(--gold-solid); }
+
+.header-actions { display: flex; align-items: center; gap: 20px; }
+.btn-solid {
+    background-color: var(--gold-solid); color: var(--bg-deep);
+    font-weight: 900; font-size: 12px; letter-spacing: 1px;
+    text-transform: uppercase; padding: 12px 25px; border: none;
+    cursor: pointer; transition: var(--transition-smooth); text-decoration: none;
+}
+.btn-solid:hover { background-color: var(--text-pure); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+
+.icon-link svg { fill: var(--text-main); transition: var(--transition-smooth); }
+.icon-link:hover svg { fill: var(--gold-solid); }
+
+/* Layouts */
+.section { padding: 120px 5%; min-height: 100vh; display: flex; align-items: center; }
+
+/* Typographies */
+.text-gold { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-title { font-family: var(--font-title); font-size: clamp(3rem, 8vw, 6rem); line-height: 1; margin: 0 0 20px 0; border-left: 4px solid var(--gold-solid); padding-left: 20px; }
+.hero-quote { font-style: italic; font-size: 1.2rem; margin-bottom: 40px; }
+
+/* Responsive (Adaptation Mobile) */
+@media (max-width: 768px) {
+    header { padding: 0 20px; height: 70px; }
+    nav { display: none; } /* Menu burger à prévoir ou liste simplifiée */
+    .hero { flex-direction: column; text-align: center; padding-top: 100px; }
+    .hero-title { border-left: none; border-bottom: 4px solid var(--gold-solid); padding-left: 0; padding-bottom: 10px; }
+    .hero-right { width: 100%; height: 400px; }
+}
