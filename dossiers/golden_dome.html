@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Géopolitique de l'Espace | Reymann Dylan</title>
+    <title>Golden Dome : Un Nouvel IDS ? | Reymann Dylan</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
@@ -110,9 +110,10 @@
         .pdf-title { font-family: var(--font-code); font-size: 14px; font-weight: 700; color: var(--gold-solid); letter-spacing: 2px; transition: 0.3s; }
         .pdf-subtitle { font-family: var(--font-data); font-size: 11px; color: #888; text-transform: uppercase; transition: 0.3s; margin-top: -10px; }
 
-        /* Vidéo */
-        .video-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.2); background: #000; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .video-wrapper video, .video-wrapper iframe { width: 100%; display: block; outline: none; border: none; }
+        /* Image Remplacement Vidéo */
+        .video-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.2); background: #000; box-shadow: 0 20px 40px rgba(0,0,0,0.6); overflow: hidden; }
+        .video-wrapper img { width: 100%; display: block; transition: transform 0.4s; }
+        .video-wrapper:hover img { transform: scale(1.03); }
         .video-caption { background: var(--bg-panel); padding: 15px; font-family: var(--font-code); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--gold-solid); }
 
         /* Widgets Concepts */
@@ -120,15 +121,6 @@
         .widget-header { font-family: var(--font-title); font-size: 1.8rem; color: var(--gold-solid); margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
         .sidebar-widget p { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 0; }
         
-        /* Schéma Interactif - BORDURE CORRIGÉE (unie, sobre) */
-        .schema-container { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; cursor: zoom-in; overflow: hidden; position: relative; }
-        .schema-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; z-index: 2; position: relative; }
-        .schema-container:hover img { opacity: 1; transform: scale(1.05); }
-        .schema-container::after { content: "🔍 AGRANDIR LE SCHÉMA"; position: absolute; font-family: var(--font-code); font-size: 10px; color: #fff; background: rgba(0,0,0,0.8); padding: 5px 10px; bottom: 10px; right: 10px; z-index: 3; pointer-events: none; }
-        .schema-container.missing { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); }
-        .schema-container.missing img { display: none; }
-        .schema-container.missing::before { content: "[ LIEN IMAGE : ../assets/images/schema-spectre.jpg ]"; position: absolute; font-family: var(--font-code); font-size: 10px; color: #666; z-index: 1; }
-
         footer { padding: 30px 40px; border-top: 1px solid var(--accent-dim); display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 1px; color: #666; background-color: var(--bg-deep); margin-top: auto; }
 
         /* =====================================================================
@@ -185,7 +177,7 @@
 <body>
 
     <audio id="bg-music" loop>
-        <source src="../assets/audio/ambiance-info.mp3" type="audio/mpeg">
+        <source src="../assets/audio/Pentagone Wars.mp3" type="audio/mpeg">
     </audio>
 
     <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic()">
@@ -227,98 +219,72 @@
         <div class="hero-gradient"></div>
         
         <div class="hero-content">
-            <div class="dossier-tag">MÉMOIRE PRINCIPAL | RECHERCHE ACADÉMIQUE</div>
-            <h1 class="dossier-title text-gold">GÉOPOLITIQUE DE L'ESPACE :<br>L'ÉTHIQUE DE LA GUERRE SUPRA-ORBITALE</h1>
-            <p class="dossier-subtitle">Entre guerre hybride, astropolitique, astro-capitalisme et domination technologique : une approche systémique de la conflictualité moderne.</p>
+            <div class="dossier-tag">ANALYSE STRATÉGIQUE | DÉFENSE ANTIMISSILE</div>
+            <h1 class="dossier-title text-gold">GOLDEN DOME :<br>UN NOUVEL IDS ?</h1>
+            <p class="dossier-subtitle">Réplique ou réinterprétation moderne de l'Initiative de Défense Stratégique (IDS) : enjeux spatiaux, technologiques et géopolitiques.</p>
         </div>
     </div>
 
     <main class="dossier-layout">
         
         <div class="dossier-main">
-            <p>L'espace extra-atmosphérique constitue un objet d'étude d'une complexité singulière. Complexité scientifique d'abord, tant les contraintes physiques et techniques qui régissent son accès et son exploitation sont considérables. Complexité politique, économique et stratégique ensuite, à mesure que les sociétés humaines y projettent leurs intérêts, leurs rivalités et leurs ambitions.</p>
+            <p>Annoncé au début de l'année 2025 par l'administration Trump II, le programme « Golden Dome » se présente comme une architecture de défense antimissile multispectrale de nouvelle génération. Son annonce soulève immédiatement une comparaison historique : assistons-nous à une simple réplique du célèbre programme de l'Initiative de Défense Stratégique (IDS), surnommé "Star Wars", lancé par Ronald Reagan dans les années 1980 ?</p>
 
-            <p>Paradoxalement, alors même que nos sociétés contemporaines dépendent structurellement des infrastructures spatiales (télécommunications, géolocalisation, observation de la Terre, systèmes financiers), l'espace demeure largement invisibilisé dans le débat public. Cette invisibilisation contraste avec le caractère fondamental de l'écosystème spatial que nous avons progressivement bâti.</p>
-
-            <div class="quote-block">
-                « L'espace ne se gagne pas par la destruction du milieu, mais par sa saturation infrastructurelle : gagner, ce n'est pas anéantir, mais structurer et rendre ces infrastructures indispensables. »
-                <span>— REYMANN DYLAN</span>
-            </div>
-
-            <h2>L'Émergence du Complexe Techno-Orbital</h2>
-            
-            <p>Dans ce contexte, la transformation des acteurs joue un rôle moteur. L'émergence d'un véritable complexe techno-orbital est marquée par l'effacement des frontières entre les sphères étatiques et les intérêts privés du <em>New Space</em>. Cette convergence conduit à une redéfinition de la puissance : la souveraineté ne repose plus uniquement sur le contrôle d'un segment territorial, mais sur ce que l'on qualifie de Full Spectrum Space Power.</p>
-
-            <h2>L'Astro-Capitalisme et la Dynamique du "First Mover"</h2>
-            <p>L'appropriation de l'orbite basse par des entités privées (par le biais des méga-constellations) installe une logique impérialiste de <em>First Mover Advantage</em>. L'astro-capitalisme transforme l'espace en une nouvelle frontière d'extraction et d'occupation. Dans cette configuration géopolitique, la saturation orbitale devient, de facto, une stratégie de déni d'accès (A2/AD) et de guerre hybride non-déclarée, bloquant silencieusement l'émergence de nouveaux concurrents souverains.</p>
-
-            <h2>Space Mutual Vulnerability (S.M.V) et Jus Ante Bellum</h2>
-
-            <p>L'étude des modes d'action confirme cette transformation systémique. Les actions menées dans l'espace sont rarement destructrices au sens conventionnel, mais elles produisent des effets globaux. Ce travail mobilise la notion d'hyper-infrastructure pour saisir comment les systèmes spatiaux sont devenus les structures de soutien indispensables des sociétés modernes.</p>
-
-            <p>Cette situation conduit à une impasse stratégique majeure identifiée comme la <strong>Space Mutual Vulnerability (S.M.V.)</strong>. Par analogie avec la dissuasion nucléaire, mais avec des mécanismes physiques différents, la vulnérabilité est ici partagée : toute action agressive (générant des débris) risque de déclencher des réactions en chaîne, à l'image du syndrome de Kessler, condamnant l'orbite pour tous les belligérants.</p>
+            <p>Malgré des similitudes de surface — une ambition colossale et une composante spatiale hautement technologique — le Golden Dome s'inscrit dans un paradigme diamétralement opposé, porté par la maturité technologique contemporaine et l'avènement de l'astrocapitalisme.</p>
 
             <div class="quote-block">
-                « Le déclenchement d'une guerre n'est jamais une décision isolée : il est la conséquence logique d'un ensemble de dispositifs qui ont progressivement réduit le champ des alternatives. »
-                <span>— LOGIQUE D'ESCALADE STRUCTURELLE</span>
+                « Là où l'IDS visait une invulnérabilité totale s'opposant à la menace nucléaire, le Golden Dome en constitue une synthèse imparfaite mais opérationnelle : celle d'une vulnérabilité gérée. »
+                <span>— LOGIQUE DE DISSUASION MODERNE</span>
             </div>
+
+            <h2>L'IDS : Course à l'armement et Rêve d'Invulnérabilité</h2>
             
-            <p>Face à l'impossibilité de garantir la proportionnalité des dommages dans un milieu interdépendant, notre analyse introduit la nécessité de repenser le <em>jus ante bellum</em>. Cette approche déplace l'exigence éthique en amont du conflit, s'intéressant aux doctrines et à l'ingénierie qui rendent certaines actions inacceptables avant même leur mise en œuvre tactique.</p>
+            <p>Lancée au début des années 1980, l'Initiative de Défense Stratégique cherchait à renverser la doctrine de la Destruction Mutuelle Assurée (MAD) en développant des capteurs orbitaux et des systèmes d'interception (comme le projet <em>Brilliant Pebbles</em> ou les lasers à rayons X). L'objectif théorique était de créer un bouclier impénétrable contre les missiles balistiques intercontinentaux (ICBM) soviétiques.</p>
+
+            <p>Cependant, l'IDS était avant tout un immense programme de Recherche & Développement et un outil de propagande géopolitique. Les coûts exorbitants (estimés à l'époque à plusieurs dizaines de milliards), les limites logistiques des lancements spatiaux et l'impossibilité de concevoir des logiciels capables de gérer une telle architecture de manière autonome l'ont reléguée au rang d'utopie technologique. Elle a néanmoins posé les bases des systèmes d'interception modernes (Patriot, THAAD, Aegis).</p>
+
+            <h2>Le Golden Dome : Bouclier de l'Astrocapitalisme</h2>
+            <p>À l'inverse, le Golden Dome émerge dans un contexte où la logistique spatiale a été révolutionnée par le secteur privé (le <em>New Space</em>, avec SpaceX, ULA ou Blue Origin). Ce programme vise à repenser la défense antimissile en y incluant la protection des villes et des infrastructures civiles critiques, en s'appuyant sur une architecture en couches (détection et interception en phases propulsée, mi-course et terminale).</p>
+
+            <p>Plus qu'un programme militaire, c'repose sur une synergie militaro-industrielle assumée : en achetant massivement des lancements spatiaux et des technologies au secteur privé, le gouvernement américain subventionne et renforce la domination du spatial américain à l'échelle mondiale. Cette interdépendance fait de la sécurité nationale le principal moteur de l'astrocapitalisme.</p>
+
+            <h2>Une Architecture Multicouche Intégrée</h2>
+
+            <p>Contrairement à l'IDS, l'infrastructure nécessaire au Golden Dome n'est plus de la science-fiction. Elle s'appuie sur la fusion avancée des données (système C2BMC) et sur des architectures préexistantes comme la <em>Proliferated Warfighter Space Architecture</em> (PWSA). Son coût initial (estimé entre 175 milliards et potentiellement 831 milliards sur 20 ans) est jugé absorbable par le budget colossal de la défense américaine, d'autant que le Golden Dome a vocation à devenir le socle de multiples autres programmes d'armement à venir.</p>
+
+            <p>En cherchant à neutraliser les vecteurs hypersoniques et les frappes saturantes des "États voyous" tout en protégeant les nœuds vitaux (C2), le Golden Dome ne cherche pas à annuler la vulnérabilité américaine face à une attaque massive russe ou chinoise, mais à maximiser l'incertitude adverse (limitation des dommages et garantie d'une riposte foudroyante). Il crée ainsi un nouveau dilemme de sécurité, forçant les rivaux systémiques à s'engager dans une ruineuse prolifération technologique.</p>
         </div>
 
         <aside class="dossier-sidebar">
             
-            <a href="../assets/docs/geopolitique-espace.pdf" target="_blank" class="pdf-download-card">
+            <a href="../assets/docs/Golden Dome un nouvel IDS.pdf" target="_blank" class="pdf-download-card">
                 <div class="pdf-icon">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 18 15 15"></polyline></svg>
                 </div>
-                <span class="pdf-title">[À VENIR] TÉLÉCHARGER LE MÉMOIRE INTÉGRAL (.PDF)</span>
+                <span class="pdf-title">TÉLÉCHARGER L'ANALYSE COMPLÈTE (.PDF)</span>
             </a>
 
             <div class="video-wrapper border-fade">
-				<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7331490530251452416?compact=1" height="399" width="100%" frameborder="0" allowfullscreen="" title="Post intégré"></iframe>
+				<img src="../assets/images/space-artwork/Golden Dome representation.png" alt="Architecture du Golden Dome" style="width: 100%; display: block; cursor: zoom-in;" onclick="window.open(this.src, '_blank')" onerror="this.parentElement.style.border='1px dashed red';">
 				
 				<div class="video-caption">
-					<span class="text-gold">ARCHIVE VIDÉO</span>
+					<span class="text-gold">REPRÉSENTATION : ARCHITECTURE DU GOLDEN DOME</span>
 				</div>
 			</div>
 
             <div class="sidebar-widget border-fade">
-                <h4 class="widget-header">S.M.V (Space Mutual Vulnerability)</h4>
-                <p>La vulnérabilité dans l'espace est partagée : toute action agressive risque de déclencher des réactions en chaîne (Syndrome de Kessler). La destruction physique annule le milieu pour l'agresseur lui-même, rendant les stratégies de domination absolue paradoxales.</p>
+                <h4 class="widget-header">ASTROCAPITALISME & RÉSILIENCE</h4>
+                <p>La viabilité du Golden Dome repose sur la révolution logistique du <em>New Space</em>. Contrairement aux années 1980, le coût de mise en orbite massive est devenu abordable. La sécurité des États-Unis est désormais indexée sur la santé économique et l'hégémonie technologique de ses entreprises spatiales privées.</p>
             </div>
 
             <div class="sidebar-widget border-fade">
-                <h4 class="widget-header">JUS ANTE BELLUM</h4>
-                <p>L'impossibilité d'une "guerre juste" dans l'espace impose de penser un "droit avant la guerre". Il s'agit d'encadrer en amont les technologies et les architectures militaires qui rendent l'escalade irréversible, avant même que la violence ne soit déclenchée.</p>
+                <h4 class="widget-header">DÉNI FONCTIONNEL</h4>
+                <p>Le système ne promet plus une invulnérabilité totale (physiquement impossible face à une saturation massive d'une superpuissance). Il vise la "Damage Limitation" : sanctuariser les centres de commandement (C2) vitaux et neutraliser efficacement les frappes ciblées (Corée du Nord, Iran) pour garantir la capacité de riposte.</p>
             </div>
 
             <div class="sidebar-widget border-fade">
-                <h4 class="widget-header">ASTRO-CAPITALISME</h4>
-                <p>L'expansion des logiques de marché dans l'espace extra-atmosphérique. Les entreprises privées (New Space) ne sont plus de simples sous-traitants, mais des acteurs géopolitiques autonomes capables de dicter l'accès à l'orbite et de saturer les fréquences.</p>
-            </div>
-
-            <div class="sidebar-widget">
-                <h4 class="widget-header" style="font-size: 1.2rem; color: var(--text-pure);">SPECTRE DE LA CONFLICTUALITÉ</h4>
-                
-                <div class="schema-container" onclick="window.open('../assets/images/schema-spectre.jpg', '_blank')">
-                    <img src="../assets/images/schema-spectre.jpg" alt="Spectre de la conflictualité" onerror="this.parentElement.classList.add('missing');">
-                </div>
-                
-                <a href="geopolitique-espace - Artwork.html" class="pdf-download-card border-fade" style="margin-top: 20px; padding: 15px; border-color: rgba(212,175,55,0.4);">
-                    <span class="pdf-title text-gold" style="font-size: 12px; margin: 0;">CONSULTER LES ARCHIVES VISUELLES</span>
-                    <span style="font-family: var(--font-data); font-size: 10px; color: #888; margin-top: 5px;">CARTOGRAPHIES & SCHÉMAS STRATÉGIQUES</span>
-                </a>
-            </div>
-
-            <div class="sidebar-widget border-fade">
-                <h4 class="widget-header">ARMES DE DESTRUCTION MASSIVE NON CONVENTIONNELLES</h4>
-                <p>Capacités techniques ou cybernétiques capables de neutraliser des pans entiers de l'économie ou des systèmes vitaux sans destructions cinétiques classiques. Le brouillage massif d'infrastructures spatiales ou les cyberattaques systémiques s'inscrivent dans cette nouvelle grammaire de l'anéantissement sans explosion.</p>
-            </div>
-
-            <div class="sidebar-widget border-fade">
-                <h4 class="widget-header">HYPER-INFRASTRUCTURES</h4>
-                <p>Des infrastructures d'infrastructures à l'échelle globale. Les constellations de satellites ou encore Internet constituent les architectures sous-jacentes qui soutiennent l'ensemble de l'économie et de la sécurité mondiale. Leur centralisation fait de leur vulnérabilité un risque d'effondrement systémique immédiat.</p>
+                <h4 class="widget-header">LE DILEMME DE SÉCURITÉ</h4>
+                <p>Le déploiement du Golden Dome et l'intégration des alliés des États-Unis sous ce "parapluie" obligent les concurrents géopolitiques (Chine, Russie) à une prolifération verticale et qualitative onéreuse (armes hypersoniques, FOBS), déplaçant la confrontation sur le terrain de l'usure économique.</p>
             </div>
 
         </aside>
@@ -333,10 +299,7 @@
     <script>
         // GESTION DES VOLUMES À 5% DÈS LE DÉMARRAGE
         document.addEventListener('DOMContentLoaded', () => {
-            const vid = document.getElementById('dossier-video');
             const audio = document.getElementById('bg-music');
-            
-            if(vid) { vid.volume = 0.05; }
             if(audio) { audio.volume = 0.05; } // Bloque la musique à 5%
         });
 
@@ -351,7 +314,7 @@
             if(isPlaying) {
                 btn.classList.add('playing');
                 text.innerText = "PAUSE AUDIO";
-                status.innerText = "[ STATUS : PLAYING - Take Some Time to War Game.MP3 ]";
+                status.innerText = "[ STATUS : PLAYING - Pentagone Wars.MP3 ]";
             } else {
                 btn.classList.remove('playing');
                 text.innerText = "PLAY AUDIO";
@@ -394,7 +357,7 @@
                     musicStarted = true;
                     updateAudioTerminalUI(true);
                 }).catch(err => {
-                    alert("Le fichier audio 'ambiance-info.mp3' est introuvable.");
+                    alert("Le fichier audio 'Pentagone Wars.mp3' est introuvable.");
                 });
             } else {
                 audio.pause();
@@ -413,7 +376,7 @@
             const email = document.getElementById('sender-email').value;
             const reason = document.getElementById('sender-reason').value;
             const text = document.getElementById('sender-text').value;
-            const formattedMessage = "Envoyé depuis mon portfolio (Page Dossier)\nContact: " + email + "\nMotif: " + reason + "\n\n" + text;
+            const formattedMessage = "Envoyé depuis mon portfolio (Page Dossier Golden Dome)\nContact: " + email + "\nMotif: " + reason + "\n\n" + text;
             
             const formEndpoint = "https://formspree.io/f/mlgakqzk"; 
 
