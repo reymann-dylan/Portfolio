@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyses & Veille | Reymann Dylan</title>
+    <title>Perspectives & Doctrine | Reymann Dylan</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
@@ -16,7 +16,6 @@
             --text-main: #E0E0E0; --text-pure: #FFFFFF;
             --gold-gradient: linear-gradient(135deg, #B38728 0%, #FBF5B7 40%, #D4AF37 60%, #AA771C 100%);
             --silver-gradient: linear-gradient(135deg, #8ba3b5 0%, #e0eaf5 40%, #9cb1c4 60%, #5d7485 100%);
-            --dark-red-gradient: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             --gold-solid: #D4AF37; --silver-solid: #a0b2c1; --red-dark-solid: #8b0000;
             --accent-dim: rgba(212, 175, 55, 0.15); 
             --font-title: 'Bebas Neue', sans-serif; --font-data: 'Inter', sans-serif; --font-code: 'Roboto Mono', monospace;
@@ -30,9 +29,7 @@
 
         .text-gold { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .text-silver { background: var(--silver-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .text-dark-red { background: var(--dark-red-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .text-pure { color: var(--text-pure); }
-        .border-fade-silver { border: 1px solid transparent; border-image: linear-gradient(135deg, rgba(160,178,193,0.7) 0%, transparent 30%, transparent 70%, rgba(160,178,193,0.7) 100%) 1; }
 
         /* HEADER */
         header { position: fixed; top: 0; width: 100%; height: 90px; background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 60px;}
@@ -46,7 +43,7 @@
         .btn-solid:hover { background-color: var(--text-pure); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
 
         /* =====================================================================
-           HERO & INTRO 
+           HERO & VISION (Pleine largeur)
         ====================================================================== */
         .main-content { flex: 1; display: flex; flex-direction: column; width: 100%; padding-bottom: 100px; z-index: 5;}
         
@@ -56,25 +53,36 @@
             width: 100%;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
             gap: 60px;
             align-items: center;
         }
 
         .hero-text-col { text-align: left; }
         
-        .page-title { font-family: var(--font-title); font-size: 5rem; line-height: 1.1; margin: 0 0 15px 0; text-transform: uppercase; border-left: 4px solid var(--gold-solid); padding-left: 20px;}
-        .page-subtitle { font-family: var(--font-code); font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; padding-left: 24px;}
+        .page-subtitle { font-family: var(--font-code); font-size: 13px; color: var(--gold-solid); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: inline-block; }
+        .page-title { font-family: var(--font-title); font-size: 5rem; line-height: 1.1; margin: 0 0 30px 0; text-transform: uppercase; color: var(--gold-solid); }
         
-        .intro-text p { font-size: 1.15rem; line-height: 1.8; color: #ccc; margin-bottom: 20px; text-align: justify; padding-left: 24px;}
+        .statement-block {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-pure);
+            font-weight: 300;
+            border-left: 3px solid var(--gold-solid);
+            padding-left: 20px;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .intro-text p { font-size: 1.1rem; line-height: 1.8; color: #ccc; margin-bottom: 20px; text-align: justify; }
+        .intro-text p strong { color: var(--text-pure); }
         
         /* ENCART VISUEL ET ANIMATION TERMINAL */
         .hero-visual-col {
             width: 100%;
-            height: 100%;
-            min-height: 400px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(0,0,0,0.5);
+            height: auto; 
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
             position: relative;
             display: flex;
             flex-direction: column;
@@ -82,9 +90,9 @@
             justify-content: center;
             overflow: hidden;
             border-radius: 4px;
+            padding: 40px 30px; 
         }
         
-        /* Le texte de chargement style invite de commande */
         .terminal-loader {
             font-family: var(--font-code);
             font-size: 13px;
@@ -97,41 +105,39 @@
             width: 80%;
         }
 
-        /* L'image cachée au début, puis visible avec .loaded */
         .hero-visual-col img { 
             max-width: 100%; 
-            max-height: 380px; 
+            max-height: 350px; 
             object-fit: contain; 
-            opacity: 0; /* Cachée par défaut */
+            opacity: 0;
             transition: opacity 1s ease, transform 0.5s ease; 
-            filter: drop-shadow(0 0 15px rgba(160, 178, 193, 0.3)); 
             z-index: 1;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
         }
         .hero-visual-col img.loaded {
-            opacity: 1;
+            opacity: 1; 
         }
-        .hero-visual-col:hover img.loaded { transform: scale(1.03); filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.4));}
         
-        /* Légende cachée au début */
         .esa-caption {
             font-family: var(--font-code);
-            font-size: 9px;
-            color: #666;
+            font-size: 12px; 
+            color: var(--gold-solid);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
-            line-height: 1.4;
-            max-width: 80%;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 5px;
+            line-height: 1.5;
+            max-width: 90%;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 15px;
             opacity: 0;
             transition: opacity 1s ease;
             z-index: 1;
         }
+        .esa-caption span { color: #aaa; display: block; font-size: 11px; margin-top: 6px; font-family: var(--font-data);}
 
         /* =====================================================================
-           LE FRAMEWORK ET SOUS-TITRES
+           LA DOCTRINE ANALYTIQUE (Grid 4 colonnes pleine largeur)
         ====================================================================== */
         .section-header-left {
             max-width: 1800px; margin: 40px auto 40px auto; padding: 0 60px;
@@ -154,73 +160,34 @@
         
         .framework-grid { max-width: 1800px; margin: 0 auto; padding: 0 60px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%;}
         
-        .fw-step { background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.15); padding: 30px; position: relative; transition: 0.3s; }
-        .fw-step:hover { border-color: var(--silver-solid); background: rgba(30,30,30,0.9); }
-        .fw-num { font-family: var(--font-title); font-size: 5rem; color: rgba(255,255,255,0.03); position: absolute; top: -5px; right: 15px; line-height: 1; pointer-events: none;}
-        .fw-title { font-family: var(--font-code); font-size: 14px; color: var(--gold-solid); margin-bottom: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
-        .fw-desc { font-size: 13px; line-height: 1.7; text-align: justify;}
+        .fw-step { background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.1); padding: 30px; position: relative; transition: 0.3s; display: flex; flex-direction: column; justify-content: flex-start;}
+        .fw-step:hover { border-color: var(--gold-solid); background: rgba(15,15,15,0.95); transform: translateY(-3px);}
+        .fw-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .fw-title { font-family: var(--font-code); font-size: 14px; color: var(--gold-solid); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin: 0;}
+        .fw-desc { font-size: 13.5px; line-height: 1.7; text-align: justify; color: #bbb; margin: 0;}
 
         /* =====================================================================
-           INDICATEURS STATISTIQUES (SIGNAUX FAIBLES)
+           LE FACTEUR HUMAIN & L'APPLICATION (Pleine largeur)
         ====================================================================== */
-        .stats-section { max-width: 1800px; margin: 60px auto 0 auto; padding: 0 60px; width: 100%; }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 30px; }
-        
-        .stat-card { 
-            background: rgba(20,20,20,0.6); 
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-bottom: 2px solid var(--gold-solid);
-            padding: 30px; 
-            text-align: center; 
-            display: flex; flex-direction: column; justify-content: center;
+        .impact-section {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(15,15,15,0.9) 0%, rgba(10,10,10,1) 100%);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 80px;
+            padding: 80px 0;
         }
-        .stat-number { font-family: var(--font-title); font-size: 4.5rem; line-height: 1; margin-bottom: 15px; color: var(--text-pure); }
-        .stat-number span { font-size: 2rem; color: var(--gold-solid); }
-        .stat-label { font-family: var(--font-code); font-size: 11px; color: #E0E0E0; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; line-height: 1.4;}
-        
-        .stat-source { font-family: var(--font-data); font-size: 9px; margin-top: 15px; text-transform: uppercase;}
-        .stat-source a { color: #666; text-decoration: none; transition: 0.3s; }
-        .stat-source a:hover { color: var(--gold-solid); }
 
-        /* =====================================================================
-           FLUX DYNAMIQUE (WIDGET OSINT RSS LE MONDE)
-        ====================================================================== */
-        .live-feed-section { max-width: 1800px; margin: 80px auto 0 auto; padding: 0 60px; width: 100%; }
-        .live-feed-box { background: rgba(10,10,10,0.8); border-left: 3px solid var(--red-dark-solid); padding: 25px; display: flex; flex-direction: column; gap: 15px; font-family: var(--font-code); border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);}
-        .feed-header { display: flex; align-items: center; justify-content: space-between; color: var(--red-dark-solid); font-size: 12px; font-weight: bold; letter-spacing: 2px;}
-        .feed-header-left { display: flex; align-items: center; gap: 10px; }
-        .pulse-dot { width: 8px; height: 8px; background: var(--red-dark-solid); border-radius: 50%; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.2; } 100% { opacity: 1; } }
-        
-        .feed-content { display: flex; flex-direction: column; gap: 12px; margin-top: 10px;}
-        .feed-item { font-size: 12px; color: #ccc; display: flex; gap: 15px; line-height: 1.5; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 12px; transition: 0.2s;}
-        .feed-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .feed-item:hover { transform: translateX(5px); }
-        .feed-time { color: #666; min-width: 120px; }
-        .feed-text span { color: var(--silver-solid); margin-right: 8px; font-weight: bold;}
-        .feed-text a { color: #E0E0E0; text-decoration: none; transition: 0.2s; }
-        .feed-text a:hover { color: var(--gold-solid); text-decoration: underline; text-underline-offset: 3px;}
-
-        /* =====================================================================
-           CARTOGRAPHIE DES RISQUES MACRO (9 RISQUES)
-        ====================================================================== */
-        .radar-section { margin-top: 60px; }
-        .radar-grid { max-width: 1800px; margin: 0 auto; padding: 0 60px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 100%;}
-        
-        .radar-card { 
-            border: 1px solid rgba(139, 0, 0, 0.3); 
-            border-bottom: 4px solid var(--red-dark-solid); 
-            background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(10,10,10,1) 100%); 
-            padding: 40px; position: relative; overflow: hidden; 
-            transition: 0.3s;
-            display: flex; flex-direction: column;
+        .impact-container {
+            max-width: 1800px; margin: 0 auto; padding: 0 60px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
         }
-        .radar-card:hover { border-color: var(--red-dark-solid); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.15); transform: translateY(-3px);}
-        
-        .radar-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .radar-icon { color: var(--red-dark-solid); flex-shrink: 0;}
-        .radar-title { font-family: var(--font-title); font-size: 2rem; color: var(--text-pure); margin: 0; letter-spacing: 1px; text-transform: uppercase;}
-        .radar-desc { font-size: 14.5px; color: #ccc; line-height: 1.7; margin-bottom: 0; text-align: justify; flex: 1;}
+
+        .impact-card { display: flex; flex-direction: column; gap: 15px;}
+        .impact-header { display: flex; align-items: center; gap: 15px; margin-bottom: 5px;}
+        .impact-icon { color: var(--silver-solid); flex-shrink: 0; }
+        .impact-title { font-family: var(--font-title); font-size: 2.2rem; color: var(--text-pure); margin: 0; line-height: 1.1;}
+        .impact-text { font-size: 14px; color: #aaa; line-height: 1.7; text-align: justify; margin: 0;}
 
         /* =====================================================================
            FOOTER & CONTACT
@@ -234,7 +201,7 @@
         .contact-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;}
         .contact-header h3 { font-family: var(--font-title); font-size: 2.5rem; color: var(--gold-solid); margin: 0; }
         .close-btn { background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; transition: 0.3s; }
-        .close-btn:hover { color: var(--red-alert); transform: rotate(90deg); }
+        .close-btn:hover { color: var(--red-dark-solid); transform: rotate(90deg); }
         .form-group { margin-bottom: 25px; }
         .form-group label { display: block; font-family: var(--font-code); font-size: 10px; color: var(--gold-solid); margin-bottom: 8px; letter-spacing: 1px; }
         .form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: var(--text-pure); padding: 12px; font-family: var(--font-data); font-size: 14px; transition: 0.3s; }
@@ -243,12 +210,11 @@
         @media (max-width: 992px) {
             header { padding: 0 20px; height: 70px; }
             nav { display: none; }
-            .hero-dashboard { grid-template-columns: 1fr; padding: 120px 20px 20px 20px; gap: 40px;}
-            .page-title { font-size: 3.5rem; }
-            .hero-visual-col { min-height: 250px; }
-            .section-header-left, .live-feed-section, .stats-section { padding: 0 20px; margin-top: 40px;}
-            .section-title { font-size: 2rem; }
-            .framework-grid, .radar-grid, .stats-grid { grid-template-columns: 1fr; padding: 0 20px; gap: 30px;}
+            .hero-dashboard { grid-template-columns: 1fr; padding: 120px 20px 40px 20px; gap: 40px;}
+            .page-title { font-size: 4rem; }
+            .statement-block { font-size: 1.1rem; padding-left: 15px; }
+            .section-header-left { padding: 0 20px; margin-top: 40px;}
+            .framework-grid, .impact-container { grid-template-columns: 1fr; padding: 0 20px; gap: 30px;}
             .contact-panel { width: 100%; right: -100%; }
             .contact-panel.open { transform: translateX(-100%); }
             footer { flex-direction: column; align-items: center; gap: 15px; text-align: center; padding: 30px 20px; }
@@ -264,7 +230,7 @@
             <a href="index.html">Accueil</a>
             <a href="portfolio.html">Portfolio</a>
             <a href="geopolitique.html">Géopolitique</a>
-            <a href="analyses.html" class="active">Analyses & Veille</a>
+            <a href="analyses.html" class="active">Perspectives</a>
         </nav>
         
         <div class="header-actions">
@@ -286,9 +252,9 @@
         </div>
         <form id="contact-form">
             <div class="form-group"><label>ADRESSE EMAIL</label><input type="email" id="sender-email" required placeholder="votre@email.com"></div>
-            <div class="form-group"><label>MOTIF DE CONTACT</label><input type="text" id="sender-reason" required placeholder="Demande de consultation, Étude de cas..."></div>
-            <div class="form-group"><label>MESSAGE</label><textarea id="sender-text" required placeholder="Décrivez votre besoin stratégique..." rows="6"></textarea></div>
-            <button type="submit" class="btn-solid" style="width: 100%; text-align: center; margin-top: 10px;">TRANSMETTRE LA REQUÊTE</button>
+            <div class="form-group"><label>MOTIF DE CONTACT</label><input type="text" id="sender-reason" required placeholder="Stratégie, Évaluation, Échange..."></div>
+            <div class="form-group"><label>MESSAGE</label><textarea id="sender-text" required placeholder="Précisez le contexte de votre structure..." rows="6"></textarea></div>
+            <button type="submit" class="btn-solid" style="width: 100%; text-align: center; margin-top: 10px;">TRANSMETTRE</button>
         </form>
     </div>
 
@@ -296,179 +262,93 @@
         
         <div class="hero-dashboard">
             <div class="hero-text-col">
-                <h1 class="page-title text-gold">TABLEAU DE BORD<br>STRATÉGIQUE</h1>
-                <div class="page-subtitle">Transformer le bruit médiatique en avantage tactique.</div>
+                <div class="page-subtitle">Doctrine & Architecture Opérationnelle</div>
+                <h1 class="page-title text-gold">L'ESSENTIEL<br>AU-DELÀ DU BRUIT</h1>
+                
+                <div class="statement-block">
+                    Dans un environnement soumis à des changements permanents, réagir dans l'urgence aux micro-fluctuations est un piège. La véritable résilience n'implique pas d'ignorer ces signaux, mais d'en extraire le sens critique. L'impératif est de s'adapter en priorité aux évolutions de fond : des transformations profondes et de long terme qui, bien que souvent invisibles à l'instant T, redéfinissent inexorablement les règles du jeu.
+                </div>
+
                 <div class="intro-text">
-                    <p>À l'ère de la post-vérité et de l'hyper-information, la difficulté pour une organisation n'est plus d'obtenir de la donnée, mais de <strong>séparer le signal du bruit</strong>.</p>
-                    <p>Les perturbations lointaines (conflits asymétriques, régulations, chocs cognitifs) finissent toujours par impacter les structures locales. L'objectif de ces analyses n'est pas de vous résumer l'actualité, mais de vous fournir le <strong>Framework de compréhension</strong> nécessaire pour anticiper les mutations systémiques complexes.</p>
+                    <p><strong>L'illusion de l'immédiateté et du miracle technologique.</strong><br>Le discours ambiant glorifie l'adaptation instantanée et les acteurs providentiels. Pourtant, ce qui change fondamentalement la donne résulte de processus longs, complexes et prévisibles.</p>
+                    <p>Il ne s'agit pas de se cantonner à l'étude isolée d'un secteur, mais d'appréhender la société comme un tout interconnecté. L'enjeu est d'identifier les invariables, ces mouvements de fond qui modifieront en profondeur notre environnement d'ici cinq, dix ou vingt ans. Même si le lien n'est pas évident de prime abord, comprendre vers quelle étape globale évoluent les sociétés est fondamental pour anticiper les chocs qui frapperont les organisations, qu'il s'agisse d'entreprises ou d'institutions de l'État.</p>
                 </div>
             </div>
             
             <div class="hero-visual-col">
                 <div id="terminal-loader" class="terminal-loader"></div>
-                
-                <img id="hero-img" src="assets/images/esa_orbital_objects.png" alt="Visualisation des objets spatiaux et débris en orbite terrestre basse (ESA)">
-                <div id="hero-caption" class="esa-caption">Représentation des objets et débris spatiaux en orbite terrestre<br>Illustrant la saturation des hyper-infrastructures invisibles (Source : ESA)</div>
+                <img id="hero-img" src="assets/images/esa_orbital_objects.png" alt="Objets orbitaux et débris spatiaux (ESA)">
+                <div id="hero-caption" class="esa-caption">
+                    MÉTAPHORE DE L'HYPER-INFRASTRUCTURE INVISIBLE
+                    <span>L'orbite terrestre : un environnement dont toute l'économie moderne dépend, ignoré jusqu'à ce qu'il devienne hors de contrôle. L'analogie parfaite des menaces systémiques. (Données : ESA)</span>
+                </div>
             </div>
         </div>
 
         <div class="section-header-left">
-            <h2 class="section-title text-silver">MATRICE DE DÉTECTION DES SIGNAUX FAIBLES</h2>
-            <div class="matrix-desc">OUTIL D'ANALYSE SYSTÉMIQUE CONÇU POUR FILTRER LE BRUIT MÉDIATIQUE, NEUTRALISER LES BIAIS COGNITIFS ET ISOLER LES VECTEURS DE CRISE RÉELS AVANT QU'ILS N'IMPACTENT LA STRATÉGIE DE L'ORGANISATION.</div>
+            <h2 class="section-title text-silver">MÉTHODOLOGIE ANALYTIQUE</h2>
+            <div class="matrix-desc">CADRE INTELLECTUEL POUR LE TRAITEMENT DE LA COMPLEXITÉ ET L'AIDE À LA DÉCISION.</div>
         </div>
         
         <div class="framework-grid">
             <div class="fw-step">
-                <div class="fw-num">01</div>
-                <div class="fw-title">EXTRACTION & HYGIÈNE (OSINT)</div>
-                <div class="fw-desc text-silver">Au-delà de la simple collecte de données brutes, l'enjeu réside dans le nettoyage de la donnée. Tagging systématique du contexte de création, évaluation de la sensibilité politique et vérification de la fiabilité intrinsèque des sources pour isoler le signal exploitable.</div>
+                <div class="fw-header">
+                    <i data-lucide="network" stroke-width="2" class="text-gold"></i>
+                    <h3 class="fw-title">DÉCLOISONNEMENT DISCIPLINAIRE</h3>
+                </div>
+                <p class="fw-desc">La force de l'analyse moderne, qu'il s'agisse de sciences politiques, d'informatique ou d'économie, réside dans sa transversalité. Chaque domaine doit être étudié selon sa logique propre, mais surtout en tant que rouage d'un écosystème global. Un élément perçu comme mineur dans une discipline annexe peut en réalité renverser l'équilibre de tout le secteur que l'on observe.</p>
             </div>
             
             <div class="fw-step">
-                <div class="fw-num">02</div>
-                <div class="fw-title">FILTRAGE COGNITIF À 360°</div>
-                <div class="fw-desc text-silver">La donnée brute est trompeuse. Il faut y appliquer un crible psychologique et sociétal : identifier les biais de notre propre référentiel d'analyse, déconstruire les biais cognitifs de l'émetteur, et évaluer l'intention sous-jacente dans son contexte global.</div>
+                <div class="fw-header">
+                    <i data-lucide="git-merge" stroke-width="2" class="text-gold"></i>
+                    <h3 class="fw-title">SCÉNARISATION EN ARBORESCENCE</h3>
+                </div>
+                <p class="fw-desc">L'anticipation n'est pas de la voyance, et il ne s'agit pas de plaquer des statistiques illusoires sur l'incertain. L'objectif est d'évaluer l'ampleur des risques pour modéliser des scénarios en arborescence. Il s'agit de refuser la feuille de route unique au profit d'une pluralité de réponses adaptatives face aux hypothèses les plus critiques.</p>
             </div>
             
             <div class="fw-step">
-                <div class="fw-num">03</div>
-                <div class="fw-title">MODÉLISATION SYSTÉMIQUE</div>
-                <div class="fw-desc text-silver">Un événement n'est jamais isolé. La modélisation consiste à cartographier les interdépendances invisibles. Comment une perturbation locale se propage-t-elle à travers les chaînes de valeur globales et les écosystèmes d'influence ?</div>
+                <div class="fw-header">
+                    <i data-lucide="crosshair" stroke-width="2" class="text-gold"></i>
+                    <h3 class="fw-title">RED TEAMING & DESIGN FICTION</h3>
+                </div>
+                <p class="fw-desc">Face au consensus interne d'une organisation, la rigueur impose d'intégrer l'imprévisible. Jouer l'avocat du diable et utiliser le Design Fiction permet d'explorer des possibilités à contre-courant. Se mettre dans la perspective de l'adversaire (Red Team) est indispensable pour comprendre comment une situation ou une faille sera exploitée contre nous.</p>
             </div>
             
             <div class="fw-step" style="border-bottom: 2px solid var(--gold-solid);">
-                <div class="fw-num">04</div>
-                <div class="fw-title text-gold">ACTIONNABILITÉ & PROSPECTIVE</div>
-                <div class="fw-desc text-gold">Refus des promesses hasardeuses. L'objectif est de définir un positionnement actuel exact face à la menace et d'identifier les vecteurs de crise immédiats. La complexité est traduite en leviers décisionnels clairs et applicables par la direction.</div>
+                <div class="fw-header">
+                    <i data-lucide="zap" stroke-width="2" class="text-gold"></i>
+                    <h3 class="fw-title">AGILITÉ & OPÉRATIONNALISATION</h3>
+                </div>
+                <p class="fw-desc text-gold">L'analyse doit aboutir à la décision. S'inspirer de la méthode agile permet de déployer des solutions itératives pour obtenir des retours d'expérience rapides. L'objectif est de doter les dirigeants de plans d'action rapidement employables, fondés non pas sur des intuitions, mais sur des travaux de recherche pré-pensés et solides.</p>
             </div>
         </div>
 
-        <div class="stats-section">
-            <div class="section-header-left" style="margin: 0; padding: 0;">
-                <h2 class="section-title text-silver" style="font-size: 2.2rem;">INDICATEURS DE TENSIONS SYSTÉMIQUES</h2>
-                <div class="matrix-desc">MESURE EN TEMPS RÉEL DES ANOMALIES STATISTIQUES LIÉES À LA GUERRE DE L'INFORMATION, AUX VULNÉRABILITÉS CYBER ET AUX RISQUES MACRO-ÉCONOMIQUES.</div>
-            </div>
-            
-            <div class="stats-grid">
+        <div class="impact-section">
+            <div class="impact-container">
                 
-                <div class="stat-card">
-                    <div class="stat-number text-gold">51<span>%</span></div>
-                    <div class="stat-label">DU TRAFIC WEB MONDIAL GÉNÉRÉ PAR DES BOTS (DONT 37% MALVEILLANTS)</div>
-                    <span class="stat-source"><a href="https://cpl.thalesgroup.com/sites/default/files/content/campaigns/badbot/2025-Bad-Bot-Report.pdf" target="_blank">SOURCE : RAPPORT IMPERVA / THALES 2025</a></span>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-number text-gold">52<span>%</span></div>
-                    <div class="stat-label">DES ORGANISATIONS VULNÉRABLES PAR MANQUE DE RESSOURCES CYBER ET COMPÉTENCES HUMAINES</div>
-                    <span class="stat-source"><a href="#" style="pointer-events: none;">SOURCE : SENTINELONE (2024/2025)</a></span>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-number text-gold">25</div>
-                    <div class="stat-label">PAYS CIBLÉS PAR AU MOINS UNE MESURE D'EMBARGO OU DE SANCTION ÉCONOMIQUE</div>
-                    <span class="stat-source"><a href="#" style="pointer-events: none;">SOURCE : HELVETIA (2025)</a></span>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-number text-gold">+700<span>%</span></div>
-                    <div class="stat-label">D'AUGMENTATION DES ATTAQUES PAR DEEPFAKE SUR LE TERRITOIRE FRANÇAIS EN UN AN</div>
-                    <span class="stat-source"><a href="#" style="pointer-events: none;">SOURCE : SUMSUB</a></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="live-feed-section">
-            <div class="live-feed-box border-fade-silver">
-                <div class="feed-header">
-                    <div class="feed-header-left">
-                        <span class="pulse-dot"></span> SIGNAUX INTERCEPTÉS [ FLUX INTERNATIONAL - TEMPS RÉEL ]
+                <div class="impact-card">
+                    <div class="impact-header">
+                        <i data-lucide="globe" stroke-width="1.5" style="width: 40px; height: 40px;" class="impact-icon"></i>
+                        <h3 class="impact-title">VIGILANCE<br>GÉO-ÉCONOMIQUE</h3>
                     </div>
-                    <span style="color: #666; font-size: 10px;">SOURCE: LEMONDE.FR/INTERNATIONAL</span>
-                </div>
-                <div class="feed-content" id="dynamic-feed">
-                    <div style="color: #666; font-size: 11px;">Connexion au réseau d'analyse en cours...</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="radar-section">
-            <div class="section-header-left">
-                <h2 class="section-title text-dark-red">CARTOGRAPHIE DES RISQUES MACRO-STRATÉGIQUES</h2>
-                <div class="matrix-desc">UN RISQUE MACRO-STRATÉGIQUE EST UNE PERTURBATION SYSTÉMIQUE GLOBALE (GÉOPOLITIQUE, NORMATIVE, TECHNOLOGIQUE) AGISSANT HORS DU CHAMP DE VISION IMMÉDIAT D'UNE ORGANISATION. SOUVENT IGNORÉS CAR JUGÉS « TROP ÉLOIGNÉS » DE L'OPÉRATIONNEL, CES ANGLES MORTS SONT POURTANT LES VECTEURS LES PLUS BRUTAUX DE DESTRUCTION DE VALEUR ET DE PARALYSIE DES CHAÎNES D'APPROVISIONNEMENT.</div>
-            </div>
-            
-            <div class="radar-grid">
-                
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="cpu" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">DISPERSION TECHNOLOGIQUE</h3>
-                    </div>
-                    <p class="radar-desc">Le risque n'est plus l'accès à la technologie, mais la complexité de son intégration. L'enjeu vital est de réussir à différencier les technologies utiles et employables (gains de performance effectifs) des promesses illusoires (Hype) dénuées d'ancrage fonctionnel réel.</p>
+                    <p class="impact-text">Décrypter l'évolution de l'architecture des pouvoirs et l'impact de l'action étatique. Au-delà de la simple économie de marché, cette veille intègre les <strong>dynamiques sociales et cognitives</strong> comme vecteurs majeurs de disruption. Ces forces déclenchent non seulement des ruptures de marché, mais de véritables transformations sociétales et systémiques qu'il est impératif de cartographier.</p>
                 </div>
 
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="database-zap" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">FUITE COGNITIVE & CLOUD I.A</h3>
+                <div class="impact-card">
+                    <div class="impact-header">
+                        <i data-lucide="shield" stroke-width="1.5" style="width: 40px; height: 40px;" class="impact-icon"></i>
+                        <h3 class="impact-title">RÉSILIENCE<br>OPÉRATIONNELLE</h3>
                     </div>
-                    <p class="radar-desc">Les collaborateurs utilisent des IA génératives (ChatGPT, Gemini) sans conscience des risques, transférant des données confidentielles vers des serveurs étrangers contrôlés par Washington ou Pékin. La souveraineté passe par le développement d'outils locaux.</p>
+                    <p class="impact-text">La préparation aux pires éventualités n'est ni un coût net ni une dilapidation financière, mais un investissement vital. Dans un écosystème soumis à des crises à répétition, l'allocation en amont de ressources stratégiques garantit la survie face aux chocs critiques. <strong>La planification théorique fixe le cap, mais seule la préparation matérielle et opérationnelle absorbe l'impact.</strong></p>
                 </div>
 
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="shield-alert" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">VULNÉRABILITÉ CYBER-HUMAINE</h3>
+                <div class="impact-card">
+                    <div class="impact-header">
+                        <i data-lucide="users" stroke-width="1.5" style="width: 40px; height: 40px;" class="impact-icon"></i>
+                        <h3 class="impact-title">POTENTIEL HUMAIN<br>& ORGANISATION</h3>
                     </div>
-                    <p class="radar-desc">Le risque majeur de la sécurité numérique n'est pas la machine, c'est l'homme. Les failles proviennent rarement d'une architecture défaillante, mais d'un manque de formation et d'une mauvaise culture personnelle de l'usage informatique chez les collaborateurs.</p>
-                </div>
-
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="message-square-warning" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">INGÉRENCE NARRATIVE</h3>
-                    </div>
-                    <p class="radar-desc">La faille narrative naît d'une incompréhension fondamentale du Storytelling. Les acteurs hostiles exploitent le besoin d'appartenance des collaborateurs pour les radicaliser ou les désinformer, altérant leur objectivité et la qualité de leur travail sans qu'ils s'en rendent compte.</p>
-                </div>
-
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="scale" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">LAWFARE & BALKANISATION</h3>
-                    </div>
-                    <p class="radar-desc">La guerre juridique et l'arsenalisation extraterritoriale du droit disloquent les marchés mondiaux. Les lois de conformité (Compliance) sont devenues des armes pour paralyser des concurrents étrangers, forçant les acteurs à naviguer dans un champ de mines normatif.</p>
-                </div>
-
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="layers" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">MICRO-CONFLITS & RESSOURCES</h3>
-                    </div>
-                    <p class="radar-desc">La focalisation sur les hydrocarbures masque des dépendances critiques aux ressources invisibles. Exemple historique : l'attaque en Iran de 2026 qui a brutalement neutralisé deux tiers de la production mondiale d'hélium, une ressource vitale pour toute l'industrie technologique.</p>
-                </div>
-
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="coins" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">FRAGMENTATION MONÉTAIRE</h3>
-                    </div>
-                    <p class="radar-desc">La fin programmée du monopole du dollar et l'émergence de systèmes d'échange alternatifs (BRICS+, Monnaies Numériques de Banque Centrale). Ce contournement des mécanismes occidentaux expose les entreprises à des chocs de devises et des blocus financiers inédits.</p>
-                </div>
-
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="anchor" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">CHOKEPOINTS PHYSIQUES</h3>
-                    </div>
-                    <p class="radar-desc">Au-delà des câbles sous-marins, le sabotage d'infrastructures invisibles comme les data centers ou les constellations de satellites peut isoler un pays. En cas de défaillance majeure, ces services ultra-centralisés privilégient toujours leur État d'origine, isolant brutalement les acteurs secondaires.</p>
-                </div>
-
-                <div class="radar-card">
-                    <div class="radar-header">
-                        <div class="radar-icon"><i data-lucide="tornado" stroke-width="1.5" style="width: 36px; height: 36px;"></i></div>
-                        <h3 class="radar-title">INGÉNIERIE DU CHAOS CLIMATIQUE</h3>
-                    </div>
-                    <p class="radar-desc">L'utilisation tactique des catastrophes écologiques. La raréfaction de l'eau ou la destruction ciblée de ressources agricoles ne sont plus de simples drames environnementaux, mais des armes géopolitiques visant à déclencher des chocs migratoires et déstabiliser des régions entières.</p>
+                    <p class="impact-text">Fidéliser les talents exige d'identifier leurs appétences profondes pour faire converger leurs aspirations avec la mission de la structure, transformant le métier en une véritable finalité. C'est le socle de <strong>l'adaptabilité d'une structure</strong> : bâtir un cadre organisé mais non rigide, capable de s'adapter organiquement aux environnements VUCA (Volatilité, Incertitude, Complexité, Ambiguïté).</p>
                 </div>
 
             </div>
@@ -478,13 +358,13 @@
 
     <footer>
         <div>DESIGN OPEN SOURCE SUR GITHUB</div>
-        <div>© 2026 - REYMANN DYLAN - TOUS DROITS RÉSERVÉS.</div>
+        <div>© 2026 - REYMANN DYLAN - DOCTRINE & PERSPECTIVES.</div>
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // 1. ANIMATION DE CHARGEMENT TERMINAL POUR L'IMAGE
+        // ANIMATION DE L'IMAGE AU CHARGEMENT
         document.addEventListener("DOMContentLoaded", () => {
             let progress = 0;
             const loaderText = document.getElementById('terminal-loader');
@@ -498,71 +378,20 @@
                 let filled = Math.floor(progress / 5);
                 let bar = '█'.repeat(filled) + '░'.repeat(20 - filled);
                 
-                loaderText.innerText = `> ESTABLISHING SECURE UPLINK...\\n> FETCHING ORBITAL TELEMETRY\\n> RENDERING: [${bar}] ${progress}%\\n`;
+                loaderText.innerText = `> INITIALIZING SYSTEMIC PERSPECTIVES...\\n> LOADING METAPHORICAL FRAMEWORK\\n> RENDERING: [${bar}] ${progress}%\\n`;
                 
                 if (progress === 100) {
                     clearInterval(interval);
                     setTimeout(() => {
                         loaderText.style.display = 'none';
-                        img.classList.add('loaded'); // Révélation de l'image
+                        img.classList.add('loaded');
                         caption.style.opacity = '1';
                     }, 300); 
                 }
             }, 80); 
         });
 
-
-        // 2. GESTION DU WIDGET DYNAMIQUE (API RSS LE MONDE + FALLBACK ARCHIVES)
-        document.addEventListener('DOMContentLoaded', async () => {
-            const feedContainer = document.getElementById('dynamic-feed');
-            
-            // Base de données de secours (Tirée de l'archive d'avril 2026)
-            const fallbackDB = [
-                { title: "Mexique : arrestation de deux chefs de cartel, dont le possible successeur du puissant « El Mencho »", link: "https://www.lemonde.fr/international/article/2026/04/28/mexique-arrestation-de-deux-chefs-de-cartels-dont-le-possible-successeur-du-puissant-el-mencho_6683787_3210.html", date: "28 Avr 2026" },
-                { title: "Comment j’ai failli devenir candidate de Reform UK aux élections locales britanniques", link: "https://www.lemonde.fr/la-matinale/article/2026/04/28/comment-j-ai-failli-devenir-candidate-de-reform-uk-aux-elections-locales-britanniques_6683754_4866763.html", date: "28 Avr 2026" },
-                { title: "Google : plus de 600 salariés s’opposent à la fourniture d’IA à l’armée américaine pour des opérations classifiées", link: "https://www.lemonde.fr/pixels/article/2026/04/28/google-plus-de-600-salaries-s-opposent-a-la-fourniture-d-ia-a-l-armee-americaine-pour-des-operations-classifiees_6683721_4408996.html", date: "28 Avr 2026" },
-                { title: "Aux Etats-Unis, deux projets éoliens offshore impliquant Engie stoppés par l’administration Trump", link: "https://www.lemonde.fr/planete/article/2026/04/28/aux-etats-unis-deux-projets-eoliens-offshore-impliquant-engie-stoppes-par-l-administration-trump_6683720_3244.html", date: "28 Avr 2026" },
-                { title: "L’Allemagne accuse la Russie d’avoir piraté la messagerie Signal de plus de 300 personnalités politiques et militaires", link: "https://www.lemonde.fr/international/article/2026/04/27/l-allemagne-accuse-la-russie-d-avoir-pirate-la-messagerie-signal-de-plus-de-300-personnalites-politiques-et-militaires_6683638_3210.html", date: "27 Avr 2026" }
-            ];
-
-            if(feedContainer) {
-                try {
-                    const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.lemonde.fr%2Finternational%2Frss_full.xml');
-                    const data = await response.json();
-                    
-                    if(data.status === 'ok' && data.items.length > 0) {
-                        let feedHTML = '';
-                        const items = data.items.slice(0, 5);
-                        
-                        items.forEach(item => {
-                            const pubDate = new Date(item.pubDate);
-                            const timeStr = pubDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-                            
-                            feedHTML += `
-                                <div class="feed-item">
-                                    <div class="feed-time">[ ${timeStr} ]</div>
-                                    <div class="feed-text"><span>></span> <a href="${item.link}" target="_blank">${item.title}</a></div>
-                                </div>
-                            `;
-                        });
-                        feedContainer.innerHTML = feedHTML;
-                    } else { throw new Error("Flux vide"); }
-                } catch (error) {
-                    let feedHTML = '';
-                    fallbackDB.forEach(item => {
-                        feedHTML += `
-                            <div class="feed-item">
-                                <div class="feed-time">[ ${item.date} ]</div>
-                                <div class="feed-text"><span>></span> <a href="${item.link}" target="_blank">${item.title}</a></div>
-                            </div>
-                        `;
-                    });
-                    feedContainer.innerHTML = feedHTML;
-                }
-            }
-        });
-
-        // 3. GESTION DU CONTACT AJAX
+        // GESTION DU CONTACT AJAX
         function toggleContact() {
             document.getElementById('contact-panel').classList.toggle('open');
             document.getElementById('contact-overlay').classList.toggle('open');
@@ -573,7 +402,7 @@
             const email = document.getElementById('sender-email').value;
             const reason = document.getElementById('sender-reason').value;
             const text = document.getElementById('sender-text').value;
-            const formattedMessage = "Envoyé depuis la page Analyses\\nContact: " + email + "\\nMotif: " + reason + "\\n\\n" + text;
+            const formattedMessage = "Envoyé depuis la page Perspectives\\nContact: " + email + "\\nMotif: " + reason + "\\n\\n" + text;
             
             const formEndpoint = "https://formspree.io/f/mlgakqzk"; 
 
@@ -581,7 +410,7 @@
                 const response = await fetch(formEndpoint, {
                     method: 'POST',
                     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, message: formattedMessage, _subject: "Requête Analyses : " + reason })
+                    body: JSON.stringify({ email: email, message: formattedMessage, _subject: "Requête Doctrine : " + reason })
                 });
                 if (response.ok) {
                     alert("Transmission sécurisée effectuée avec succès.");
@@ -595,4 +424,3 @@
     </script>
 </body>
 </html>
-}
