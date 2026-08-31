@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         badge.classList.add('flipped');
                         setTimeout(() => {
-                            badge.textContent = "Résumer";
+                            badge.textContent = "Résumé";
                             badge.style.color = "var(--color-gold)";
                             
                             let index = 0;
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 docBadge.classList.add('flipped');
                 setTimeout(() => {
-                    docBadge.textContent = "Résumer";
+                    docBadge.textContent = "Résumé";
                     docBadge.style.color = "var(--color-gold)";
 
                     let i = 0;
