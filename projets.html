@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contingence | Projets</title>
+
+    <link rel="icon" type="image/png" href="assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="assets/images/logo-contingence-gold.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        .projects-cockpit-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 36px;
+        }
+        .project-tactical-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+        }
+        .project-tactical-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-gold);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+        .project-card-header {
+            padding: 16px 22px;
+            background: #11131a;
+            border-bottom: 1px solid var(--color-border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-tag-badge {
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .project-status-text {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-text-silver);
+            letter-spacing: 1px;
+        }
+        .project-cover-stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000000;
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+        .project-cover-stage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .project-tactical-card:hover .project-cover-stage img { transform: scale(1.04); }
+        .project-card-body {
+            padding: 26px 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+        .project-card-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        .project-card-desc {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: var(--color-text-silver);
+            margin-bottom: 24px;
+        }
+        .project-progress-wrapper { margin-bottom: 20px; }
+        .progress-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            color: var(--color-text-muted);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .progress-track-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill-bar {
+            height: 100%;
+            background: var(--color-gold);
+            box-shadow: 0 0 10px var(--color-gold);
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card-footer {
+            padding-top: 14px;
+            border-top: 1px solid var(--color-border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-action-link {
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--color-gold);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .empty-projects-notice {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px dashed var(--color-border-strong);
+            border-radius: 6px;
+            padding: 60px 30px;
+            text-align: center;
+            font-family: var(--font-mono);
+        }
+        .empty-tag {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            display: block;
+        }
+        @media (max-width: 1024px) {
+            .projects-cockpit-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body data-page="projets">
+
+    <header id="site-header"></header>
+
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Étude de cas, crise, Red Teaming, analyse...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez votre demande, vos questions, vos objectifs..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <main class="page-wrapper">
+        <section class="page-header-intro scroll-reveal" style="margin-top: 40px; margin-bottom: 30px;">
+            <div class="partners-header-note" style="padding-left: 0;">LABORATOIRE PROSPECTIF</div>
+            <h1 class="section-main-heading" style="font-size: clamp(2.5rem, 4vw, 3.8rem); margin-bottom: 12px;">PROJETS</h1>
+            <p style="font-size: 15px; color: var(--color-text-silver); max-width: 840px; line-height: 1.7;">
+                Mes projets en cours et réalisations.
+            </p>
+        </section>
+
+        <section class="section-layout scroll-reveal" style="margin-top: 20px;">
+            <div class="projects-cockpit-grid" id="projectsContainer"></div>
+        </section>
+    </main>
+
+    <!-- Fichier de données direct -->
+    <script src="data/projects.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/contact.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('projectsContainer');
+            if (!container) return;
+
+            const projects = window.PROJECTS_DATA || [];
+
+            if (projects.length > 0) {
+                let html = '';
+                projects.forEach(p => {
+                    const progressVal = p.progress !== undefined ? p.progress : 0;
+                    const actionLabel = p.actionText || (p.isAccessible ? "Découvrir le projet" : "Bientôt disponible");
+
+                    html += `
+                        <a href="${p.url}" class="project-tactical-card">
+                            <div class="project-card-header">
+                                <span class="project-tag-badge">${p.badge || p.category || 'PROSPECTIVE'}</span>
+                                <span class="project-status-text">${p.status}</span>
+                            </div>
+                            <div class="project-cover-stage smart-asset-box">
+                                <img src="${p.image}" alt="${p.title}" onerror="handleAssetError(this)">
+                            </div>
+                            <div class="project-card-body">
+                                <div>
+                                    <h3 class="project-card-title">${p.title}</h3>
+                                    <p class="project-card-desc">${p.desc}</p>
+                                    
+                                    <div class="project-progress-wrapper">
+                                        <div class="progress-info-row">
+                                            <span>Avancement</span>
+                                            <span>${progressVal}%</span>
+                                        </div>
+                                        <div class="progress-track-bar">
+                                            <div class="progress-fill-bar" style="width: ${progressVal}%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-card-footer">
+                                    <span class="project-action-link">${actionLabel} &gt;_</span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = `
+                    <div class="empty-projects-notice">
+                        <span class="empty-tag">[ AUCUN PROJET EN COURS ]</span>
+                    </div>
+                `;
+            }
+
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const obs = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => obs.observe(el));
+        });
+    </script>
+</body>
+</html>

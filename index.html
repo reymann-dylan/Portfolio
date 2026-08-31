@@ -3,1563 +3,594 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reymann Dylan — Stratégie, Géopolitique & Red Team</title>
+    <!-- Métadonnées & Indexation Google -->
+    <title>Contingence | Accueil</title>
+    <meta name="description" content="Laboratoire d'analyse systémique, prospective et Red Teaming par Dylan Reymann. Travaux de recherche en géopolitique spatiale et guerre de l'information.">
+    <meta name="author" content="Dylan Reymann">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon Google & Navigateur (Logo blanc sur fond sombre) -->
+    <link rel="icon" type="image/png" href="assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="assets/images/logo-contingence-gold.png">
+
+    <!-- Open Graph (Aperçu lors du partage sur LinkedIn, X, Discord, WhatsApp) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contingence | Accueil">
+    <meta property="og:description" content="Analyses géopolitiques, Red Teaming, prospective et recherche stratégique.">
+    <meta property="og:image" content="assets/images/hero-banner.png">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contingence | Accueil">
+    <meta name="twitter:description" content="Analyses géopolitiques, Red Teaming, prospective et recherche stratégique.">
+    <meta name="twitter:image" content="assets/images/hero-banner.png">
     
-    <!-- Typographies Studio : Syne (Monumentale), Space Grotesk (Corps & Nav), JetBrains Mono (HUD & Télémétrie) -->
+    <!-- Typographies : Plus Jakarta Sans (Corps & Titres), JetBrains Mono (HUD & Télémétrie) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        /* =====================================================================
-           SYSTEM DESIGN & PALETTE SOUVERAINE
-        ====================================================================== */
-        :root {
-            --bg-void: #040507;
-            --bg-surface: #090b10;
-            --bg-card: rgba(13, 16, 24, 0.75);
-
-            --line-subtle: rgba(255, 255, 255, 0.07);
-            --line-medium: rgba(255, 255, 255, 0.16);
-
-            --gold-raw: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.35);
-
-            --crimson-red: #ff1e44;
-            --crimson-glow: rgba(255, 30, 68, 0.6);
-
-            --text-pure: #ffffff;
-            --text-silver: #c6ccd8;
-            --text-muted: #6a7387;
-
-            --font-display: 'Syne', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-
-            --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-void);
-            color: var(--text-pure);
-            font-family: var(--font-body);
-        }
-
-        body {
-            background-color: var(--bg-void);
-            min-height: 100vh;
-            overflow-x: hidden;
-            width: 100%;
-            position: relative;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-position: center center;
-        }
-
-        .grid-ambient-mask {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 35% 30%, transparent 15%, rgba(4, 5, 7, 0.5) 60%, #040507 90%),
-                        linear-gradient(90deg, transparent 0%, rgba(4, 5, 7, 0.4) 65%, #040507 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .film-noise {
-            position: fixed;
-            inset: 0;
-            width: 100vw; height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* =====================================================================
-           00. MICRO-LOADER // SCISSION DIAGONALE SANS INTERSTICE
-        ====================================================================== */
-        #intro-loader {
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .curtain-slice {
-            position: absolute;
-            inset: -40px;
-            background: #040507;
-            transition: transform 1.1s var(--ease-cinematic);
-        }
-
-        .slice-top-left { 
-            clip-path: polygon(0 0, calc(100% + 80px) 0, 0 calc(100% + 80px)); 
-        }
-        .slice-bottom-right { 
-            clip-path: polygon(calc(100% + 80px) 0, calc(100% + 80px) calc(100% + 80px), 0 calc(100% + 80px)); 
-        }
-
-        .loader-center-content {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-            z-index: 2;
-            transition: opacity 0.4s ease;
-            width: 90vw;
-            max-width: 500px;
-        }
-
-        .loader-brand-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.6rem, 4.2vw, 3rem);
-            font-weight: 900;
-            letter-spacing: clamp(4px, 1.2vw, 8px);
-            text-transform: uppercase;
-            color: #ffffff;
-            text-align: center;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
-        }
-
-        .loader-hud-track {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--crimson-red);
-        }
-
-        .loader-track {
-            width: clamp(170px, 32vw, 280px);
-            height: 6px;
-            background: rgba(255, 255, 255, 0.08);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 30, 68, 0.35);
-        }
-
-        .loader-fill-red {
-            position: absolute;
-            left: 0; top: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--crimson-red);
-            box-shadow: 0 0 14px var(--crimson-red);
-            animation: loadFill 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-        }
-
-        @keyframes loadFill {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        body.is-loaded #intro-loader .slice-top-left { transform: translate(-115%, -115%); }
-        body.is-loaded #intro-loader .slice-bottom-right { transform: translate(115%, 115%); }
-        body.is-loaded #intro-loader .loader-center-content { opacity: 0; }
-
-        /* =====================================================================
-           HEADER & NAVIGATION
-        ====================================================================== */
-        header {
-            position: fixed;
-            top: 20px; left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 6vw);
-            max-width: 1540px;
-            height: 74px;
-            background: rgba(8, 10, 15, 0.85);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--line-subtle);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            transition: border-color 0.4s;
-        }
-        header:hover { border-color: var(--line-medium); }
-
-        nav.nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 42px;
-        }
-        nav.nav-menu a {
-            font-family: var(--font-body);
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-silver);
-            text-decoration: none;
-            transition: color 0.3s;
-            position: relative;
-            padding: 6px 0;
-        }
-        nav.nav-menu a:hover, nav.nav-menu a.active { color: #fff; }
-        nav.nav-menu a.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 2px;
-            background: var(--gold-raw);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .social-link {
-            color: var(--text-silver);
-            transition: color 0.3s, transform 0.3s;
-            display: flex;
-            align-items: center;
-        }
-        .social-link:hover { color: #fff; transform: translateY(-1px); }
-        .social-link svg { width: 32px; height: 32px; fill: currentColor; }
-
-        .btn-contact-top {
-            background: transparent;
-            color: var(--gold-raw);
-            border: 1px solid var(--gold-raw);
-            font-family: var(--font-display);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 12px 24px;
-            cursor: pointer;
-            transition: all 0.4s var(--ease-cinematic);
-        }
-        .btn-contact-top:hover {
-            background: var(--gold-raw);
-            color: #000;
-            box-shadow: 0 0 20px var(--gold-glow);
-        }
-
-        body.red-team-active .btn-contact-top {
-            background: var(--crimson-red);
-            color: #ffffff;
-            border-color: var(--crimson-red);
-            box-shadow: 0 0 25px var(--crimson-glow);
-        }
-        body.red-team-active .btn-contact-top:hover {
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
-        }
-
-        /* =====================================================================
-           CONTENEUR PRINCIPAL & STICKY SCROLL SYNCHRONISÉ
-        ====================================================================== */
-        .viewport-wrapper {
-            max-width: 1540px;
-            margin: 0 auto;
-            padding: 130px 3vw 80px 3vw;
-            position: relative;
-            z-index: 10;
-        }
-
-        .split-narrative-stage {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 5vw;
-            position: relative;
-            align-items: start;
-        }
-
-        .scroll-stream {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* 01. Hero */
-        .hero-section-box {
-            padding-top: 20px;
-            margin-bottom: clamp(300px, 45vh, 500px);
-        }
-
-        .kicker-label {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--gold-raw);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .kicker-label::before {
-            content: '';
-            width: 20px; height: 1px;
-            background: var(--gold-raw);
-        }
-
-        .hero-title-calibrated {
-            font-family: var(--font-display);
-            font-size: clamp(2.2rem, 3.4vw, 3.2rem);
-            font-weight: 900;
-            line-height: 1.15;
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-            color: #ffffff;
-            margin-bottom: 30px;
-        }
-
-        .bloom-red-word {
-            color: var(--crimson-red);
-            text-shadow: 0 0 10px rgba(255, 30, 68, 0.35);
-            display: inline-block;
-        }
-
-        .manifesto-panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--line-subtle);
-            border-left: 3px solid var(--gold-raw);
-            padding: 24px 28px;
-        }
-        .manifesto-panel p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #dde2ed;
-            font-style: italic;
-        }
-        .manifesto-author {
-            margin-top: 14px;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--gold-raw);
-            letter-spacing: 2px;
-            font-style: normal;
-            font-weight: 700;
-            display: block;
-        }
-
-        /* 02. Red Teaming // DÉGRADÉ ORGANIQUE */
-        .red-teaming-wrapper {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s var(--ease-cinematic), transform 0.8s var(--ease-cinematic);
-            margin-bottom: 0px;
-        }
-
-        .red-teaming-wrapper.is-revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-header-block {
-            margin-bottom: 24px;
-        }
-        .section-tag-mono {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            display: block;
-        }
-        .section-title-large {
-            font-family: var(--font-display);
-            font-size: 2.3rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        .section-title-red {
-            color: var(--crimson-red);
-            text-shadow: 0 0 16px rgba(255, 30, 68, 0.4);
-        }
-
-        .red-teaming-container {
-            background: radial-gradient(ellipse at 35% 35%, rgba(255, 30, 68, 0.38) 0%, rgba(255, 30, 68, 0.12) 55%, transparent 80%),
-                        linear-gradient(135deg, rgba(255, 30, 68, 0.22) 0%, rgba(8, 10, 15, 0.7) 60%, transparent 100%);
-            background-size: 160% 160%;
-            animation: redPulseMesh 7s ease infinite alternate;
-            border: none;
-            padding: 40px;
-            position: relative;
-        }
-
-        @keyframes redPulseMesh {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
-
-        .red-thesis-lead {
-            font-size: 17.5px;
-            line-height: 1.6;
-            color: #ffffff;
-            font-weight: 500;
-            margin-bottom: 18px;
-        }
-
-        .red-thesis-body {
-            font-size: 14.5px;
-            line-height: 1.75;
-            color: var(--text-silver);
-            margin-bottom: 28px;
-        }
-
-        .red-grid-capabilities {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .red-cap-box {
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid var(--line-subtle);
-            padding: 20px;
-        }
-        .red-cap-box h4 {
-            font-family: var(--font-display);
-            font-size: 13.5px;
-            color: var(--crimson-red);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .red-cap-box p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-silver);
-        }
-
-        /* Colonne Droite Ancrée (Sticky Desktop) */
-        .dock-sticky-wrapper {
-            position: sticky;
-            top: 115px;
-            z-index: 10;
-            height: fit-content;
-        }
-
-        .dock-card-monolith {
-            width: 100%;
-            background: var(--bg-surface);
-            border: 1px solid var(--line-subtle);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.8s var(--ease-cinematic), box-shadow 0.8s var(--ease-cinematic);
-        }
-
-        .dock-visual-stage {
-            position: relative;
-            width: 100%;
-            height: 460px;
-            background: radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.04), transparent 70%);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        /* Halo d'ambiance et rim light gauche */
-        .dock-ambient-aura {
-            position: absolute;
-            inset: 0;
-            background: transparent;
-            transition: all 0.8s var(--ease-cinematic);
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        /* Triangle inversé (z-index 2 pour passer sous l'ombre noire à droite comme dans la référence) */
-        .persona-triangle-reticle {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            z-index: 2;
-        }
-        .inverted-triangle-mesh {
-            width: 250px;
-            height: 250px;
-            border-left: 3px solid rgba(212, 175, 55, 0.85);
-            border-right: 3px solid rgba(212, 175, 55, 0.85);
-            border-bottom: 3px solid transparent;
-            clip-path: polygon(50% 100%, 0 0, 100% 0);
-            transition: all 0.8s var(--ease-cinematic);
-            transform: translateY(-20px) scale(0.95);
-            opacity: 0.9;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
-        }
-
-        .silhouette-layer {
-            max-height: 94%;
-            width: auto;
-            object-fit: contain;
-            z-index: 3;
-            filter: saturate(100%) contrast(105%);
-            transition: filter 0.8s var(--ease-cinematic), transform 0.8s var(--ease-cinematic);
-        }
-
-        /* Éclairage asymétrique visage:
-           - Gauche (0% à 45%) : éclairé, teinte rouge subtile sans voiler le visage
-           - Milieu (45% à 55%) : transition sur l'arête du nez
-           - Droite (60% à 75%) : ombre dense (85% à 98%)
-           - Extrême droite (85% à 100%) : noir absolu 100% */
-        .directional-shadow-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, 
-                rgba(255, 30, 68, 0.35) 0%, 
-                rgba(255, 30, 68, 0.15) 25%, 
-                transparent 45%, 
-                rgba(4, 5, 7, 0.05) 5%,
-				rgba(4, 5, 7, 0.75) 50%,
-                rgba(4, 5, 7, 0.91) 53%, 
-                rgba(0, 0, 0, 0.99) 72%, 
-                #040507 85%, 
-                #040507 100%);
-            opacity: 0;
-            z-index: 4;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-        }
-
-        /* Bandeau noir aligné à gauche */
-        .terminal-typing-strip {
-            position: absolute;
-            bottom: 16px;
-            left: 16px;
-            right: auto;
-            z-index: 6;
-            background: #000000;
-            border: none;
-            padding: 6px 14px;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--crimson-red);
-            text-shadow: 0 0 8px rgba(255, 30, 68, 0.5);
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .terminal-cursor {
-            display: inline-block;
-            margin-left: 2px;
-            animation: cursorBlink 0.8s infinite;
-        }
-
-        @keyframes cursorBlink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-
-        .dock-telemetry-body {
-            padding: 22px;
-            background: var(--bg-surface);
-            border-top: 1px solid var(--line-subtle);
-        }
-
-        .name-header-row {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: #ffffff;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed var(--line-subtle);
-        }
-        .name-header-row span { color: var(--text-muted); }
-
-        .telemetry-tracks-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 14px;
-        }
-        .track-entry {
-            display: grid;
-            grid-template-columns: 78px 1fr;
-            font-family: var(--font-mono);
-            font-size: 10.5px;
-            line-height: 1.35;
-        }
-        .track-code {
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-size: 9px;
-            letter-spacing: 1px;
-        }
-        .track-title {
-            color: var(--text-pure);
-            font-weight: 600;
-        }
-
-        .skills-tag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            padding-top: 12px;
-            border-top: 1px solid var(--line-subtle);
-        }
-        .skill-tag-pill {
-            font-family: var(--font-mono);
-            font-size: 9.5px;
-            padding: 4px 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--line-subtle);
-            color: var(--text-silver);
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            transition: all 0.3s;
-        }
-
-        /* Climax Red Team */
-        .dock-sticky-wrapper.in-red-mode .dock-card-monolith {
-            border-color: rgba(255, 30, 68, 0.45);
-            box-shadow: 0 0 45px rgba(255, 30, 68, 0.2), 0 30px 80px rgba(0, 0, 0, 0.9);
-        }
-
-        .dock-sticky-wrapper.in-red-mode .dock-ambient-aura {
-            background: radial-gradient(circle at 20% 50%, rgba(255, 30, 68, 0.55) 0%, rgba(255, 30, 68, 0.15) 50%, transparent 75%);
-            opacity: 1;
-        }
-
-        .dock-sticky-wrapper.in-red-mode .inverted-triangle-mesh {
-            border-left-color: var(--crimson-red);
-            border-right-color: var(--crimson-red);
-            opacity: 1;
-            transform: translateY(0) scale(1.05);
-            filter: drop-shadow(0 0 25px var(--crimson-red)) drop-shadow(0 0 10px var(--crimson-red));
-        }
-
-        .dock-sticky-wrapper.in-red-mode .silhouette-layer {
-            filter: contrast(125%) drop-shadow(-10px 0 20px rgba(255, 30, 68, 0.8));
-            transform: scale(1.02);
-        }
-
-        .dock-sticky-wrapper.in-red-mode .directional-shadow-overlay {
-            opacity: 1;
-        }
-
-        .dock-sticky-wrapper.in-red-mode .terminal-typing-strip {
-            opacity: 1;
-        }
-
-        .dock-sticky-wrapper.in-red-mode .skill-tag-pill.chip-redteam {
-            background: rgba(255, 30, 68, 0.2);
-            border-color: var(--crimson-red);
-            color: #ffffff;
-            font-weight: 700;
-            box-shadow: 0 0 10px rgba(255, 30, 68, 0.35);
-        }
-
-        /* =====================================================================
-           SECTIONS PLEINE LARGEUR & ANIMATION DOUCE AU SCROLL
-        ====================================================================== */
-        .full-width-block {
-            margin-top: 140px;
-        }
-
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s var(--ease-cinematic), transform 0.7s var(--ease-cinematic);
-        }
-
-        .reveal-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 03. Projets de Recherche & Travaux */
-        .research-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 28px;
-        }
-
-        .research-entry-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--line-subtle);
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all 0.4s var(--ease-cinematic);
-        }
-        .research-entry-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--gold-raw);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75);
-        }
-
-        .research-card-cover {
-            height: 220px;
-            position: relative;
-            background: #000;
-            overflow: hidden;
-            border-bottom: 1px solid var(--line-subtle);
-        }
-        .research-card-cover img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: transform 0.6s var(--ease-cinematic), opacity 0.4s;
-        }
-        .research-entry-card:hover .research-card-cover img {
-            transform: scale(1.06);
-            opacity: 1;
-        }
-
-        .research-card-details {
-            padding: 26px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            flex: 1;
-        }
-        .research-badge-type {
-            font-family: var(--font-mono);
-            font-size: 9.5px;
-            color: var(--gold-raw);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .research-card-title {
-            font-family: var(--font-display);
-            font-size: 1.45rem;
-            font-weight: 800;
-            line-height: 1.15;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .research-card-p {
-            font-size: 13.5px;
-            line-height: 1.6;
-            color: var(--text-silver);
-            margin-bottom: 20px;
-        }
-        .research-view-link {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.3s;
-        }
-        .research-entry-card:hover .research-view-link { color: var(--gold-raw); }
-
-        /* 04. Signaux Faibles */
-        .signals-intro-note {
-            font-size: 14.5px;
-            line-height: 1.7;
-            color: var(--text-muted);
-            margin-top: 8px;
-            font-style: italic;
-            max-width: 900px;
-        }
-
-        .signals-compact-accordion-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 28px;
-        }
-
-        details.compact-signal-item {
-            background: var(--bg-surface);
-            border: 1px solid var(--line-subtle);
-            transition: all 0.3s var(--ease-cinematic);
-            overflow: hidden;
-        }
-        details.compact-signal-item:hover {
-            border-color: var(--line-medium);
-            background: rgba(14, 17, 24, 0.95);
-        }
-        details.compact-signal-item[open] {
-            border-color: var(--gold-raw);
-            background: rgba(14, 17, 24, 0.98);
-        }
-
-        summary.compact-signal-summary {
-            list-style: none;
-            padding: 16px 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-family: var(--font-display);
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-        summary.compact-signal-summary::-webkit-details-marker { display: none; }
-
-        .signal-title-wrap {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .signal-cat-tag {
-            font-family: var(--font-mono);
-            font-size: 9px;
-            padding: 3px 8px;
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold-raw);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .signal-horizon-stamp {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-left: auto;
-            white-space: nowrap;
-            padding-left: 12px;
-        }
-
-        .compact-signal-revealed {
-            padding: 0 22px 18px 22px;
-            font-size: 13.5px;
-            line-height: 1.65;
-            color: var(--text-silver);
-            border-top: 1px dashed var(--line-subtle);
-            margin-top: 4px;
-            padding-top: 12px;
-        }
-
-        /* 05. Force de l'Approche Hybride */
-        .hybrid-box-layout {
-            background: var(--bg-surface);
-            border: 1px solid var(--line-subtle);
-            padding: 48px;
-            margin-top: 28px;
-            position: relative;
-        }
-        .hybrid-box-layout::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 48px;
-            width: 60px; height: 2px;
-            background: var(--gold-raw);
-        }
-        .hybrid-box-layout h3 {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--gold-raw);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-        .hybrid-box-layout p {
-            font-size: 15px;
-            line-height: 1.8;
-            color: var(--text-silver);
-            margin-bottom: 16px;
-        }
-        .hybrid-box-layout p strong { color: #ffffff; }
-
-        /* =====================================================================
-           TIROIR DE CONTACT PERSONA 5 (FORMSPREE) // SANS FUITE VISUELLE
-        ====================================================================== */
-        .contact-backdrop-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s;
-        }
-        .contact-backdrop-overlay.open { opacity: 1; pointer-events: auto; }
-
-        .persona-contact-drawer {
-            position: fixed;
-            top: 0; 
-            right: 0;
-            width: min(520px, 100vw); 
-            height: 100vh;
-            background: #080a0f;
-            border-left: 2px solid var(--crimson-red);
-            box-shadow: none;
-            z-index: 2500;
-            padding: 44px;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(105%);
-            visibility: hidden;
-            transition: transform 0.45s var(--ease-cinematic), visibility 0.45s, box-shadow 0.45s ease;
-        }
-        .persona-contact-drawer.open { 
-            transform: translateX(0); 
-            visibility: visible;
-            box-shadow: -30px 0 70px rgba(255, 30, 68, 0.15), -20px 0 60px rgba(0, 0, 0, 0.95);
-        }
-
-        .drawer-top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 30, 68, 0.3);
-        }
-        .drawer-main-title {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            color: #ffffff;
-        }
-        .drawer-main-title span { color: var(--crimson-red); }
-
-        .btn-drawer-exit {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 22px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .btn-drawer-exit:hover { color: var(--crimson-red); }
-
-        .drawer-input-row { margin-bottom: 20px; }
-        .drawer-input-row label {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            color: var(--crimson-red);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-        .drawer-input-row input, .drawer-input-row textarea {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--line-subtle);
-            padding: 13px 15px;
-            color: #ffffff;
-            font-family: var(--font-body);
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        .drawer-input-row input:focus, .drawer-input-row textarea:focus {
-            outline: none;
-            border-color: var(--crimson-red);
-            background: rgba(255, 30, 68, 0.05);
-        }
-
-        .btn-persona-send {
-            width: 100%;
-            padding: 16px;
-            background: var(--crimson-red);
-            color: #ffffff;
-            font-family: var(--font-display);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            margin-top: 8px;
-            box-shadow: 0 0 20px rgba(255, 30, 68, 0.3);
-        }
-        .btn-persona-send:hover {
-            background: #ffffff;
-            color: #000000;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Fallback assets */
-        .smart-asset.missing {
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.02);
-        }
-        .smart-asset.missing img { display: none; }
-        .smart-asset.missing::after {
-            content: "[ FICHIER : " attr(data-path) " ]";
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* Footer Épuré */
-        footer {
-            border-top: 1px solid var(--line-subtle);
-            padding: 40px 3vw;
-            display: flex;
-            justify-content: space-between;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--bg-void);
-            position: relative;
-            z-index: 10;
-        }
-
-        /* =====================================================================
-           RESPONSIVE MOBILE & TABLETTE (ALIGNEMENT NATUREL 100%)
-        ====================================================================== */
-        @media (max-width: 1024px) {
-            header { 
-                width: calc(100% - 24px); 
-                padding: 0 14px; 
-                height: 64px;
-            }
-            
-            nav.nav-menu {
-                display: flex;
-                gap: 16px;
-                overflow-x: auto;
-                max-width: 55vw;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-            }
-            nav.nav-menu::-webkit-scrollbar { display: none; }
-            nav.nav-menu a {
-                font-size: 13px;
-                white-space: nowrap;
-            }
-
-            .header-actions { gap: 12px; }
-            .social-link svg { width: 24px; height: 24px; }
-            .btn-contact-top { padding: 8px 14px; font-size: 10px; }
-
-            .viewport-wrapper {
-                padding: 90px 16px 50px 16px;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .split-narrative-stage { 
-                display: flex;
-                flex-direction: column;
-                gap: 30px;
-                width: 100%;
-            }
-
-            .scroll-stream {
-                display: contents;
-            }
-            
-            .hero-section-box { 
-                margin-bottom: 0px !important; 
-                width: 100%;
-                order: 1;
-            }
-
-            .dock-sticky-wrapper { 
-                position: static !important;
-                margin: 10px 0 20px 0 !important;
-                width: 100%;
-                max-width: 100%;
-                order: 2;
-            }
-
-            .red-teaming-wrapper { 
-                margin-bottom: 20px !important; 
-                opacity: 1 !important; 
-                transform: none !important;
-                width: 100%;
-                order: 3;
-            }
-
-            .research-cards-grid { grid-template-columns: 1fr; }
-            .red-grid-capabilities { grid-template-columns: 1fr; }
-            .persona-contact-drawer { width: 100%; }
-            footer { flex-direction: column; gap: 12px; text-align: center; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Feuilles de style modulaires -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
 </head>
-<body>
+<body data-page="accueil">
 
-    <!-- 00. MICRO-LOADER // SCISSION DIAGONALE SANS INTERSTICE -->
-    <div id="intro-loader">
-        <div class="curtain-slice slice-top-left"></div>
-        <div class="loader-center-content">
-            <div class="loader-brand-title">CONTINGENCE</div>
-            <div class="loader-hud-track">
-                <span>[</span>
-                <div class="loader-track">
-                    <div class="loader-fill-red"></div>
-                </div>
-                <span>]</span>
-            </div>
+    <!-- HEADER UNIVERSEL (Injecté via header.js) -->
+    <header id="site-header"></header>
+
+    <!-- TIROIR CONTACT -->
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
         </div>
-        <div class="curtain-slice slice-bottom-right"></div>
-    </div>
-
-    <div class="grid-ambient-mask"></div>
-
-    <!-- Navigation Header -->
-    <header>
-        <div style="width: 10px;"></div>
-
-        <nav class="nav-menu">
-            <a href="index.html" class="active">Accueil</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="geopolitique.html">Géopolitique</a>
-            <a href="analyses.html">Perspectives</a>
-        </nav>
-
-        <div class="header-actions">
-            <a href="https://github.com/reymann-dylan" target="_blank" class="social-link" title="GitHub">
-                <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/dylan-reymann/" target="_blank" class="social-link" title="LinkedIn">
-                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-            <button class="btn-contact-top" onclick="toggleContactDrawer()">Me Contacter</button>
-        </div>
-    </header>
-
-    <!-- Slide-over Drawer Contact (Formspree) -->
-    <div class="contact-backdrop-overlay" id="contactOverlay" onclick="toggleContactDrawer()"></div>
-    <div class="persona-contact-drawer" id="contactDrawer">
-        <div class="drawer-top-header">
-            <div class="drawer-main-title">TRANSMISSION <span>//</span> DIRECTE</div>
-            <button class="btn-drawer-exit" onclick="toggleContactDrawer()">✕</button>
-        </div>
-        <form id="contactForm">
-            <div class="drawer-input-row">
-                <label>Votre Adresse Email</label>
-                <input type="email" id="email" required placeholder="nom@organisation.com">
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
             </div>
-            <div class="drawer-input-row">
-                <label>Objet de la Requête</label>
-                <input type="text" id="subject" required placeholder="Mandat stratégique, Red Team, Analyse...">
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Étude de cas, crise, Red Teaming, analyse...">
             </div>
-            <div class="drawer-input-row">
-                <label>Message & Requête</label>
-                <textarea id="message" rows="6" required placeholder="Détaillez le cadre et les objectifs de votre démarche..."></textarea>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez votre demande, vos questions, vos objectifs..."></textarea>
             </div>
-            <button type="submit" class="btn-persona-send">Transmettre la Requête</button>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
         </form>
-    </div>
+    </aside>
 
-    <!-- MAIN VIEWPORT STAGE -->
-    <main class="viewport-wrapper">
+    <!-- 01. HERO BANNER (16/9 & SOUDÉ AU HEADER) -->
+    <section class="hero-canvas-section">
+        <div class="hero-image-frame-16-9 smart-asset-box" data-zoomable="true">
+            <img src="assets/images/hero-banner.png" alt="Reymann Dylan — Contingence" class="hero-img-asset" onerror="handleAssetError(this)">
+        </div>
+    </section>
 
-        <!-- SPLIT TRACK // HERO & RED TEAMING À GAUCHE / DOCK STICKY À DROITE -->
-        <div class="split-narrative-stage">
+    <main class="page-wrapper">
 
-            <!-- Colonne Gauche : Narration Déroulante -->
-            <div class="scroll-stream">
+        <!-- 02. IDENTITÉ, RÉSUMÉ & FICHE PROFIL -->
+        <section class="identity-section-grid scroll-reveal">
+            
+            <!-- Colonne Gauche : Résumé interactif + Tagline aérée -->
+            <div class="identity-col-left">
+                <div class="summary-terminal-card" id="summaryTrigger">
+                    <div class="summary-top-bar">
+                        <div class="brand-icon-wrapper">
+                            <img src="assets/images/logo-contingence-gold.png" alt="Contingence" class="summary-brand-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="contingence-diamond-icon" viewBox="0 0 100 100" style="display:none;">
+                                <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="#d4af37" stroke-width="8"/>
+                                <path d="M 25,50 Q 50,28 75,50 Q 50,72 25,50" fill="none" stroke="#d4af37" stroke-width="5"/>
+                            </svg>
+                        </div>
+                        <div class="badge-flip-container">
+                            <span class="badge-flip-text" id="summaryBadge">Analyse</span>
+                        </div>
+                    </div>
+                    <div class="summary-body">
+                        <p id="summaryTextOutput"></p>
+                    </div>
+                </div>
 
-                <!-- 01. Hero & Manifeste -->
-                <section class="hero-section-box">
-                    <div class="kicker-label">Stratégie Critique & Infrastructure</div>
+                <div class="manifesto-heading-box">
+                    <h2>Décoder la complexité,<br>Vous ouvrir le monde.</h2>
+                </div>
+            </div>
+
+            <!-- Colonne Droite : Fiche Persona Télémétrique -->
+            <div class="identity-col-right">
+                <div class="profile-monolith-card">
+                    <div class="profile-photo-stage smart-asset-box" data-zoomable="true">
+                        <div class="photo-corner-reticle top-left"></div>
+                        <div class="photo-corner-reticle top-right"></div>
+                        <img src="assets/images/dylan-reymann.png" alt="Dylan Reymann" class="profile-img-asset" onerror="handleAssetError(this)">
+                    </div>
                     
-                    <h1 class="hero-title-calibrated">
-                        AU-DELÀ DE L'ÉCHIQUIER :<br>
-                        LA PUISSANCE EST <span class="bloom-red-word">INFRASTRUCTURELLE</span>
-                    </h1>
+                    <div class="profile-data-footer">
+                        <div class="data-name-row">
+                            <span>NAME :</span> REYMANN, DYLAN
+                        </div>
+                        
+                        <div class="diplomes-list">
+                            <div class="diplome-item">
+                                <span class="d-label">DIPLÔME 01</span>
+                                <span class="d-val gold-text">Master Géopolitique Défense</span>
+                            </div>
+                            <div class="diplome-item">
+                                <span class="d-label">DIPLÔME 02</span>
+                                <span class="d-val">Master Recherche Philo (Sc. Politiques)</span>
+                            </div>
+                            <div class="diplome-item">
+                                <span class="d-label">DIPLÔME 03</span>
+                                <span class="d-val">PGE Management (Top 12 Ecricome)</span>
+                            </div>
+                        </div>
 
-                    <div class="manifesto-panel">
-                        <p>« L'espace n'est pas un échiquier où l'on déplace des pions, c'est la structure même de la table sur laquelle nous jouons. Renverser la table ne permet pas de gagner la partie, car cela abolit le jeu lui-même, définitivement. »</p>
-                        <span class="manifesto-author">— REYMANN DYLAN</span>
+                        <div class="skills-chips-cloud">
+                            <span class="skill-chip">Conduite du changement</span>
+                            <span class="skill-chip">Management</span>
+                            <span class="skill-chip">Enquête</span>
+                            <span class="skill-chip">Lutte contre la désinformation</span>
+                            <span class="skill-chip">Analyse des médias</span>
+                            <span class="skill-chip">Intelligence économique</span>
+                            <span class="skill-chip">Analyse des conflits</span>
+                            <span class="skill-chip">Philosophie politique</span>
+                            <span class="skill-chip">Analyse OSINT éthique</span>
+                            <span class="skill-chip">Design fiction &amp; Science-Fiction</span>
+                            <span class="skill-chip">Gestion d'équipe</span>
+                            <span class="skill-chip">Prospective stratégique</span>
+                            <span class="skill-chip chip-red">Red Teaming</span>
+                            <span class="skill-chip">Analyse géoéconomique</span>
+                            <span class="skill-chip">Psychologie d'influence</span>
+                            <span class="skill-chip">Informatique &amp; Réseaux</span>
+                        </div>
+
+                        <div class="barcode-pane">
+                            <div class="barcode-vector"></div>
+                            <span class="barcode-id">UI - 42 - 123457 - DEV</span>
+                        </div>
                     </div>
-                </section>
+                </div>
+            </div>
 
-                <!-- 02. Red Teaming -->
-                <section id="redTeamSectionTrigger" class="red-teaming-wrapper reveal-on-scroll">
-                    <div class="section-header-block">
-                        <span class="section-tag-mono">// STRATÉGIE HORS-CADRE & STRESS-TESTING</span>
-                        <h2 class="section-title-large section-title-red">Red Teaming</h2>
+        </section>
+
+        <!-- 03. MARQUEE ÉCOLES & EXPÉRIENCES -->
+        <section class="partners-strip-section scroll-reveal">
+            <div class="partners-header-note">PARCOURS PROFESSIONNEL &amp; ACADÉMIQUE</div>
+            <div class="marquee-viewport">
+                <div class="marquee-track" id="marqueeTrack">
+                    <!-- Série A -->
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">MINISTÈRE DES ARMÉES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-minarm.png" alt="Ministère des Armées" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">RENNES SCHOOL OF BUSINESS</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-rsb.png" alt="Rennes School of Business" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">LES CHAMPS LIBRES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-champslibres.png" alt="Les Champs Libres" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">UNIVERSITÉ DE RENNES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-univrennes.png" alt="Université de Rennes" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">UNIVERSITÉ RENNES 2</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-rennes2.png" alt="Université Rennes 2" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><polygon points="12 4 4 12 12 20 20 12" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">IPAG RENNES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-ipag.png" alt="IPAG Rennes" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">CPGE RENÉ CASSIN</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-cassin.png" alt="CPGE René Cassin" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M4 7h16M4 11h16M4 15h16M4 19h16" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">IHEDN</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-ihedn.png" alt="IHEDN" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><polygon points="12 2 22 22 2 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">AGDEF</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-agdef.png" alt="AGDEF" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">SPEAK UP</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-speakup.png" alt="Speak Up" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">AMSED</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-amsed.png" alt="AMSED" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 12h8" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">APH SERVICES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-aph.png" alt="APH Services" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><rect width="16" height="16" x="4" y="4" stroke="currentColor" stroke-width="2" fill="none"/><path d="M4 12h16" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
                     </div>
 
-                    <div class="red-teaming-container">
-                        <p class="red-thesis-lead">
-                            On ne peut pas se préparer à tout, mais on peut se préparer au pire, voire à l'improbable.
-                        </p>
-                        <p class="red-thesis-body">
-                            Le <strong>Red Teaming</strong> n'est pas une réaction passive aux crises : c'est une <em>posture proactive</em> d'analyse et de déconstruction continue. Mon approche éprouve la vulnérabilité des doctrines, des organisations humaines, des négociations et des infrastructures critiques. En mobilisant le <em>Design Fiction</em> et la prospective de rupture, il s'agit d'identifier les angles morts décisionnels et de concevoir des plans alternatifs avant que l'environnement ne force l'improvisation.
+                    <!-- Série B (Duplication) -->
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">MINISTÈRE DES ARMÉES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-minarm.png" alt="Ministère des Armées" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">RENNES SCHOOL OF BUSINESS</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-rsb.png" alt="Rennes School of Business" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">LES CHAMPS LIBRES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-champslibres.png" alt="Les Champs Libres" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">UNIVERSITÉ DE RENNES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-univrennes.png" alt="Université de Rennes" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">UNIVERSITÉ RENNES 2</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-rennes2.png" alt="Université Rennes 2" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><polygon points="12 4 4 12 12 20 20 12" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">IPAG RENNES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-ipag.png" alt="IPAG Rennes" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">CPGE RENÉ CASSIN</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-cassin.png" alt="CPGE René Cassin" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M4 7h16M4 11h16M4 15h16M4 19h16" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">IHEDN</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-ihedn.png" alt="IHEDN" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><polygon points="12 2 22 22 2 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">AGDEF</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-agdef.png" alt="AGDEF" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">SPEAK UP</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-speakup.png" alt="Speak Up" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">AMSED</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-amsed.png" alt="AMSED" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 12h8" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="marquee-slot">
+                        <span class="logo-name-top">APH SERVICES</span>
+                        <div class="partner-icon-frame">
+                            <img src="assets/images/partenaire/partner-aph.png" alt="APH Services" class="partner-custom-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <svg class="partner-icon-white" viewBox="0 0 24 24" style="display:none;"><rect width="16" height="16" x="4" y="4" stroke="currentColor" stroke-width="2" fill="none"/><path d="M4 12h16" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04. TRAVAUX DE RECHERCHES & RÉSUMÉ DYNAMIQUE -->
+        <section class="section-layout scroll-reveal" id="recherches">
+            <h2 class="section-block-title">TRAVAUX DE RECHERCHES</h2>
+            
+            <div class="research-grid-trio">
+                <!-- Carte 1 -->
+                <article class="research-card" data-href="portfolio/geopolitique-espace.html">
+                    <div class="card-cover smart-asset-box">
+                        <img src="assets/images/cover-espace.jpg" alt="Géopolitique de l'espace" onerror="handleAssetError(this)">
+                    </div>
+                    <div class="card-details">
+                        <span class="research-tag">MÉMOIRE PRINCIPAL</span>
+                        <h3 class="research-name">GÉOPOLITIQUE DE L'ESPACE</h3>
+                        <p class="research-summary">Analyse complète des dynamiques de pouvoir extra-atmosphériques, militarisation de l'orbite basse et reconfiguration des souverainetés face au New Space.</p>
+                        <div class="card-bottom-actions">
+                            <span class="research-action-link">CONSULTER <span>→</span></span>
+                            <button class="btn-trigger-summary" data-doc="espace">RÉSUMÉ &gt;_</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte 2 -->
+                <article class="research-card" data-href="portfolio/guerre-information.html">
+                    <div class="card-cover smart-asset-box">
+                        <img src="assets/images/cover-information.jpg" alt="Guerre de l'information" onerror="handleAssetError(this)">
+                    </div>
+                    <div class="card-details">
+                        <span class="research-tag">MÉMOIRE SECONDAIRE</span>
+                        <h3 class="research-name">GUERRE DE L'INFORMATION</h3>
+                        <p class="research-summary">Désinformation structurée et manipulation des masses : étude des nouveaux vecteurs de déstabilisation étatique et du concept de post-vérité dans l'espace numérique.</p>
+                        <div class="card-bottom-actions">
+                            <span class="research-action-link">CONSULTER <span>→</span></span>
+                            <button class="btn-trigger-summary" data-doc="information">RÉSUMÉ &gt;_</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte 3 -->
+                <article class="research-card" data-href="portfolio/golden-dome.html">
+                    <div class="card-cover smart-asset-box">
+                        <img src="assets/images/cover-goldendome.jpg" alt="Golden Dome" onerror="handleAssetError(this)">
+                    </div>
+                    <div class="card-details">
+                        <span class="research-tag">DOSSIER SPÉCIALISÉ</span>
+                        <h3 class="research-name">GOLDEN DOME : UN NOUVEL IDS ?</h3>
+                        <p class="research-summary">En quoi le programme constitue une réinterprétation moderne de l'Initiative de Défense Stratégique (IDS) de Reagan, et comment ces projets s'articulent selon leurs contextes militaires, technologiques et économiques.</p>
+                        <div class="card-bottom-actions">
+                            <span class="research-action-link">CONSULTER <span>→</span></span>
+                            <button class="btn-trigger-summary" data-doc="goldendome">RÉSUMÉ &gt;_</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Volet de Résumé Dynamique Déroulant -->
+            <div class="dynamic-research-summary-panel" id="researchSummaryDock">
+                <div class="summary-terminal-card summary-research-clone">
+                    <div class="summary-top-bar">
+                        <div class="top-bar-left">
+                            <div class="brand-icon-wrapper">
+                                <img src="assets/images/logo-contingence-gold.png" alt="Contingence" class="summary-brand-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <svg class="contingence-diamond-icon" viewBox="0 0 100 100" style="display:none;">
+                                    <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="#d4af37" stroke-width="8"/>
+                                    <path d="M 25,50 Q 50,28 75,50 Q 50,72 25,50" fill="none" stroke="#d4af37" stroke-width="5"/>
+                                </svg>
+                            </div>
+                            <div class="badge-flip-container">
+                                <span class="badge-flip-text" id="docSummaryBadge">Analyse</span>
+                            </div>
+                            <span class="summary-doc-ref" id="docBadgeTitle">DOSSIER | GÉOPOLITIQUE DE L'ESPACE</span>
+                        </div>
+                        <button class="dock-btn-close" id="closeDocSummary" aria-label="Fermer">✕</button>
+                    </div>
+                    <div class="summary-body">
+                        <p id="docSummaryTextOutput"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05. MÉTHODOLOGIE & ÉTUDE DE CAS -->
+        <section class="section-layout scroll-reveal" id="methodologie">
+            <h2 class="section-block-title">METHODOLOGIE</h2>
+
+            <div class="methodology-split-layout">
+                
+                <!-- Bloc Gauche (60%) : Red Teaming & Système -->
+                <div class="method-left-monolith">
+                    <!-- Sous-secteur Red Teaming -->
+                    <div class="method-subsector red-teaming-focus">
+                        <h3 class="method-accent-title text-red">RED TEAMING</h3>
+                        <p class="method-lead-phrase">On ne peut pas se préparer à tout, mais on peut se préparer au pire, voire à l'improbable.</p>
+                        <p class="method-prose">
+                            Le <strong>Red Teaming</strong> n'est pas une réaction passive aux crises : c'est une <em>posture proactive</em> d'analyse et de déconstruction continue. Mon approche éprouve la vulnérabilité des doctrines, des organisations humaines, des négociations et des infrastructures critiques.
                         </p>
 
-                        <div class="red-grid-capabilities">
-                            <div class="red-cap-box">
+                        <div class="doctrine-columns">
+                            <div class="doctrine-box border-red">
                                 <h4>DÉCONSTRUCTION MÉTHODOLOGIQUE</h4>
                                 <p>Remise en question des certitudes managériales, détection des vulnérabilités informationnelles et des failles géoéconomiques.</p>
                             </div>
-                            <div class="red-cap-box">
-                                <h4>DESIGN FICTION & SCÉNARIOS LIMITES</h4>
+                            <div class="doctrine-box border-red">
+                                <h4>DESIGN FICTION &amp; SCÉNARIOS LIMITES</h4>
                                 <p>Simulation d'environnements sociétaux et stratégiques dégradés pour préparer la résilience décisionnelle sous haute contrainte.</p>
                             </div>
                         </div>
                     </div>
-                </section>
 
-            </div>
-
-            <!-- Colonne Droite : Monolithe Ancré (Sticky Desktop) -->
-            <aside class="dock-sticky-wrapper" id="stickyDock">
-                <div class="dock-card-monolith">
-                    
-                    <div class="dock-visual-stage">
-                        <div class="dock-ambient-aura"></div>
-                        <div class="directional-shadow-overlay"></div>
-                        
-                        <!-- Réticule Triangulaire Inversé Persona 5 -->
-                        <div class="persona-triangle-reticle">
-                            <div class="inverted-triangle-mesh"></div>
+                    <!-- Sous-secteur Contingence & Système -->
+                    <div class="method-subsector contingence-focus">
+                        <h3 class="method-accent-title text-gold">CONTINGENCE &amp; SYSTÈME</h3>
+                        <div class="contingence-concept-manifesto">
+                            <p class="manifesto-big">L'ANALYSE SYSTÉMIQUE N'EST PAS UNE OPTION, C'EST LE PRÉREQUIS DE TOUTE DÉCISION SOUVERAINE.</p>
+                            <p class="manifesto-desc">
+                                Face à l'enchevêtrement des dépendances critiques, la contingence implique d'intégrer l'imprévisible comme constante. L'approche pluridisciplinaire permet d'anticiper les bifurcations de rupture.
+                            </p>
                         </div>
 
-                        <div class="smart-asset" data-path="assets/images/silhouette.png" style="height:100%; display:flex; align-items:flex-end;">
-                            <img src="assets/images/silhouette.png" alt="Dylan Reymann" class="silhouette-layer" onerror="this.parentElement.classList.add('missing');">
-                        </div>
-
-                        <!-- Bandeau Noir Gauche avec Typewriter >_ -->
-                        <div class="terminal-typing-strip" id="terminalStrip">
-                            <span id="typewriterTarget"></span><span class="terminal-cursor">_</span>
-                        </div>
-                    </div>
-
-                    <!-- Télémétrie & CV Data Exhaustif -->
-                    <div class="dock-telemetry-body">
-                        <div class="name-header-row">
-                            <span>NAME :</span> [ REYMANN, DYLAN ]
-                        </div>
-
-                        <div class="telemetry-tracks-list">
-                            <div class="track-entry">
-                                <span class="track-code">DOMAINE 01</span>
-                                <span class="track-title" style="color: var(--gold-raw);">Master Géopolitique Défense</span>
+                        <div class="doctrine-columns">
+                            <div class="doctrine-box border-gold">
+                                <h4>LOGIQUE DE CONTINGENCE</h4>
+                                <p>Modélisation probabiliste et intégration continue des événements à fort impact et faible signal dans la prise de décision stratégique.</p>
                             </div>
-                            <div class="track-entry">
-                                <span class="track-code">DOMAINE 02</span>
-                                <span class="track-title">Master Recherche Philo (Sc. Politiques)</span>
+                            <div class="doctrine-box border-gold">
+                                <h4>ANALYSE SYSTÉMIQUE</h4>
+                                <p>Cartographie intégrale des chaînes d'interdépendance critique entre vecteurs technologiques, dynamiques étatiques et chocs économiques.</p>
                             </div>
-                            <div class="track-entry">
-                                <span class="track-code">DOMAINE 03</span>
-                                <span class="track-title">PGE Management (Top 12 Ecricome)</span>
-                            </div>
-                        </div>
-
-                        <!-- Matrice des compétences exhaustive -->
-                        <div class="skills-tag-cloud">
-                            <span class="skill-tag-pill">Conduite du changement</span>
-                            <span class="skill-tag-pill">Management</span>
-                            <span class="skill-tag-pill">Enquête</span>
-                            <span class="skill-tag-pill">Manipulation médiatique</span>
-                            <span class="skill-tag-pill">Analyse OSINT éthique</span>
-                            <span class="skill-tag-pill">Design Fiction & Science-Fiction</span>
-                            <span class="skill-tag-pill">Gestion d'équipe</span>
-                            <span class="skill-tag-pill">Prospective stratégique</span>
-                            <span class="skill-tag-pill chip-redteam">Red Teaming</span>
-                            <span class="skill-tag-pill">Analyse Géoéconomique</span>
-                            <span class="skill-tag-pill">Psychologie d'influence</span>
-                            <span class="skill-tag-pill">Informatique & Réseaux</span>
                         </div>
                     </div>
                 </div>
-            </aside>
 
-        </div>
-
-        <!-- 03. PROJETS DE RECHERCHE & TRAVAUX (PORTFOLIO GÉOPOLITIQUE) -->
-        <section class="full-width-block reveal-on-scroll" id="recherche">
-            <div class="section-header-block">
-                <span class="section-tag-mono">// PORTFOLIO GÉOPOLITIQUE</span>
-                <h2 class="section-title-large">Projets de Recherche & Travaux</h2>
-            </div>
-
-            <div class="research-cards-grid">
-                
-                <a href="dossiers/geopolitique-espace.html" class="research-entry-card">
-                    <div class="research-card-cover smart-asset" data-path="assets/images/cover-espace.jpg">
-                        <img src="assets/images/cover-espace.jpg" alt="Géopolitique Espace" onerror="this.parentElement.classList.add('missing');">
-                    </div>
-                    <div class="research-card-details">
-                        <div>
-                            <span class="research-badge-type">Mémoire Principal</span>
-                            <h3 class="research-card-title">Géopolitique de l'Espace</h3>
-                            <p class="research-card-p">Analyse complète des dynamiques de pouvoir extra-atmosphériques, militarisation de l'orbite basse et reconfiguration des souverainetés face au New Space.</p>
+                <!-- Bloc Droit (40%) : Hub Étude de Cas -->
+                <aside class="method-right-hub">
+                    <a href="contingence.html" class="hub-case-card">
+                        <div class="hub-card-header">
+                            <h3 class="hub-main-title">ÉTUDE DE CAS</h3>
                         </div>
-                        <div class="research-view-link">Consulter les travaux →</div>
-                    </div>
-                </a>
-
-                <a href="dossiers/guerre-information.html" class="research-entry-card">
-                    <div class="research-card-cover smart-asset" data-path="assets/images/cover-info.jpg">
-                        <img src="assets/images/cover-info.jpg" alt="Guerre Information" onerror="this.parentElement.classList.add('missing');">
-                    </div>
-                    <div class="research-card-details">
-                        <div>
-                            <span class="research-badge-type">Mémoire Secondaire</span>
-                            <h3 class="research-card-title">Guerre de l'Information</h3>
-                            <p class="research-card-p">Désinformation structurée et manipulation des masses : étude des nouveaux vecteurs de déstabilisation étatique et du concept de post-vérité dans l'espace numérique.</p>
+                        
+                        <div class="hub-case-visual smart-asset-box">
+                            <img src="assets/images/Contingense (no name).png" alt="Contingence Spatiale" onerror="handleAssetError(this)">
                         </div>
-                        <div class="research-view-link">Consulter les travaux →</div>
-                    </div>
-                </a>
 
-                <a href="dossiers/golden_dome.html" class="research-entry-card">
-                    <div class="research-card-cover smart-asset" data-path="assets/images/IDS.jpg">
-                        <img src="assets/images/IDS.jpg" alt="Golden Dome" onerror="this.parentElement.classList.add('missing');">
-                    </div>
-                    <div class="research-card-details">
-                        <div>
-                            <span class="research-badge-type">Dossier Spécialisé</span>
-                            <h3 class="research-card-title">Golden Dome : Un Nouvel IDS ?</h3>
-                            <p class="research-card-p">En quoi le programme constitue une réinterprétation moderne de l'Initiative de Défense Stratégique et quelles asymétries en découlent face aux vecteurs hypersoniques.</p>
+                        <div class="hub-card-body">
+                            <h4 class="hub-case-lead">DÉCOUVREZ LA CONTINGENCE EN SITUATION RÉELLE</h4>
+                            <hr class="hub-divider">
+                            <div class="hub-sub-title">LA CONTINGENCE APPLIQUÉE AU SPATIAL</div>
+                            <p class="hub-desc">Analyse appliquée de la doctrine : comment les dépendances orbitales et les chocs du New Space révèlent les limites des modèles prédictifs linéaires.</p>
                         </div>
-                        <div class="research-view-link">Consulter les travaux →</div>
-                    </div>
-                </a>
+
+                        <div class="hub-card-footer">
+                            <div class="btn-hub-action">DÉCOUVRIR LA CONTINGENCE &gt;_</div>
+                        </div>
+                    </a>
+                </aside>
 
             </div>
         </section>
 
-        <!-- 04. SIGNAUX FAIBLES & PERSPECTIVES (ACCORDÉON COMPACT) -->
-        <section class="full-width-block reveal-on-scroll" id="signaux">
-            <div class="section-header-block">
-                <span class="section-tag-mono">// VEILLE & PERSPECTIVES</span>
-                <h2 class="section-title-large">Signaux Faibles (Horizon 2035-2050)</h2>
-                <p class="signals-intro-note">
-                    Voici quelques-uns des scénarios et signaux de rupture possibles : des événements et mutations stratégiques critiques susceptibles de survenir à moyen et long terme, auxquels les organisations n'ont encore jamais pensé.
-                </p>
-            </div>
+        <!-- 06. ARTWORKS -->
+        <section class="section-layout scroll-reveal" id="artworks">
+            <h2 class="section-block-title">ARTWORKS</h2>
 
-            <div class="signals-compact-accordion-stack">
+            <div class="artworks-master-container">
                 
-                <details class="compact-signal-item">
-                    <summary class="compact-signal-summary">
-                        <div class="signal-title-wrap">
-                            <span>La Faille du Biais Analytique</span>
-                            <span class="signal-cat-tag">Guerre Cognitive</span>
-                        </div>
-                        <span class="signal-horizon-stamp">HORIZON 2035</span>
-                    </summary>
-                    <div class="compact-signal-revealed">
-                        L'hyper-dépendance des cadres aux IA de synthèse pour lire les notes géopolitiques crée un aveuglement stratégique systémique : des adversaires manipulent les sources primaires OSINT en sachant exactement comment les LLMs des décideurs vont les résumer et les interpréter.
+                <div class="artworks-drag-viewport" id="artworksViewport">
+                    <div class="artworks-slider-track" id="artworksTrack">
+                        
+                        <!-- Artwork 1 -->
+                        <article class="artwork-showcase-card smart-asset-box" data-full="assets/images/artworks/artwork-1.jpg" data-zoomable="true">
+                            <div class="artwork-card-header">
+                                <span class="artwork-brand-title">WAR NEVER ENDS</span>
+                                <span class="artwork-sub-tag">DRONES &amp; CONFLIT</span>
+                            </div>
+                            <div class="artwork-image-container">
+                                <img src="assets/images/artworks/artwork-1.jpg" alt="War Never Ends" draggable="false" onerror="handleAssetError(this)">
+                            </div>
+                        </article>
+
+                        <!-- Artwork 2 -->
+                        <article class="artwork-showcase-card smart-asset-box" data-full="assets/images/artworks/artwork-2.jpg" data-zoomable="true">
+                            <div class="artwork-card-header">
+                                <span class="artwork-brand-title">WAR BUILDING</span>
+                                <span class="artwork-sub-tag">ARIANE &amp; SPATIAL</span>
+                            </div>
+                            <div class="artwork-image-container">
+                                <img src="assets/images/artworks/artwork-2.jpg" alt="War Building" draggable="false" onerror="handleAssetError(this)">
+                            </div>
+                        </article>
+
+                        <!-- Artwork 3 -->
+                        <article class="artwork-showcase-card smart-asset-box" data-full="assets/images/artworks/artwork-3.jpg" data-zoomable="true">
+                            <div class="artwork-card-header">
+                                <span class="artwork-brand-title">SITUATION ROOM</span>
+                                <span class="artwork-sub-tag">C2 &amp; MONITORING</span>
+                            </div>
+                            <div class="artwork-image-container">
+                                <img src="assets/images/artworks/artwork-3.jpg" alt="Situation Room" draggable="false" onerror="handleAssetError(this)">
+                            </div>
+                        </article>
+
+                        <!-- Artwork 4 -->
+                        <article class="artwork-showcase-card smart-asset-box" data-full="assets/images/artworks/artwork-4.jpg" data-zoomable="true">
+                            <div class="artwork-card-header">
+                                <span class="artwork-brand-title">EXPLOITATION</span>
+                                <span class="artwork-sub-tag">NEW SPACE LUNAIRE</span>
+                            </div>
+                            <div class="artwork-image-container">
+                                <img src="assets/images/artworks/artwork-4.jpg" alt="Moon Landing Exploitation" draggable="false" onerror="handleAssetError(this)">
+                            </div>
+                        </article>
+
+                        <!-- Carte Finale -->
+                        <a href="portfolio/artworks.html" class="artwork-showcase-card artwork-card-hub">
+                            <div class="hub-center-content">
+                                <span class="hub-plus-sign">+</span>
+                                <h4>VOIR TOUS LES ARTWORKS</h4>
+                                <p>Consulter l'ensemble des planches et graphiques</p>
+                            </div>
+                        </a>
+
                     </div>
-                </details>
+                </div>
 
-                <details class="compact-signal-item">
-                    <summary class="compact-signal-summary">
-                        <div class="signal-title-wrap">
-                            <span>Internet M2M & Épuisement Open Source</span>
-                            <span class="signal-cat-tag">Infrastructure Numérique</span>
-                        </div>
-                        <span class="signal-horizon-stamp">HORIZON 2039</span>
-                    </summary>
-                    <div class="compact-signal-revealed">
-                        Le web bascule vers une navigation automatisée machine-to-machine. L'internet public étant pollué par les IA génératives, le spam algorithmique provoque l'épuisement des mainteneurs et menace d'effondrement l'écosystème Open Source vital au réseau mondial.
+                <!-- Panneau de contrôle et bouton d'accès -->
+                <div class="artworks-dock-panel">
+                    <a href="portfolio/artworks.html" class="btn-artworks-main-gateway">
+                        ACCÉDER AUX ARTWORKS
+                    </a>
+                    <div class="dock-controls-cluster">
+                        <button class="btn-dock-nav" id="sliderPrev" aria-label="Précédent">‹</button>
+                        <button class="btn-dock-nav" id="sliderNext" aria-label="Suivant">›</button>
                     </div>
-                </details>
+                </div>
 
-                <details class="compact-signal-item">
-                    <summary class="compact-signal-summary">
-                        <div class="signal-title-wrap">
-                            <span>Mid-Tech de Survie & Balkanisation</span>
-                            <span class="signal-cat-tag">Souveraineté & Tech</span>
-                        </div>
-                        <span class="signal-horizon-stamp">HORIZON 2045</span>
-                    </summary>
-                    <div class="compact-signal-revealed">
-                        Face aux chantages sur les terres rares et aux ruptures logistiques, les industries stratégiques abandonnent l'usage constant du High-Tech au profit de stacks "Mid-Tech" hautement résilientes et développées en circuit interne fermé.
-                    </div>
-                </details>
-
-                <details class="compact-signal-item">
-                    <summary class="compact-signal-summary">
-                        <div class="signal-title-wrap">
-                            <span>Syndrome de Kessler & Rupture Logistique</span>
-                            <span class="signal-cat-tag">Hyper-Infrastructures</span>
-                        </div>
-                        <span class="signal-horizon-stamp">HORIZON 2045</span>
-                    </summary>
-                    <div class="compact-signal-revealed">
-                        La militarisation de l'orbite basse engendre des destructions de satellites en cascade. Le brouillage intempestif des systèmes GPS provoque la paralysie du fret maritime et aérien, actant la fin définitive du modèle économique du "Juste-à-Temps".
-                    </div>
-                </details>
-
-                <details class="compact-signal-item">
-                    <summary class="compact-signal-summary">
-                        <div class="signal-title-wrap">
-                            <span>Armes Non-Conventionnelles (ADMN)</span>
-                            <span class="signal-cat-tag">Macro-Stratégie</span>
-                        </div>
-                        <span class="signal-horizon-stamp">HORIZON 2045</span>
-                    </summary>
-                    <div class="compact-signal-revealed">
-                        Convaincus de l'efficacité de la dissuasion mais dépourvus d'arsenal atomique, de nombreux États développent des capacités de destruction alternatives (économiques, civiles, cyber-systémiques) comme nouveaux leviers majeurs du XXIe siècle.
-                    </div>
-                </details>
-
-                <details class="compact-signal-item">
-                    <summary class="compact-signal-summary">
-                        <div class="signal-title-wrap">
-                            <span>Expropriation & Fin de l'OMPI</span>
-                            <span class="signal-cat-tag">Géoéconomie & Lawfare</span>
-                        </div>
-                        <span class="signal-horizon-stamp">HORIZON 2050</span>
-                    </summary>
-                    <div class="compact-signal-revealed">
-                        L'éclatement du cadre international pousse les États à décréter qu'un brevet étranger (médicament, IA, énergie) est "vital pour sa sécurité nationale" et à l'annuler unilatéralement. Le fruit de 10 ans de R&D est volé et commercialisé légalement par un rival soutenu par son État.
-                    </div>
-                </details>
-
-            </div>
-        </section>
-
-        <!-- 05. FORCE D'UNE APPROCHE HYBRIDE -->
-        <section class="full-width-block reveal-on-scroll">
-            <div class="hybrid-box-layout">
-                <h3>La Force d'une Approche Hybride</h3>
-                <p><strong>L'hyper-spécialisation crée des angles morts.</strong> Aujourd'hui, comprendre les basculements mondiaux exige de croiser les disciplines. Maîtriser la Géopolitique permet d'identifier les rapports de force. La Philosophie politique donne la grille de lecture pour décoder les idéologies sous-jacentes. Enfin, le <strong>PGE (Programme Grande École) en Management</strong> apporte l'ingénierie concrète : comment orchestrer la <em>Conduite du Changement</em> au sein des structures complexes pour s'adapter à ces chocs.</p>
-                <p>Mon parcours n'est pas une dispersion, c'est une <strong>méthode d'analyse intégrale</strong> : comprendre le monde, décrypter les récits, et posséder les outils opérationnels (gestion organisationnelle, design fiction, prospective, communication...) pour agir sur le réel.</p>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer Épuré -->
-    <footer>
-        <div>DESIGN OPEN SOURCE DISPONIBLE SUR GITHUB</div>
-        <div>© 2026 REYMANN DYLAN — PORTFOLIO</div>
-    </footer>
+    <!-- VISIONNEUSE LIGHTBOX PLEIN ÉCRAN -->
+    <div class="lightbox-modal" id="imageModal" aria-hidden="true">
+        <button class="btn-close-lightbox" id="closeLightboxBtn" aria-label="Fermer">✕</button>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Agrandissement" id="lightboxTargetImg">
+    </div>
 
-    <!-- LOGIQUE INTERACTIVE, LOADER, TYPEWRITER & SCROLL OBSERVER -->
-    <script>
-        // 1. Séquence de Micro-Loader (1 seconde d'ouverture)
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.body.classList.add('is-loaded');
-                setTimeout(() => {
-                    const loader = document.getElementById('intro-loader');
-                    if (loader) loader.style.display = 'none';
-                }, 1200);
-            }, 1000);
-        });
-
-        // 2. Gestion du Tiroir de Contact
-        function toggleContactDrawer() {
-            document.getElementById('contactDrawer').classList.toggle('open');
-            document.getElementById('contactOverlay').classList.toggle('open');
-        }
-
-        // 3. Animation Machine à Écrire (>_ RED TEAM | GÉOPOLITIQUE)
-        let hasTyped = false;
-        function playTypewriter() {
-            if (hasTyped) return;
-            hasTyped = true;
-            const target = document.getElementById('typewriterTarget');
-            const phrase = ">_ RED TEAM | GÉOPOLITIQUE";
-            target.textContent = "";
-            let idx = 0;
-            const timer = setInterval(() => {
-                target.textContent += phrase.charAt(idx);
-                idx++;
-                if (idx >= phrase.length) {
-                    clearInterval(timer);
-                }
-            }, 35);
-        }
-
-        function resetTypewriter() {
-            hasTyped = false;
-            document.getElementById('typewriterTarget').textContent = "";
-        }
-
-        // 4. Scroll Trigger : Révélation Red Teaming & Mutation Rouge
-        const redTriggerSection = document.getElementById('redTeamSectionTrigger');
-        const stickyDock = document.getElementById('stickyDock');
-
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    redTriggerSection.classList.add('is-revealed');
-                    document.body.classList.add('red-team-active');
-                    stickyDock.classList.add('in-red-mode');
-                    playTypewriter();
-                } else {
-                    document.body.classList.remove('red-team-active');
-                    stickyDock.classList.remove('in-red-mode');
-                    resetTypewriter();
-                }
-            });
-        }, { threshold: 0.25 });
-
-        scrollObserver.observe(redTriggerSection);
-
-        // 5. Révélation douce des sections inférieures au scroll
-        const revealElements = document.querySelectorAll('.reveal-on-scroll');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, { threshold: 0.15 });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // 6. Transmission Formspree
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const msg = document.getElementById('message').value;
-
-            const payload = {
-                email: email,
-                _subject: "[PORTFOLIO REQUÊTE] " + subject,
-                message: "Motif: " + subject + "\n\n" + msg
-            };
-
-            try {
-                const response = await fetch("https://formspree.io/f/mlgakqzk", {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    alert("Transmission effectuée avec succès.");
-                    document.getElementById('contactForm').reset();
-                    toggleContactDrawer();
-                } else {
-                    alert("Erreur lors de la transmission du message.");
-                }
-            } catch (err) {
-                alert("Erreur réseau de communication.");
-            }
-        });
-    </script>
+    <!-- SCRIPTS -->
+    <script src="js/header.js"></script>
+    <script src="js/summary-anim.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>

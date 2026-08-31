@@ -1,0 +1,29 @@
+/* Défilement infini fluide du Marquee */
+@keyframes marqueeLoop {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Rotation 3D badge Résumé */
+.badge-flip-text.flipped {
+    animation: flipBadge 0.35s ease forwards;
+}
+
+@keyframes flipBadge {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(90deg); opacity: 0.2; }
+    100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+/* Animation d'apparition progressive au scroll */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}

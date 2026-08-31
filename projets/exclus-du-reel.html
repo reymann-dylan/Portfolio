@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contingence | Exclus du Réel</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo-contingence-gold.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animations.css">
+
+    <style>
+        .teaser-viewport-stage {
+            max-width: 960px;
+            margin: 60px auto 80px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .teaser-visual-monolith {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000000;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+        }
+        .teaser-visual-monolith img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(110%) brightness(90%);
+        }
+        .teaser-telemetry-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .teaser-main-title {
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+        .teaser-manifesto-text {
+            font-size: 15.5px;
+            line-height: 1.8;
+            color: var(--color-text-silver);
+            max-width: 720px;
+            margin-bottom: 40px;
+        }
+        .teaser-progress-box {
+            width: 100%;
+            max-width: 640px;
+            background: #0c0e14;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .teaser-progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-text-silver);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .teaser-progress-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .teaser-progress-fill {
+            height: 100%;
+            background: var(--color-gold);
+            box-shadow: 0 0 12px var(--color-gold);
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .confidential-status-panel {
+            width: 100%;
+            max-width: 640px;
+            background: #0c0e14;
+            border: 1px solid var(--color-border-strong);
+            border-radius: 6px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .status-metric-col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .metric-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--color-text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .metric-val {
+            font-family: var(--font-heading);
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--color-gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .btn-return-gateway {
+            font-family: var(--font-heading);
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--color-text-silver);
+            border: 1px solid var(--color-border-subtle);
+            padding: 12px 24px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-return-gateway:hover {
+            color: #000;
+            background: var(--color-gold);
+            border-color: var(--color-gold);
+        }
+        @media (max-width: 768px) {
+            .confidential-status-panel { grid-template-columns: 1fr; gap: 16px; text-align: left; }
+        }
+    </style>
+</head>
+<body data-page="projets" data-project-id="exclus-du-reel">
+
+    <header id="site-header"></header>
+
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Étude de cas, crise, Red Teaming, analyse...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez votre demande, vos questions, vos objectifs..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <main class="page-wrapper">
+        <div class="teaser-viewport-stage">
+            <div class="teaser-telemetry-badge" id="projectStatusBadge">PROJET EN PRODUCTION</div>
+            <h1 class="teaser-main-title" id="projectTitle">EXCLUS DU RÉEL</h1>
+            <p class="teaser-manifesto-text" id="projectDesc">
+                Projet d'exploration audiovisuelle et géopolitique à narration intradiégétique. Décryptage des dynamiques de pouvoir, des logiques d'influence et de la manipulation du réel.
+            </p>
+
+            <div class="teaser-visual-monolith smart-asset-box">
+                <img src="../assets/images/exclus-du-reel.jpg" alt="Exclus du Réel" onerror="handleAssetError(this)">
+            </div>
+
+            <div class="teaser-progress-box">
+                <div class="teaser-progress-header">
+                    <span>Avancement global</span>
+                    <span id="projectProgressText">0%</span>
+                </div>
+                <div class="teaser-progress-track">
+                    <div class="teaser-progress-fill" id="projectProgressBar"></div>
+                </div>
+            </div>
+
+            <div class="confidential-status-panel">
+                <div class="status-metric-col">
+                    <span class="metric-label">STATUT</span>
+                    <span class="metric-val" id="metricStatus">EN PRODUCTION</span>
+                </div>
+                <div class="status-metric-col">
+                    <span class="metric-label">FORMAT</span>
+                    <span class="metric-val" id="metricCategory">SÉRIE DOCUMENTAIRE</span>
+                </div>
+                <div class="status-metric-col">
+                    <span class="metric-label">DISPONIBILITÉ</span>
+                    <span class="metric-val" id="metricAction">BIENTÔT DISPONIBLE</span>
+                </div>
+            </div>
+
+            <a href="../projets.html" class="btn-return-gateway">← RETOUR AUX PROJETS</a>
+        </div>
+    </main>
+
+    <!-- Chargement direct sans blocage navigateur -->
+    <script src="../data/projects.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/contact.js"></script>
+    <script src="../js/project-loader.js"></script>
+</body>
+</html>

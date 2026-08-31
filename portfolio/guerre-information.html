@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Métadonnées & Indexation Google -->
+    <title>Contingence | Guerre de l'Information</title>
+    <meta name="description" content="Mémoire de recherche sur le pouvoir des narratifs, la post-vérité et la manipulation des masses par Dylan Reymann.">
+    <meta name="author" content="Dylan Reymann">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo-contingence-gold.png">
+
+    <!-- Open Graph & Twitter Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Contingence | Guerre de l'Information">
+    <meta property="og:description" content="Étude critique des opérations d'influence et de la déstabilisation cognitive.">
+    <meta property="og:image" content="../assets/images/cover-information.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contingence | Guerre de l'Information">
+    <meta name="twitter:description" content="Étude critique des opérations d'influence et de la déstabilisation cognitive.">
+    <meta name="twitter:image" content="../assets/images/cover-information.jpg">
+
+    <!-- Typographies -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Feuilles de style modulaires -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animations.css">
+
+    <style>
+        .concept-group-box {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .concept-item h4 {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--color-gold);
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .concept-item p {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--color-text-silver);
+            margin: 0;
+        }
+
+        .concept-separator {
+            height: 1px;
+            background: var(--color-border-subtle);
+            width: 100%;
+        }
+    </style>
+</head>
+<body data-page="portfolio">
+
+    <!-- Balise Audio & Widget Flottant -->
+    <audio id="bg-music" loop>
+        <source src="../assets/musique/ambiance-info.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="poi-audio-widget">
+        <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic()">
+            <div class="audio-wave" id="wave-icon">
+                <span></span><span></span><span></span>
+            </div>
+            <div>
+                <div id="music-text" class="poi-audio-title">PLAY AUDIO</div>
+                <div id="music-status" class="poi-audio-status">[ STATUS : STANDBY ]</div>
+            </div>
+        </button>
+        <div class="audio-volume-wrap">
+            <span class="vol-label">VOL</span>
+            <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.25" oninput="changeVolume(this.value)">
+        </div>
+    </div>
+
+    <!-- Header Universel -->
+    <header id="site-header"></header>
+
+    <!-- Tiroir Contact -->
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Demande de consultation, étude...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez votre démarche ou demande d'accès..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <!-- Hero du Dossier -->
+    <section class="dossier-hero">
+        <div class="hero-space-bg" style="background-image: radial-gradient(circle at center, rgba(4, 5, 7, 0.3) 0%, rgba(4, 5, 7, 0.9) 100%), url('../assets/images/cover-information.jpg');"></div>
+        
+        <div class="hero-content scroll-reveal">
+            <div class="dossier-tag-pill">MÉMOIRE SECONDAIRE | RECHERCHE PHILOSOPHIE POLITIQUE</div>
+            <h1 class="dossier-title">CONSTRUIRE LE RÉEL :<br>LE POUVOIR DES NARRATIFS</h1>
+            <p class="dossier-subtitle">Quand les récits et les algorithmes façonnent le monde : crises démocratiques, désinformation et dynamiques de pouvoir à l'ère de la post-vérité.</p>
+        </div>
+    </section>
+
+    <!-- Corps du Dossier -->
+    <main class="dossier-layout scroll-reveal">
+        
+        <article class="dossier-main">
+            <p>À l'ère de la post-vérité, les narratifs jouent un rôle central dans la construction de la perception publique, l'érosion de la confiance et les dynamiques géopolitiques. La révolution numérique a modifié en profondeur les mécanismes de production et de diffusion de l'information. Internet, les réseaux sociaux et les algorithmes sont désormais au centre de la manière dont la vérité est façonnée et manipulée.</p>
+
+            <div class="quote-block">
+                « Ce qui est crucial aujourd'hui, ce n'est pas seulement la vérité en elle-même, mais aussi la manière dont elle est perçue. Il ne suffit pas de dire la vérité, il faut aussi la présenter de manière à ce qu'elle soit perçue comme vraie, car c'est cette perception qui façonne notre réalité. »
+                <span>— REYMANN DYLAN</span>
+            </div>
+
+            <h2>Le Tournant de 2016 et la Post-Vérité</h2>
+            
+            <p>La post-vérité ne se résume pas seulement aux mensonges et aux fausses croyances, mais concerne également le brouillage systématique des repères, généré par un excès d'informations et d'influences. Cette ère n'a véritablement pris forme qu'après la période 2011-2015, marquée par l'avènement de la maturité technologique (exploitation algorithmique, monétisation des données). L'année 2016 (marquée par le Brexit et l'élection de Donald Trump) a constitué un tournant où l'impact émotionnel d'un récit a clairement surpassé l'exigence de véracité.</p>
+
+            <p>Dans ce contexte, la vérité n'est plus une transmission stable et partagée, elle est devenue « fluide » et adaptable. Les plateformes numériques privilégient les contenus polarisants, sensationnalistes ou émotionnellement marquants pour maximiser l'engagement, reléguant la complexité et la nuance au second plan.</p>
+
+            <h2>De l'Élection par le Storytelling à la Fragmentation Narrative</h2>
+
+            <p>Le paysage politique a subi une mutation profonde. Nous sommes passés des <em>« storytelling-driven elections »</em> (campagnes fondées sur un grand récit unificateur) aux <em>« election-driven narratives »</em>. Cette « fragmentation narrative » ne cherche pas à construire une vision cohérente de la société, mais à disloquer l'électorat en exploitant des émotions brutes : la colère, la peur, le ressentiment.</p>
+
+            <p>Contrairement au storytelling traditionnel, la fragmentation repose sur un ensemble de micro-récits parfois illogiques entre eux, mais redoutablement efficaces lorsqu'ils sont ciblés par micro-targeting. L'électeur ne perçoit que la portion du narratif qui résonne avec ses propres biais cognitifs, enfermé dans une dynamique où l'instantanéité prime sur la cohérence à long terme.</p>
+
+            <h2>Bulles de Filtres et Chambres d'Écho</h2>
+
+            <p>Le phénomène des bulles idéologiques est le moteur de cette post-vérité. Les algorithmes de recommandation ne confrontent plus les utilisateurs à des réalités contradictoires, mais les enferment dans des chambres d'écho. Dans un environnement sociétal extrêmement complexe, les citoyens rejettent l'effort intellectuel d'analyse globale et se réfugient dans des récits simplistes.</p>
+
+            <p>Ainsi, la multiplication des acteurs (influenceurs, bots, « faux experts ») s'auto-alimente. Le contrôle de l'inconscient collectif ne passe plus par la censure directe, mais par la saturation de l'espace informationnel et la captation de l'attention.</p>
+
+            <h2>La Guerre en Ukraine et l'Ingérence Narrative</h2>
+
+            <p>Sur la scène géopolitique, la maîtrise des narratifs est devenue une arme de destruction massive. Le conflit russo-ukrainien illustre parfaitement cette dynamique : la justification d'une agression par un récit pré-construit s'appuie sur des réseaux de diffusion massifs pour semer la confusion et paralyser l'aide internationale.</p>
+
+            <div class="quote-block">
+                « Être un empire, c'est aussi contrôler et façonner les discours. Dans une large mesure, le contrôle du discours stratégique permet d'imposer de nouvelles règles de guerre qui n'existaient pas auparavant. »
+                <span>— LOGIQUE D'INFLUENCE STRATÉGIQUE</span>
+            </div>
+
+            <p>Cette asymétrie confirme que le combat pour légitimer les actions politiques et militaires est désormais aussi décisif que celui mené sur le champ de bataille. Le narratif devient un outil pour définir la norme, normaliser l'inacceptable et manipuler la diplomatie mondiale.</p>
+        </article>
+
+        <!-- Sidebar Analytique : Concepts Regroupés -->
+        <aside class="dossier-sidebar">
+            
+            <!-- Téléchargement avec icône de document de recherche -->
+            <div class="pdf-download-card" onclick="document.getElementById('contactOverlay').classList.add('open'); document.getElementById('contactDrawer').classList.add('open'); document.getElementById('subject').value = 'Demande d\'accès : Mémoire Guerre de l\'Information';">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
+                <span class="pdf-title">CONSULTER LE MÉMOIRE INTÉGRAL</span>
+                <span class="pdf-subtitle">DISPONIBLE SUR DEMANDE &gt;_</span>
+            </div>
+
+            <!-- Bloc Unifié : Concepts Étudiés -->
+            <div class="concept-group-box">
+                <div class="widget-header-title" style="margin-bottom: 0;">CONCEPTS ÉTUDIÉS &amp; ANALYSÉS</div>
+                
+                <div class="concept-item">
+                    <h4>LA POST-VÉRITÉ</h4>
+                    <p>Ce n'est pas uniquement une époque où la vérité est ignorée, mais un état de confusion généré par un excès d'informations. La vérité devient secondaire face à des récits émotionnels ou polarisants favorisés par les algorithmes.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>FRAGMENTATION NARRATIVE</h4>
+                    <p>Contrairement au storytelling classique qui unifie, les <em>election-driven narratives</em> fractionnent le discours pour cibler précisément des groupes. Le but n'est plus la cohérence, mais la polarisation par la colère ou la peur.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>L'EFFET DE VÉRITÉ ILLUSOIRE</h4>
+                    <p>La répétition constante d'une information, même erronée, augmente sa crédibilité perçue. Couplé au déphasage entre la réalité physique et la réalité médiatique, ce biais cognitif est l'arme de l'ingérence informationnelle.</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Modal Lightbox Plein Écran -->
+    <div class="lightbox-modal" id="imageModal" aria-hidden="true">
+        <button class="btn-close-lightbox" id="closeLightboxBtn" aria-label="Fermer">✕</button>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Agrandissement" id="lightboxTargetImg">
+    </div>
+
+    <!-- Scripts Modulaires -->
+    <script src="../js/header.js"></script>
+    <script src="../js/contact.js"></script>
+    <script src="../js/audio-player.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const obs = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => obs.observe(el));
+        });
+    </script>
+</body>
+</html>

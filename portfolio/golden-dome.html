@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Métadonnées & Indexation Google -->
+    <title>Contingence | Golden Dome</title>
+    <meta name="description" content="Étude comparative entre le programme antimissile Golden Dome et l'Initiative de Défense Stratégique (IDS) de Reagan par Dylan Reymann.">
+    <meta name="author" content="Dylan Reymann">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo-contingence-gold.png">
+
+    <!-- Open Graph & Twitter Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Contingence | Golden Dome : Un Nouvel IDS ?">
+    <meta property="og:description" content="Analyse prospective de l'architecture antimissile multicouche et du dilemme de sécurité moderne.">
+    <meta property="og:image" content="../assets/images/cover-goldendome.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contingence | Golden Dome : Un Nouvel IDS ?">
+    <meta name="twitter:description" content="Analyse prospective de l'architecture antimissile multicouche et du dilemme de sécurité moderne.">
+    <meta name="twitter:image" content="../assets/images/cover-goldendome.jpg">
+
+    <!-- Typographies -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Feuilles de style modulaires -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animations.css">
+
+    <style>
+        .concept-group-box {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .concept-item h4 {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--color-gold);
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .concept-item p {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--color-text-silver);
+            margin: 0;
+        }
+
+        .concept-separator {
+            height: 1px;
+            background: var(--color-border-subtle);
+            width: 100%;
+        }
+    </style>
+</head>
+<body data-page="portfolio">
+
+    <!-- Balise Audio & Widget Flottant -->
+    <audio id="bg-music" loop>
+        <source src="../assets/musique/Pentagone Wars.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="poi-audio-widget">
+        <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic()">
+            <div class="audio-wave" id="wave-icon">
+                <span></span><span></span><span></span>
+            </div>
+            <div>
+                <div id="music-text" class="poi-audio-title">PLAY AUDIO</div>
+                <div id="music-status" class="poi-audio-status">[ STATUS : STANDBY ]</div>
+            </div>
+        </button>
+        <div class="audio-volume-wrap">
+            <span class="vol-label">VOL</span>
+            <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.25" oninput="changeVolume(this.value)">
+        </div>
+    </div>
+
+    <!-- Header Universel -->
+    <header id="site-header"></header>
+
+    <!-- Tiroir Contact -->
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Mission stratégique, étude...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez le cadre et les objectifs de votre démarche..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <!-- Hero du Dossier -->
+    <section class="dossier-hero">
+        <div class="hero-space-bg" style="background-image: radial-gradient(circle at center, rgba(4, 5, 7, 0.3) 0%, rgba(4, 5, 7, 0.9) 100%), url('../assets/images/cover-goldendome.jpg');"></div>
+        
+        <div class="hero-content scroll-reveal">
+            <div class="dossier-tag-pill">DOSSIER SPÉCIALISÉ | ÉTUDE COMPARATIVE</div>
+            <h1 class="dossier-title">GOLDEN DOME :<br>UN NOUVEL IDS ?</h1>
+            <p class="dossier-subtitle">Réplique ou réinterprétation moderne de l'Initiative de Défense Stratégique (IDS) : enjeux spatiaux, technologiques et géopolitiques.</p>
+        </div>
+    </section>
+
+    <!-- Corps du Dossier -->
+    <main class="dossier-layout scroll-reveal">
+        
+        <article class="dossier-main">
+            <p>Annoncé au début de l'année 2025 par l'administration américaine, le programme « Golden Dome » se présente comme une architecture de défense antimissile multispectrale de nouvelle génération. Son annonce soulève immédiatement une comparaison historique : assistons-nous à une simple réplique du célèbre programme de l'Initiative de Défense Stratégique (IDS), surnommé <em>« Star Wars »</em>, lancé par Ronald Reagan dans les années 1980 ?</p>
+
+            <p>Malgré des similitudes de surface — une ambition colossale et une composante spatiale hautement technologique — le Golden Dome s'inscrit dans un paradigme diamétralement opposé, porté par la maturité technologique contemporaine et l'avènement de l'astrocapitalisme.</p>
+
+            <div class="quote-block">
+                « Là où l'IDS visait une invulnérabilité totale s'opposant à la menace nucléaire, le Golden Dome en constitue une synthèse imparfaite mais opérationnelle : celle d'une vulnérabilité gérée. »
+                <span>— LOGIQUE DE DISSUASION MODERNE</span>
+            </div>
+
+            <h2>L'IDS : Course à l'armement et Rêve d'Invulnérabilité</h2>
+            
+            <p>Lancée au début des années 1980, l'Initiative de Défense Stratégique cherchait à renverser la doctrine de la Destruction Mutuelle Assurée (MAD) en développant des capteurs orbitaux et des systèmes d'interception (comme le projet <em>Brilliant Pebbles</em> ou les lasers à rayons X). L'objectif théorique était de créer un bouclier impénétrable contre les missiles balistiques intercontinentaux (ICBM) soviétiques.</p>
+
+            <p>Cependant, l'IDS était avant tout un immense programme de Recherche &amp; Développement et un outil de propagande géopolitique. Les coûts exorbitants (estimés à l'époque à plusieurs dizaines de milliards), les limites logistiques des lancements spatiaux et l'impossibilité de concevoir des logiciels capables de gérer une telle architecture de manière autonome l'ont reléguée au rang d'utopie technologique. Elle a néanmoins posé les bases des systèmes d'interception modernes (Patriot, THAAD, Aegis).</p>
+
+            <h2>Le Golden Dome : Bouclier de l'Astrocapitalisme</h2>
+            <p>À l'inverse, le Golden Dome émerge dans un contexte où la logistique spatiale a été révolutionnée par le secteur privé (le <em>New Space</em>, avec SpaceX, ULA ou Blue Origin). Ce programme vise à repenser la défense antimissile en y incluant la protection des villes et des infrastructures civiles critiques, en s'appuyant sur une architecture en couches (détection et interception en phases propulsée, mi-course et terminale).</p>
+
+            <p>Plus qu'un programme militaire, il repose sur une synergie militaro-industrielle assumée : en achetant massivement des lancements spatiaux et des technologies au secteur privé, le gouvernement américain subventionne et renforce la domination du spatial américain à l'échelle mondiale. Cette interdépendance fait de la sécurité nationale le principal moteur de l'astrocapitalisme.</p>
+
+            <h2>Une Architecture Multicouche Intégrée</h2>
+
+            <p>Contrairement à l'IDS, l'infrastructure nécessaire au Golden Dome n'est plus de la science-fiction. Elle s'appuie sur la fusion avancée des données (système C2BMC) et sur des architectures préexistantes comme la <em>Proliferated Warfighter Space Architecture</em> (PWSA). Son coût initial est jugé absorbable par le budget de la défense américaine, d'autant que le Golden Dome a vocation à devenir le socle de multiples autres programmes d'armement à venir.</p>
+
+            <p>En cherchant à neutraliser les vecteurs hypersoniques et les frappes saturantes des acteurs émergents tout en protégeant les nœuds vitaux (C2), le Golden Dome ne cherche pas à annuler la vulnérabilité face à une attaque massive, mais à maximiser l'incertitude adverse (limitation des dommages et garantie d'une riposte). Il crée ainsi un nouveau dilemme de sécurité, forçant les rivaux systémiques à s'engager dans une ruineuse prolifération technologique.</p>
+        </article>
+
+        <!-- Sidebar Analytique -->
+        <aside class="dossier-sidebar">
+            
+            <!-- 1. Téléchargement PDF -->
+            <a href="../assets/docs/Golden Dome un nouvel IDS.pdf" target="_blank" class="pdf-download-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
+                <span class="pdf-title">TÉLÉCHARGER L'ANALYSE COMPLÈTE (.PDF)</span>
+                <span class="pdf-subtitle">DOSSIER STRATÉGIQUE</span>
+            </a>
+
+            <!-- 2. Représentation Architecture -->
+            <div class="concept-widget">
+                <div class="widget-header-title" style="color: #ffffff;">ARCHITECTURE DU SYSTÈME</div>
+                <div class="schema-container smart-asset-box" data-zoomable="true" data-full="../assets/images/golden-dome-representation.png">
+                    <img src="../assets/images/golden-dome-representation.png" alt="Architecture du Golden Dome" onerror="handleAssetError(this)">
+                </div>
+            </div>
+
+            <!-- 3. Concepts Clés & Doctrines -->
+            <div class="concept-group-box">
+                <div class="widget-header-title" style="margin-bottom: 0;">CONCEPTS ÉTUDIÉS &amp; DOCTRINES</div>
+                
+                <div class="concept-item">
+                    <h4>ASTROCAPITALISME &amp; RÉSILIENCE</h4>
+                    <p>La viabilité du Golden Dome repose sur la révolution logistique du <em>New Space</em>. Contrairement aux années 1980, le coût de mise en orbite massive est devenu abordable. La sécurité est désormais indexée sur la santé économique et l'hégémonie technologique d'entreprises spatiales privées.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>DÉNI FONCTIONNEL (DAMAGE LIMITATION)</h4>
+                    <p>Le système ne promet plus une invulnérabilité totale. Il vise la sanctuarisation des centres de commandement (C2) vitaux et neutralise les frappes ciblées pour garantir la capacité de riposte immédiate.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>LE DILEMME DE SÉCURITÉ MODERNE</h4>
+                    <p>Le déploiement du Golden Dome oblige les concurrents géopolitiques à une prolifération verticale et qualitative onéreuse (armes hypersoniques, FOBS), déplaçant la confrontation sur le terrain de l'usure économique.</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Modal Lightbox Plein Écran -->
+    <div class="lightbox-modal" id="imageModal" aria-hidden="true">
+        <button class="btn-close-lightbox" id="closeLightboxBtn" aria-label="Fermer">✕</button>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Agrandissement" id="lightboxTargetImg">
+    </div>
+
+    <!-- Scripts Modulaires -->
+    <script src="../js/header.js"></script>
+    <script src="../js/contact.js"></script>
+    <script src="../js/audio-player.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const obs = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => obs.observe(el));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Métadonnées & Indexation Google -->
+    <title>Contingence | Géopolitique de l'Espace</title>
+    <meta name="description" content="Mémoire de recherche sur la militarisation supra-orbitale, l'éthique de la guerre spatiale et le New Space par Dylan Reymann.">
+    <meta name="author" content="Dylan Reymann">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo-contingence-gold.png">
+
+    <!-- Open Graph & Twitter Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Contingence | Géopolitique de l'Espace">
+    <meta property="og:description" content="Analyse systémique de la conflictualité extra-atmosphérique et des doctrines de souveraineté spatiale.">
+    <meta property="og:image" content="../assets/images/cover-espace.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contingence | Géopolitique de l'Espace">
+    <meta name="twitter:description" content="Analyse systémique de la conflictualité extra-atmosphérique et des doctrines de souveraineté spatiale.">
+    <meta name="twitter:image" content="../assets/images/cover-espace.jpg">
+
+    <!-- Typographies -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Feuilles de style modulaires -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animations.css">
+
+    <style>
+        .concept-group-box {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .concept-item h4 {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--color-gold);
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .concept-item p {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--color-text-silver);
+            margin: 0;
+        }
+
+        .concept-separator {
+            height: 1px;
+            background: var(--color-border-subtle);
+            width: 100%;
+        }
+    </style>
+</head>
+<body data-page="portfolio">
+
+    <!-- Balise Audio & Widget Flottant -->
+    <audio id="bg-music" loop>
+        <source src="../assets/musique/ambiance-espace.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="poi-audio-widget">
+        <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic()">
+            <div class="audio-wave" id="wave-icon">
+                <span></span><span></span><span></span>
+            </div>
+            <div>
+                <div id="music-text" class="poi-audio-title">PLAY AUDIO</div>
+                <div id="music-status" class="poi-audio-status">[ STATUS : STANDBY ]</div>
+            </div>
+        </button>
+        <div class="audio-volume-wrap">
+            <span class="vol-label">VOL</span>
+            <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.25" oninput="changeVolume(this.value)">
+        </div>
+    </div>
+
+    <!-- Header Universel -->
+    <header id="site-header"></header>
+
+    <!-- Tiroir Contact -->
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Mission stratégique, échange...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez le cadre et les objectifs de votre démarche..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <!-- Hero du Dossier -->
+    <section class="dossier-hero">
+        <div class="hero-space-bg" style="background-image: radial-gradient(circle at center, rgba(4, 5, 7, 0.3) 0%, rgba(4, 5, 7, 0.9) 100%), url('../assets/images/cover-espace.jpg');"></div>
+        
+        <div class="hero-content scroll-reveal">
+            <div class="dossier-tag-pill">MÉMOIRE PRINCIPAL | RECHERCHE ACADÉMIQUE</div>
+            <h1 class="dossier-title">GÉOPOLITIQUE DE L'ESPACE :<br>L'ÉTHIQUE DE LA GUERRE SUPRA-ORBITALE</h1>
+            <p class="dossier-subtitle">Entre guerre hybride, astropolitique, complexe techno-orbital et domination technologique : une approche systémique de la conflictualité moderne.</p>
+        </div>
+    </section>
+
+    <!-- Corps du Dossier -->
+    <main class="dossier-layout scroll-reveal">
+        
+        <article class="dossier-main">
+            <p>L'espace extra-atmosphérique constitue un objet d'étude d'une complexité singulière. Complexité scientifique d'abord, tant les contraintes physiques et techniques qui régissent son accès et son exploitation sont considérables. Complexité politique, économique et stratégique ensuite, à mesure que les sociétés humaines y projettent leurs intérêts, leurs rivalités et leurs ambitions.</p>
+
+            <p>Paradoxalement, alors même que nos sociétés contemporaines dépendent structurellement des infrastructures spatiales (télécommunications, géolocalisation, observation de la Terre, systèmes financiers), l'espace demeure largement invisibilisé dans le débat public. Cette invisibilisation contraste avec le caractère fondamental de l'écosystème spatial que nous avons progressivement bâti.</p>
+
+            <div class="quote-block">
+                « L'espace ne se gagne pas par la destruction du milieu, mais par sa saturation infrastructurelle : gagner, ce n'est pas anéantir, mais structurer et rendre ces infrastructures indispensables. »
+                <span>— REYMANN DYLAN</span>
+            </div>
+
+            <h2>L'Émergence du Complexe Techno-Orbital</h2>
+            
+            <p>Dans ce contexte, la transformation des acteurs joue un rôle moteur. L'émergence d'un véritable complexe techno-orbital est marquée par l'effacement des frontières entre les sphères étatiques et les intérêts privés du <em>New Space</em>. Cette convergence conduit à une redéfinition de la puissance : la souveraineté ne repose plus uniquement sur le contrôle d'un segment territorial, mais sur ce que l'on qualifie de Full Spectrum Space Power.</p>
+
+            <h2>Le Complexe Techno-Orbital et la Dynamique du « First Mover »</h2>
+            <p>L'appropriation de l'orbite basse par des entités privées et étatiques installe une logique de <em>First Mover Advantage</em>. L'imbrication des capitaux privés et des doctrines militaires transforme l'espace en une nouvelle frontière d'extraction et d'occupation. Dans cette configuration géopolitique, la saturation orbitale devient, de facto, une stratégie de déni d'accès (A2/AD) et de guerre hybride non-déclarée, bloquant silencieusement l'émergence de nouveaux concurrents souverains.</p>
+
+            <h2>Space Mutual Vulnerability (S.M.V) et Jus Ante Bellum</h2>
+
+            <p>L'étude des modes d'action confirme cette transformation systémique. Les actions menées dans l'espace sont rarement destructrices au sens conventionnel, mais elles produisent des effets globaux. Ce travail mobilise la notion d'hyper-infrastructure pour saisir comment les systèmes spatiaux sont devenus les structures de soutien indispensables des sociétés modernes.</p>
+
+            <p>Cette situation conduit à une impasse stratégique majeure identifiée comme la <strong>Space Mutual Vulnerability (S.M.V.)</strong>. Par analogie avec la dissuasion nucléaire, mais avec des mécanismes physiques différents, la vulnérabilité est ici partagée : toute action agressive (générant des débris) risque de déclencher des réactions en chaîne, à l'image du syndrome de Kessler, condamnant l'orbite pour tous les belligérants.</p>
+
+            <div class="quote-block">
+                « Le déclenchement d'une guerre n'est jamais une décision isolée : il est la conséquence logique d'un ensemble de dispositifs qui ont progressivement réduit le champ des alternatives. »
+                <span>— LOGIQUE D'ESCALADE STRUCTURELLE</span>
+            </div>
+            
+            <p>Face à l'impossibilité de garantir la proportionnalité des dommages dans un milieu interdépendant, notre analyse introduit la nécessité de repenser le <em>jus ante bellum</em>. Cette approche déplace l'exigence éthique en amont du conflit, s'intéressant aux doctrines et à l'ingénierie qui rendent certaines actions inacceptables avant même leur mise en œuvre tactique.</p>
+        </article>
+
+        <!-- Sidebar Analytique -->
+        <aside class="dossier-sidebar">
+            
+            <!-- 1. Téléchargement Mémoire PDF -->
+            <a href="../assets/docs/Memoire 2 - GEOPOLITIQUE DE L’ESPACE Redaction Final.pdf" target="_blank" class="pdf-download-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 18 15 15"></polyline></svg>
+                <span class="pdf-title">TÉLÉCHARGER LE MÉMOIRE INTÉGRAL (.PDF)</span>
+                <span class="pdf-subtitle">DOCUMENT DE RECHERCHE</span>
+            </a>
+
+            <!-- 2. Schéma Spectre de la Conflictualité (Position haute) -->
+            <div class="concept-widget">
+                <div class="widget-header-title" style="color: #ffffff;">SPECTRE DE LA CONFLICTUALITÉ</div>
+                
+                <div class="schema-container smart-asset-box" data-zoomable="true">
+                    <img src="../assets/images/schema-spectre.jpg" alt="Spectre de la conflictualité" onerror="handleAssetError(this)">
+                </div>
+                
+                <a href="artworks.html" class="pdf-download-card" style="margin-top: 16px; padding: 14px; box-shadow: none;">
+                    <span class="pdf-title" style="color: var(--color-gold); font-size: 10.5px;">CONSULTER LES PLANCHES GRAPHIQUES &gt;_</span>
+                </a>
+            </div>
+
+            <!-- 3. Archive Vidéo LinkedIn -->
+            <div class="media-preview-box">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7331490530251452416?compact=1" title="Post LinkedIn"></iframe>
+                <div class="media-caption">
+                    <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7331490530251452416/" target="_blank" rel="noopener" style="color: var(--color-gold); text-decoration: none;">ARCHIVE VIDÉO (LIEN DIRECT LINKEDIN) →</a>
+                </div>
+            </div>
+
+            <!-- 4. Bloc Unifié : Concepts Originaux & Doctrines Personnelles -->
+            <div class="concept-group-box">
+                <div class="widget-header-title" style="margin-bottom: 0;">CONCEPTS ORIGINAUX &amp; DOCTRINES DÉVELOPPÉES</div>
+                
+                <div class="concept-item">
+                    <h4>LE COMPLEXE TECHNO-ORBITAL</h4>
+                    <p>L'intégration organique des acteurs privés du New Space aux doctrines de souveraineté des puissances spatiales. Le contrôle des chaînes de lancement et des constellations confère un pouvoir d'arbitrage géopolitique autonome.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>S.M.V (SPACE MUTUAL VULNERABILITY)</h4>
+                    <p>La vulnérabilité dans l'espace est partagée : toute action agressive risque de déclencher des réactions en chaîne (Syndrome de Kessler). La destruction physique annule le milieu pour l'agresseur lui-même, rendant les stratégies de domination absolue paradoxales.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>JUS ANTE BELLUM APPLIQUÉ</h4>
+                    <p>L'impossibilité d'une « guerre juste » dans l'espace impose de penser un « droit avant la guerre ». Il s'agit d'encadrer en amont les technologies et les architectures militaires qui rendent l'escalade irréversible.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>ADMN</h4>
+                    <p>Capacités techniques ou cybernétiques capables de neutraliser des pans entiers de l'économie ou des systèmes vitaux sans destructions cinétiques classiques. Le brouillage massif s'inscrit dans cette nouvelle grammaire de l'anéantissement sans explosion.</p>
+                </div>
+
+                <div class="concept-separator"></div>
+
+                <div class="concept-item">
+                    <h4>HYPER-INFRASTRUCTURES</h4>
+                    <p>Les constellations de satellites et les réseaux sous-marins constituent les architectures sous-jacentes qui soutiennent l'ensemble de l'économie mondiale. Leur centralisation fait de leur vulnérabilité un risque systémique immédiat.</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Modal Lightbox Plein Écran -->
+    <div class="lightbox-modal" id="imageModal" aria-hidden="true">
+        <button class="btn-close-lightbox" id="closeLightboxBtn" aria-label="Fermer">✕</button>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Agrandissement" id="lightboxTargetImg">
+    </div>
+
+    <!-- Scripts Modulaires -->
+    <script src="../js/header.js"></script>
+    <script src="../js/contact.js"></script>
+    <script src="../js/audio-player.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const obs = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => obs.observe(el));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Métadonnées & Indexation Google -->
+    <title>Contingence | Artworks &amp; Infographies</title>
+    <meta name="description" content="Galerie complète des planches graphiques, modélisations tactiques et visuels conceptuels réalisés par Dylan Reymann.">
+    <meta name="author" content="Dylan Reymann">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo-contingence-gold.png">
+
+    <!-- Open Graph & Twitter Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Contingence | Artworks &amp; Infographies">
+    <meta property="og:description" content="Créations visuelles, cartographies stratégiques et modélisations tactiques.">
+    <meta property="og:image" content="../assets/images/artworks/artwork-1.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contingence | Artworks &amp; Infographies">
+    <meta name="twitter:description" content="Créations visuelles, cartographies stratégiques et modélisations tactiques.">
+    <meta name="twitter:image" content="../assets/images/artworks/artwork-1.jpg">
+
+    <!-- Typographies -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Feuilles de style modulaires -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animations.css">
+
+    <style>
+        .artworks-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .artwork-card-monolith {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: zoom-in;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+        }
+
+        .artwork-card-monolith:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-gold);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .artwork-card-header {
+            padding: 12px 18px;
+            background: #11131a;
+            border-bottom: 1px solid var(--color-border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .artwork-ref-id {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 1.5px;
+        }
+
+        .artwork-category-tag {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--color-text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .artwork-stage {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .artwork-stage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+        }
+
+        .artwork-card-monolith:hover .artwork-stage img {
+            transform: scale(1.03);
+            filter: contrast(106%) brightness(104%);
+        }
+
+        .artwork-card-footer {
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-top: 1px solid var(--color-border-subtle);
+            background: var(--color-bg-card);
+        }
+
+        .artwork-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .artwork-caption {
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            line-height: 1.6;
+            color: var(--color-text-silver);
+        }
+
+        /* 13e Élément : Affiche Spatiale (Pleine Largeur) */
+        .artwork-card-fullwidth {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            border-color: rgba(212, 175, 55, 0.4);
+            background: radial-gradient(ellipse at 80% 50%, rgba(212, 175, 55, 0.08) 0%, var(--color-bg-card) 75%);
+        }
+
+        .artwork-card-fullwidth .artwork-stage {
+            aspect-ratio: 16 / 9;
+            height: 100%;
+        }
+
+        .artwork-card-fullwidth .artwork-card-footer {
+            border-top: none;
+            border-left: 1px solid var(--color-border-subtle);
+            padding: 32px 28px;
+            justify-content: center;
+        }
+
+        @media (max-width: 1024px) {
+            .artworks-gallery-grid { grid-template-columns: 1fr; gap: 24px; }
+            .artwork-card-fullwidth { grid-template-columns: 1fr; }
+            .artwork-card-fullwidth .artwork-card-footer { border-left: none; border-top: 1px solid var(--color-border-subtle); }
+        }
+    </style>
+</head>
+<body data-page="portfolio">
+
+    <!-- Balise Audio & Widget Flottant -->
+    <audio id="bg-music" loop>
+        <source src="../assets/musique/53-Mass-Effect-3-Score-The-Crucible.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="poi-audio-widget">
+        <button id="music-toggle" class="poi-audio-btn" onclick="toggleMusic()">
+            <div class="audio-wave" id="wave-icon">
+                <span></span><span></span><span></span>
+            </div>
+            <div>
+                <div id="music-text" class="poi-audio-title">PLAY AUDIO</div>
+                <div id="music-status" class="poi-audio-status">[ STATUS : STANDBY ]</div>
+            </div>
+        </button>
+        <div class="audio-volume-wrap">
+            <span class="vol-label">VOL</span>
+            <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.25" oninput="changeVolume(this.value)">
+        </div>
+    </div>
+
+    <!-- Header Universel -->
+    <header id="site-header"></header>
+
+    <!-- Tiroir Contact -->
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Mission stratégique, échange...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez votre demande ou votre projet..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <!-- Hero de la Galerie (Fond Artwork 1) -->
+    <section class="dossier-hero">
+        <div class="hero-space-bg" style="background-image: radial-gradient(circle at center, rgba(4, 5, 7, 0.4) 0%, rgba(4, 5, 7, 0.95) 100%), url('../assets/images/artworks/artwork-1.jpg');"></div>
+        
+        <div class="hero-content">
+            <div class="dossier-tag-pill">ARCHIVES VISUELLES &amp; DESIGN FICTION</div>
+            <h1 class="dossier-title">ARTWORKS &amp; INFOGRAPHIES</h1>
+            <p class="dossier-subtitle">Modélisations tactiques, scénarios de rupture orbitale et représentations géopolitiques réalisées pour les dossiers de recherche.</p>
+        </div>
+    </section>
+
+    <main class="page-wrapper">
+
+        <!-- Grille des 13 Artworks -->
+        <section class="artworks-gallery-grid">
+
+            <!-- Artwork 01 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-1.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">PLANCHE | 01</span>
+                    <span class="artwork-category-tag">PARTIE I — CADRE GÉOPOLITIQUE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-1.jpg" alt="War Never Ends" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">WAR NEVER ENDS</h3>
+                    <p class="artwork-caption">L’espace au 21e siècle : reconfiguration du pouvoir, acteurs privés et déstabilisation multipolaire.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 02 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-2.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">PLANCHE | 02</span>
+                    <span class="artwork-category-tag">PARTIE IV — ÉTHIQUE &amp; INDUSTRIE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-2.jpg" alt="War Building" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">WAR BUILDING</h3>
+                    <p class="artwork-caption">La chaîne industrielle comme vecteur de souveraineté : de la salle blanche aux pas de tir d'Ariane.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 03 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-3.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">PLANCHE | 03</span>
+                    <span class="artwork-category-tag">PARTIE III — COMMANDEMENT C2</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-3.jpg" alt="Situation Room" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">SITUATION ROOM</h3>
+                    <p class="artwork-caption">Monitoring orbital unifié et logiques d'escalade sous haute contrainte décisionnelle.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 04 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-4.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">PLANCHE | 04</span>
+                    <span class="artwork-category-tag">PARTIE II — ASTRO-CAPITALISME</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-4.jpg" alt="Moon Landing Exploitation" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">MOON LANDING EXPLOITATION</h3>
+                    <p class="artwork-caption">Compétition lunaire et confrontation des landers privés face aux programmes étatiques chinois et occidentaux.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 05 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-5.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">PLANCHE | 05</span>
+                    <span class="artwork-category-tag">PARTIE V — SIMULATION DE CRISE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-5.jpg" alt="This is War" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">THIS IS WAR</h3>
+                    <p class="artwork-caption">Perception stratégique, friction cyber-orbitale et basculement des équilibres conventionnels.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 06 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-6.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">PLANCHE | 06</span>
+                    <span class="artwork-category-tag">CONCLUSION — DOCTRINE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-6.jpg" alt="What is Space War" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">A WAR WITHOUT BOUNDARIES</h3>
+                    <p class="artwork-caption">L'effacement des frontières entre sphères civiles et militaires dans l'espace supra-orbital.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 07 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-7.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">INFOGRAPHIE | 07</span>
+                    <span class="artwork-category-tag">ARCHITECTURE DÉFENSE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-7.jpg" alt="Golden Dome Representation" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">GOLDEN DOME : ARCHITECTURE MULTICOUCHE</h3>
+                    <p class="artwork-caption">Cartographie des segments spatiaux, capteurs optiques et vecteurs d'interception cinétique.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 08 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-8.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">INFOGRAPHIE | 08</span>
+                    <span class="artwork-category-tag">ASTRODYNAMIQUE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-8.jpg" alt="Points de Lagrange" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">POINTS DE LAGRANGE : SOUVERAINETÉ ORBITALE</h3>
+                    <p class="artwork-caption">Topographie des puits gravitationnels L1 à L5 et sanctuarisation des zones d'observation lointaines.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 09 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-9.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">INFOGRAPHIE | 09</span>
+                    <span class="artwork-category-tag">DÉNI D'ACCÈS A2/AD</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-9.jpg" alt="Saturation Orbitale" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">SATURATION ORBITALE &amp; CONSTATIONS</h3>
+                    <p class="artwork-caption">Mécanismes d'occupation spatiale de l'orbite basse par les méga-constellations commerciales.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 10 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-10.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">INFOGRAPHIE | 10</span>
+                    <span class="artwork-category-tag">SCÉNARIO 01 | SYNDROME DE KESSLER</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-10.jpg" alt="Scénario 1 Collision" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">COLLISION ORBITALE EN CHAÎNE</h3>
+                    <p class="artwork-caption">Modélisation de la cascade de débris et de l'interdiction durable de l'accès aux orbites LEO.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 11 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-11.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">INFOGRAPHIE | 11</span>
+                    <span class="artwork-category-tag">SCÉNARIO 02 | GUERRE CYBER-ORBITALE</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-11.jpg" alt="Scénario 2 Subversion" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">SUBVERSION &amp; GUERRE CYBER-ORBITALE</h3>
+                    <p class="artwork-caption">Prise de contrôle silencieuse des liaisons montantes (uplink) et neutralisation sans débris.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 12 -->
+            <article class="artwork-card-monolith smart-asset-box" data-full="../assets/images/artworks/artwork-12.jpg" data-zoomable="true">
+                <div class="artwork-card-header">
+                    <span class="artwork-ref-id">INFOGRAPHIE | 12</span>
+                    <span class="artwork-category-tag">SCÉNARIO 05 | NEUTRALISATION DU SEGMENT SOL</span>
+                </div>
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-12.jpg" alt="Scénario 5 Frappe Préemptive" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <h3 class="artwork-title">FRAPPE PRÉEMPTIVE &amp; DÉNI STRATÉGIQUE</h3>
+                    <p class="artwork-caption">Destruction ciblée des infrastructures terrestres (pas de tir, usines, radars sol-espace) pour bloquer l'émergence d'un concurrent spatial.</p>
+                </div>
+            </article>
+
+            <!-- Artwork 13 (Affiche de présentation horizontale / Pleine largeur) -->
+            <article class="artwork-card-monolith artwork-card-fullwidth smart-asset-box" data-full="../assets/images/artworks/artwork-13.jpg" data-zoomable="true">
+                <div class="artwork-stage">
+                    <img src="../assets/images/artworks/artwork-13.jpg" alt="Affiche Géopolitique de l'Espace" onerror="handleAssetError(this)">
+                </div>
+                <div class="artwork-card-footer">
+                    <div class="artwork-card-header" style="padding: 0 0 10px 0; background: transparent; border-bottom: none;">
+                        <span class="artwork-ref-id">AFFICHE | 13</span>
+                        <span class="artwork-category-tag">VISUEL OFFICIEL DE PRÉSENTATION</span>
+                    </div>
+                    <h3 class="artwork-title">GÉOPOLITIQUE DE L'ESPACE : L'AFFICHE</h3>
+                    <p class="artwork-caption">Composition visuelle et direction artistique complète réalisée pour la publication du mémoire de recherche sur la conflictualité supra-orbitale.</p>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <!-- Modal Lightbox Plein Écran -->
+    <div class="lightbox-modal" id="imageModal" aria-hidden="true">
+        <button class="btn-close-lightbox" id="closeLightboxBtn" aria-label="Fermer">✕</button>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Agrandissement" id="lightboxTargetImg">
+    </div>
+
+    <!-- Scripts Modulaires -->
+    <script src="../js/header.js"></script>
+    <script src="../js/contact.js"></script>
+    <script src="../js/slider.js"></script>
+    <script src="../js/audio-player.js"></script>
+</body>
+</html>
