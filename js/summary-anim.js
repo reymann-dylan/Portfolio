@@ -32,7 +32,7 @@ function handleAssetError(img) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Animation au scroll
+    // 1. Révélation au scroll
     const revealElements = document.querySelectorAll('.scroll-reveal');
     const revealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -41,25 +41,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 obs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // 2. Animation Résumé Profil Top (Phrase captivante & pluridisciplinaire)
+    // 2. Terminal de Résumé Automatique (Exécution autonome continue)
     const trigger = document.getElementById('summaryTrigger');
     const badge = document.getElementById('summaryBadge');
     const output = document.getElementById('summaryTextOutput');
 
-    const fullIntroText = "Analyste des dynamiques géopolitiques et stratégiques, je déploie une approche résolument pluridisciplinaire au croisement des relations internationales, de la philosophie politique, de l'éthique et du management. Ma méthodologie éprouve les vulnérabilités structurelles contemporaines : guerre économique, confrontation informationnelle, militarisation des espaces critiques et logiques de contingence face aux chocs imprévus.\n\nVous trouverez ici mes analyses, mes travaux de recherches, mes projets et mes artworks.";
-
-    let hasIntroRun = false;
+    const defaultIntroText = "Analyste des dynamiques géopolitiques et stratégiques, je déploie une approche résolument pluridisciplinaire au croisement des relations internationales, de la philosophie politique, de l'éthique et du management. Ma méthodologie éprouve les vulnérabilités structurelles contemporaines : guerre économique, confrontation informationnelle, militarisation des espaces critiques et logiques de contingence face aux chocs imprévus.\n\nVous trouverez ici mes analyses, mes travaux de recherches, mes projets et mes artworks.";
 
     if (trigger && badge && output) {
+        const customText = trigger.getAttribute('data-summary-text') || defaultIntroText;
+        let hasIntroRun = false;
+
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !hasIntroRun) {
                     hasIntroRun = true;
                     obs.unobserve(entry.target);
+                    
                     setTimeout(() => {
                         badge.classList.add('flipped');
                         setTimeout(() => {
@@ -69,23 +71,24 @@ document.addEventListener('DOMContentLoaded', () => {
                             let index = 0;
                             output.innerHTML = '';
                             function step() {
-                                if (index < fullIntroText.length) {
-                                    const char = fullIntroText.charAt(index);
+                                if (index < customText.length) {
+                                    const char = customText.charAt(index);
                                     output.innerHTML += char === '\n' ? '<br>' : char;
                                     index++;
-                                    setTimeout(step, 6);
+                                    setTimeout(step, 3);
                                 }
                             }
                             step();
-                        }, 180);
-                    }, 300);
+                        }, 150);
+                    }, 180);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.1 });
+
         observer.observe(trigger);
     }
 
-    // 3. Cartes de Recherche 100% Cliquables
+    // 3. Cartes de Recherche Cliquables
     const researchCards = document.querySelectorAll('.research-card');
     researchCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -94,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Gestionnaire de Résumé Dynamique
+    // 4. Volet de Résumé Dynamique Déroulant
     const summaryDock = document.getElementById('researchSummaryDock');
     const docBadge = document.getElementById('docSummaryBadge');
     const docRef = document.getElementById('docBadgeTitle');
@@ -116,36 +119,40 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            summaryDock.classList.add('open');
+            if (summaryDock) summaryDock.classList.add('open');
 
             if (typingTimer) clearTimeout(typingTimer);
-            docBadge.classList.remove('flipped');
-            docBadge.textContent = "Analyse";
-            docBadge.style.color = "#ffffff";
-            docRef.textContent = data.ref;
-            docOutput.innerHTML = "";
+            if (docBadge) {
+                docBadge.classList.remove('flipped');
+                docBadge.textContent = "Analyse";
+                docBadge.style.color = "#ffffff";
+            }
+            if (docRef) docRef.textContent = data.ref;
+            if (docOutput) docOutput.innerHTML = "";
 
             setTimeout(() => {
-                docBadge.classList.add('flipped');
-                setTimeout(() => {
-                    docBadge.textContent = "Résumé";
-                    docBadge.style.color = "var(--color-gold)";
+                if (docBadge) {
+                    docBadge.classList.add('flipped');
+                    setTimeout(() => {
+                        docBadge.textContent = "Résumé";
+                        docBadge.style.color = "var(--color-gold)";
 
-                    let i = 0;
-                    function typeDoc() {
-                        if (i < data.text.length) {
-                            docOutput.innerHTML += data.text.charAt(i);
-                            i++;
-                            typingTimer = setTimeout(typeDoc, 6);
+                        let i = 0;
+                        function typeDoc() {
+                            if (i < data.text.length) {
+                                docOutput.innerHTML += data.text.charAt(i);
+                                i++;
+                                typingTimer = setTimeout(typeDoc, 4);
+                            }
                         }
-                    }
-                    typeDoc();
-                }, 180);
-            }, 250);
+                        typeDoc();
+                    }, 150);
+                }
+            }, 180);
         });
     });
 
-    if (closeDocBtn) {
+    if (closeDocBtn && summaryDock) {
         closeDocBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             summaryDock.classList.remove('open');

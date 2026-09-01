@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Métadonnées & Indexation Google -->
+    <title>Contingence | Analyse Systémique &amp; Prospective</title>
+    <meta name="description" content="Modélisation prospective, logique de seuil et analyse des ruptures systémiques appliquée au domaine spatial par Dylan Reymann.">
+    <meta name="author" content="Dylan Reymann">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo-contingence-white.png">
+    <link rel="apple-touch-icon" href="assets/images/logo-contingence-gold.png">
+
+    <!-- Open Graph & Twitter Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Contingence | Analyse Systémique &amp; Prospective">
+    <meta property="og:description" content="Modélisation prospective, gravité structurelle et étude des ruptures dans les systèmes complexes.">
+    <meta property="og:image" content="assets/images/hero-banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contingence | Analyse Systémique &amp; Prospective">
+    <meta name="twitter:description" content="Modélisation prospective, gravité structurelle et étude des ruptures dans les systèmes complexes.">
+    <meta name="twitter:image" content="assets/images/hero-banner.png">
+
+    <!-- Typographies Studio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Feuilles de style modulaires -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        /* =====================================================================
+           HERO HAUT & ALIGNEMENT GAUCHE HOMOGÈNE
+        ====================================================================== */
+        .hero-contingence-expanded {
+            position: relative;
+            padding: 170px 0 80px 0;
+            width: 100%;
+            min-height: 460px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-border-subtle);
+            margin-bottom: 45px;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .hero-stable-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center 35%;
+            opacity: 0.32;
+        }
+
+        .hero-wrapper-constrained {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-left-content {
+            max-width: 1000px;
+            text-align: left;
+        }
+
+        .hero-left-content .dossier-tag-pill {
+            margin-bottom: 20px;
+            border-color: rgba(212, 175, 55, 0.4);
+            background: rgba(8, 10, 15, 0.9);
+            display: inline-block;
+        }
+
+        .hero-left-content .dossier-title {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .hero-left-content .dossier-subtitle {
+            font-size: 16.5px;
+            color: var(--color-text-silver);
+            line-height: 1.7;
+            max-width: 860px;
+            text-align: left;
+            margin: 0 0 10px 0;
+            padding: 0;
+        }
+
+        .hero-left-content .dossier-thesis-note {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-gold);
+            letter-spacing: 0.5px;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* =====================================================================
+           SOMMAIRE FLOTTANT
+        ====================================================================== */
+        .toc-floating-sidebar {
+            position: fixed;
+            top: 140px;
+            left: max(16px, calc((100vw - 1440px) / 2 - 210px));
+            width: 195px;
+            z-index: 800;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            opacity: 0;
+            transform: translateX(-15px);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .toc-floating-sidebar.visible {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .toc-title-header {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding-left: 8px;
+            margin-bottom: 4px;
+        }
+
+        .toc-nav-link {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            padding: 8px 10px;
+            border-left: 2px solid rgba(255, 255, 255, 0.08);
+            background: rgba(12, 14, 20, 0.85);
+            transition: all 0.2s ease;
+            line-height: 1.35;
+            display: block;
+        }
+
+        .toc-nav-link:hover {
+            color: #ffffff;
+            background: rgba(212, 175, 55, 0.06);
+            border-left-color: var(--color-gold);
+        }
+
+        .toc-nav-link.active {
+            color: #ffffff;
+            font-weight: 700;
+            background: rgba(212, 175, 55, 0.12);
+            border-left-color: var(--color-gold);
+        }
+
+        /* =====================================================================
+           ESPACEMENT & PROSE DU MANIFESTE
+        ====================================================================== */
+        .summary-terminal-card {
+            margin-bottom: 85px;
+        }
+
+        .manifesto-lead-large {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.65;
+            max-width: 1080px;
+            margin-bottom: 26px;
+            letter-spacing: -0.2px;
+        }
+
+        .manifesto-lead-sub {
+            font-size: 1.05rem;
+            color: var(--color-text-silver);
+            line-height: 1.85;
+            max-width: 1040px;
+            margin-bottom: 24px;
+        }
+
+        .reflexive-box {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            border-left: 3px solid var(--color-gold);
+            border-radius: 0 6px 6px 0;
+            padding: 26px 30px;
+            margin: 36px 0 48px 0;
+        }
+
+        .reflexive-box h3 {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .reflexive-box p {
+            font-size: 0.95rem;
+            color: var(--color-text-silver);
+            line-height: 1.75;
+            margin-bottom: 12px;
+        }
+
+        .reflexive-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pillars-accordion-wrapper {
+            border-top: 1px solid var(--color-border-subtle);
+            border-bottom: 1px solid var(--color-border-subtle);
+            margin: 28px 0 60px 0;
+        }
+
+        .pillar-accordion-item {
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .pillar-accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .pillar-accordion-header {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 22px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            color: #ffffff;
+            transition: color 0.2s;
+        }
+
+        .pillar-accordion-header:hover {
+            color: var(--color-gold);
+        }
+
+        .pillar-header-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .pillar-header-num {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            letter-spacing: 1px;
+        }
+
+        .pillar-accordion-icon {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .pillar-accordion-item.open .pillar-accordion-icon {
+            transform: rotate(45deg);
+            color: var(--color-gold);
+        }
+
+        .pillar-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+            padding: 0 10px;
+        }
+
+        .pillar-accordion-item.open .pillar-accordion-content {
+            max-height: 450px;
+            padding-bottom: 24px;
+        }
+
+        .pillar-accordion-content p {
+            font-size: 0.96rem;
+            color: var(--color-text-silver);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* =====================================================================
+           SCROLLYTELLING & VISUALISEUR SOBRE
+        ====================================================================== */
+        .study-section {
+            border-top: 1px solid var(--color-border-subtle);
+            background: var(--color-bg-main);
+            margin-top: 40px;
+            padding-top: 40px;
+        }
+
+        .study-layout {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 46% 54%;
+            min-height: 100vh;
+        }
+
+        .narrative-col {
+            padding: 30px 40px 140px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chapter-step {
+            min-height: 82vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 0;
+            border-bottom: 1px dashed var(--color-border-subtle);
+            opacity: 0.25;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateX(-8px);
+            cursor: pointer;
+        }
+
+        .chapter-step.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-kicker-gold {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .chapter-step h2 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 18px;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .chapter-step p {
+            font-size: 1rem;
+            color: var(--color-text-silver);
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .consequence-card {
+            margin-top: 18px;
+            padding: 20px 24px;
+            background: var(--color-bg-card);
+            border-left: 3px solid var(--color-gold);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .consequence-card.alert {
+            border-left-color: var(--color-red);
+            background: rgba(229, 25, 55, 0.05);
+        }
+
+        .consequence-card.yellow {
+            border-left-color: #eab308;
+            background: rgba(234, 179, 8, 0.05);
+        }
+
+        .consequence-card.smv {
+            border-left-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .consequence-title {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .consequence-card p {
+            font-size: 0.92rem;
+            color: var(--color-text-silver);
+            margin-bottom: 0;
+            line-height: 1.65;
+        }
+
+        /* Colonne Droite : Cadre Visuel Harmonisé */
+        .visualizer-col {
+            position: sticky;
+            top: 56px;
+            height: calc(100vh - 56px);
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-left: 1px solid var(--color-border-subtle);
+            background: #080a0e;
+            box-sizing: border-box;
+        }
+
+        .viewer-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .viewer-title {
+            font-family: var(--font-mono);
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .viewer-tools {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-tool {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border-subtle);
+            color: var(--color-text-silver);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-tool:hover {
+            border-color: var(--color-gold);
+            color: #ffffff;
+        }
+
+        .btn-tool-gold {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+            background: rgba(212, 175, 55, 0.1);
+            font-weight: 700;
+        }
+
+        .btn-tool-gold:hover {
+            background: var(--color-gold);
+            color: #000000;
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            min-height: 380px;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 4px;
+            background: #040507;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .canvas-container:active {
+            cursor: grabbing;
+        }
+
+        #contingencyCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .canvas-zoom-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 14px;
+            pointer-events: none;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--color-gold);
+            letter-spacing: 1px;
+        }
+
+        /* Ligne de télémétrie directe */
+        .console-clean-row {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 16px;
+            padding: 10px 4px 0 4px;
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .console-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .console-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--color-text-muted);
+        }
+
+        .console-value {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* =====================================================================
+           ENSEIGNEMENTS STRATÉGIQUES (DÉCALAGE & CARTOUCHES AÉRÉS)
+        ====================================================================== */
+        .synthesis-section {
+            padding: 90px 24px 60px 24px;
+            max-width: 1440px;
+            margin: 0 auto;
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .synthesis-node-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-left: 2px solid var(--color-gold);
+            padding: 18px 24px;
+            margin-left: 36px;
+            margin-bottom: 36px;
+            background: rgba(255, 255, 255, 0.015);
+            border-radius: 0 6px 6px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .synthesis-num-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .synthesis-node-title {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            color: #ffffff;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .synthesis-node-row p {
+            font-size: 0.96rem;
+            color: var(--color-text-silver);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .holistic-framework-ambient {
+            margin-top: 60px;
+            padding: 55px 40px;
+            background: #090b10;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 8px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .operational-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-top: 36px;
+        }
+
+        .operational-card {
+            background: #0d1017;
+            border: 1px solid var(--color-border-subtle);
+            border-top: 2px solid var(--color-gold);
+            border-radius: 0 0 6px 6px;
+            padding: 30px 26px;
+            transition: border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .operational-card:hover {
+            border-color: var(--color-gold);
+            transform: translateY(-4px);
+        }
+
+        .operational-card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--color-gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .operational-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .operational-card p {
+            font-size: 0.92rem;
+            color: var(--color-text-silver);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 1480px) {
+            .toc-floating-sidebar { display: none; }
+        }
+
+        @media (max-width: 1024px) {
+            .study-layout { grid-template-columns: 1fr; }
+            .visualizer-col { position: relative; top: 0; height: 500px; border-left: none; border-bottom: 1px solid var(--color-border-subtle); }
+            .narrative-col { padding: 30px 16px; }
+            .synthesis-node-row { margin-left: 0; }
+            .holistic-framework-ambient { padding: 36px 20px; }
+        }
+    </style>
+</head>
+<body data-page="contingence">
+
+    <!-- HEADER UNIVERSEL (Injecté via header.js) -->
+    <header id="site-header"></header>
+
+    <!-- SOMMAIRE FLOTTANT LATÉRAL -->
+    <nav class="toc-floating-sidebar" id="pageToc" aria-label="Sommaire de la page">
+        <div class="toc-title-header">SOMMAIRE</div>
+        <a href="#manifeste" class="toc-nav-link active">1. Logique de Contingence</a>
+        <a href="#piliers" class="toc-nav-link">2. Piliers Méthodologiques</a>
+        <a href="#etude-spatiale" class="toc-nav-link">3. Arborescence des Possibles</a>
+        <a href="#enseignements-spatial" class="toc-nav-link">4. Enseignements du Spatial</a>
+        <a href="#demarche-holistique" class="toc-nav-link">5. Démarche Holistique</a>
+    </nav>
+
+    <!-- TIROIR CONTACT -->
+    <div class="contact-backdrop" id="contactOverlay"></div>
+    <aside class="contact-drawer" id="contactDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">TRANSMISSION <span class="pipe-sep">|</span> <small>DIRECTE</small></div>
+            <button class="btn-close-drawer" id="closeDrawerBtn" aria-label="Fermer">✕</button>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/mlgakqzk" method="POST">
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required placeholder="nom@organisation.gouv.fr">
+            </div>
+            <div class="form-group">
+                <label for="subject">Objet de la Demande</label>
+                <input type="text" id="subject" name="subject" required placeholder="Étude de cas, crise, Red Teaming, analyse...">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Détaillez votre demande, vos questions, vos objectifs..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit-contact">TRANSMETTRE LA REQUÊTE &gt;_</button>
+        </form>
+    </aside>
+
+    <!-- HERO HAUT & ALIGNÉ À GAUCHE SANS JITTER -->
+    <section class="hero-contingence-expanded">
+        <div class="hero-stable-bg" style="background-image: radial-gradient(circle at 30% center, rgba(4, 5, 7, 0.45) 0%, rgba(4, 5, 7, 0.95) 100%), url('assets/images/Contingense (no name).png');"></div>
+        
+        <div class="hero-wrapper-constrained scroll-reveal">
+            <div class="hero-left-content">
+                <div class="dossier-tag-pill">ANALYSE SYSTÉMIQUE APPLIQUÉE AU SPATIAL | CONTINGENCE</div>
+                <h1 class="dossier-title">LA LOGIQUE DE CONTINGENCE</h1>
+                <p class="dossier-subtitle">Modélisation prospective, gravité structurelle et étude des ruptures dans les systèmes complexes.</p>
+                <p class="dossier-thesis-note">Étude de cas adaptée du mémoire « Géopolitique de l'espace : L'éthique de la guerre supra-orbitale ».</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="page-wrapper">
+
+        <!-- TERMINAL DE RÉSUMÉ SPÉCIFIQUE À CONTINGENCE -->
+        <section class="summary-terminal-card scroll-reveal" id="summaryTrigger" data-summary-text="Penser en contingence, c'est dépasser la prédiction linéaire et l'illusion de l'événement imprévisible en cartographiant l'inertie matérielle et économique des systèmes complexes. Cette démarche prospective éprouve la gravité des infrastructures, l'usure invisible des seuils critiques et les bifurcations stratégiques à travers l'étude appliquée du domaine supra-orbital.&#10;&#10;Vous découvrirez ici la formalisation doctrinale de la méthode, son arborescence dynamique des ruptures et ses applications décisionnelles.">
+            <div class="summary-top-bar">
+                <div class="brand-icon-wrapper">
+                    <img src="assets/images/logo-contingence-gold.png" alt="Contingence" class="summary-brand-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <svg class="contingence-diamond-icon" viewBox="0 0 100 100" style="display:none;">
+                        <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="#d4af37" stroke-width="8"/>
+                        <path d="M 25,50 Q 50,28 75,50 Q 50,72 25,50" fill="none" stroke="#d4af37" stroke-width="5"/>
+                    </svg>
+                </div>
+                <div class="badge-flip-container">
+                    <span class="badge-flip-text" id="summaryBadge">Analyse</span>
+                </div>
+            </div>
+            <div class="summary-body">
+                <p id="summaryTextOutput"></p>
+            </div>
+        </section>
+
+        <!-- SECTION 1 : MANIFESTE & CADRAGE MÉTHODOLOGIQUE -->
+        <section class="scroll-reveal" id="manifeste" style="margin-bottom: 60px;">
+            <p class="manifesto-lead-large">
+                La prospective stratégique classique échoue fréquemment face aux crises modernes : soit elle s'enferme dans la <strong>prédiction linéaire</strong> (croire que demain prolongera mécaniquement les tendances d'hier), soit elle disperse l'analyse dans un <strong>hasard total</strong> (poser des scénarios étanches et équiprobables sans hiérarchie).
+            </p>
+            <p class="manifesto-lead-sub">
+                Penser en <strong>contingence</strong>, c'est cartographier la structure profonde de la réalité. C'est analyser comment une <strong>pesanteur matérielle et économique lourde</strong> (le tronc du système) trace une trajectoire par défaut, tandis que l'accumulation silencieuse de micro-actions sous le seuil et d'intrications transversales prépare des ruptures majeures. Rien n'est certain, rien n'est figé, mais chaque système possède une inertie et des points de bascule précis.
+            </p>
+
+            <!-- Encadré réflexif -->
+            <div class="reflexive-box">
+                <h3>Le Désintéressement et l'Exigence Réflexive</h3>
+                <p>
+                    Penser la contingence exige d'abord de désamorcer ses propres biais de projection et d'écarter le confort des plans idéalisés. Décideurs et analystes ont naturellement tendance à construire des modèles qui présupposent que le réel va s'aligner sur leurs volontés politiques ou leurs ambitions industrielles — en omettant délibérément les contraintes physiques réelles, les besoins énergétiques imprévus ou les réactions asymétriques des rivaux.
+                </p>
+                <p>
+                    L'exigence réflexive impose de regarder la matérialité brute du système : ce que les infrastructures permettent techniquement, ce que les logiques de rentabilité imposent sur le terrain, et à quel moment exact la recherche unilatérale de profit ou de puissance cesse d'être un gain pour devenir un facteur d'autodestruction partagée.
+                </p>
+            </div>
+
+            <div id="piliers">
+                <div class="partners-header-note" style="padding-left: 0;">MÉTHODOLOGIE | CONTINGENCE</div>
+                <h2 class="section-block-title" style="font-size: 1.7rem; margin-top: 10px; margin-bottom: 24px;">LES QUATRE PILIERS MÉTHODOLOGIQUES</h2>
+            </div>
+
+            <!-- Accordéons des Piliers -->
+            <div class="pillars-accordion-wrapper">
+                
+                <div class="pillar-accordion-item">
+                    <button class="pillar-accordion-header" onclick="togglePillar(this)">
+                        <div class="pillar-header-title">
+                            <span class="pillar-header-num">01</span>
+                            <span>La Gravité Structurelle (L'inertie des systèmes et logiques établies)</span>
+                        </div>
+                        <span class="pillar-accordion-icon">+</span>
+                    </button>
+                    <div class="pillar-accordion-content">
+                        <p>
+                            Les systèmes contemporains (économiques, géopolitiques, énergétiques, industriels) possèdent une inertie lourde qui trace spontanément une trajectoire par défaut. Ce sillon structurel résiste aux micro-chocs de court terme mais s'érode sous la contrainte ou s'effondre lors de crises majeures. L'analyse prospective ne cherche pas à prédire l'avenir en calquant mécaniquement le passé : elle cartographie la façon dont ces centres de gravité actuels (spéculation financière, épuisement des ressources, disruptions technologiques comme l'IA ou la robotique) entrent en collision les uns avec les autres. Si l'histoire ne se répète pas à l'identique, elle révèle les logiques de fonctionnement récurrentes lorsqu'une structure matérielle atteint ses limites de soutenabilité.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pillar-accordion-item">
+                    <button class="pillar-accordion-header" onclick="togglePillar(this)">
+                        <div class="pillar-header-title">
+                            <span class="pillar-header-num">02</span>
+                            <span>La Logique de Seuil (L'usure graduelle et cumulative)</span>
+                        </div>
+                        <span class="pillar-accordion-icon">+</span>
+                    </button>
+                    <div class="pillar-accordion-content">
+                        <p>
+                            Dans la majorité des crises complexes (climat, saturation orbitale, conflictualité hybride), l'emplacement exact du point de rupture est par nature imprévisible et non quantifiable à l'avance. Le seuil n'est pas une ligne fixe que l'on attend de franchir : c'est un processus cumulatif où chaque micro-action tolérée consomme silencieusement une fraction de la résilience globale. Si l'on ne peut pas toujours dater l'instant précis de la bascule, on peut rigoureusement évaluer le niveau de dégradation systémique généré par l'accumulation d'actes ordinaires sous le seuil de riposte et identifier les limites éthiques et opérationnelles à ne pas dépasser.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pillar-accordion-item">
+                    <button class="pillar-accordion-header" onclick="togglePillar(this)">
+                        <div class="pillar-header-title">
+                            <span class="pillar-header-num">03</span>
+                            <span>L'Intrication Multi-Champs (L'exigence pluridisciplinaire)</span>
+                        </div>
+                        <span class="pillar-accordion-icon">+</span>
+                    </button>
+                    <div class="pillar-accordion-content">
+                        <p>
+                            Aucun domaine technique ou stratégique n'évolue en vase clos. Un système comme le spatial dépend d'infrastructures terrestres vitales, de chaînes logistiques de matériaux rares, de centres de commandement et d'équilibres boursiers mondiaux. Ces infrastructures sont en retour directement exposées aux chocs géopolitiques régionaux, aux tensions économiques et aux biais décisionnels. Toute analyse prospective rigoureuse doit être résolument pluridisciplinaire : s'enfermer dans une spécialité étroite en négligeant les champs adjacents conduit inévitablement à l'angle mort et à l'incapacité d'anticiper les cascades d'effondrement.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pillar-accordion-item">
+                    <button class="pillar-accordion-header" onclick="togglePillar(this)">
+                        <div class="pillar-header-title">
+                            <span class="pillar-header-num">04</span>
+                            <span>La Porosité des Trajectoires (Bifurcations croisées et réinjections)</span>
+                        </div>
+                        <span class="pillar-accordion-icon">+</span>
+                    </button>
+                    <div class="pillar-accordion-content">
+                        <p>
+                            Les scénarios d'évolution ne sont jamais des couloirs étanches. Les trajectoires prospectives communiquent et s'influencent en permanence : un cadre de régulation diplomatique peut être contourné clandestinement sous le seuil d'alerte, réinjectant instantanément de la friction conflictuelle. À l'inverse, une crise géopolitique aiguë peut paradoxalement créer les conditions de négociations et d'une stabilisation forcée. La contingence impose d'intégrer cette perméabilité continue, où une apparente stabilité masque souvent des dynamiques de déstabilisation souterraines et où les équilibres peuvent basculer rapidement d'une branche à l'autre.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SECTION 2 : ÉTUDE DE CAS SUPRA-ORBITALE -->
+    <section class="study-section" id="etude-spatiale">
+        <div class="study-layout">
+            
+            <!-- Narration Analytique (Gauche) -->
+            <div class="narrative-col">
+                
+                <!-- Étape 01 -->
+                <article class="chapter-step active" data-step="0">
+                    <span class="step-kicker-gold">ÉTAPE 01 — GRAVITÉ PAR DÉFAUT</span>
+                    <h2>L'Astro-Capitalisme et la Dépendance Vitale</h2>
+                    <p>
+                        L'orbite terrestre basse (LEO) constitue aujourd'hui la colonne vertébrale invisible du fonctionnement des sociétés modernes. Les transactions financières mondiales horodatées par satellite, la logistique de transport maritime, les réseaux de distribution d'énergie et la surveillance météorologique reposent entièrement sur la continuité de ce service.
+                    </p>
+                    <p>
+                        La division drastique des coûts d'accès à l'espace a précipité le déploiement de dizaines de milliers de satellites par des conglomérats privés. Les armées étatiques, captives de ces flux pour leur renseignement (ISR) et leurs télécommunications, ont massivement délégué leur souveraineté technique à ces acteurs commerciaux.
+                    </p>
+                    <div class="consequence-card">
+                        <span class="consequence-title">VULNÉRABILITÉ CIVILE STRUCTURELLE</span>
+                        <p>Une panne orbitale de quelques jours paralyserait la synchronisation des banques centrales, les couloirs de fret aérien et portuaire, et le suivi des urgences climatiques.</p>
+                    </div>
+                </article>
+
+                <!-- Étape 02 -->
+                <article class="chapter-step" data-step="1">
+                    <span class="step-kicker-gold">ÉTAPE 02 — BIFURCATION AMONT</span>
+                    <h2>Régulation en Phase Industrielle (Jus Ante Bellum)</h2>
+                    <p>
+                        L'environnement orbital ne tolérant aucune réparation après destruction, les cadres classiques du droit de la guerre (<em>jus in bello</em>, <em>jus post bellum</em>) sont inadaptés. La seule régulation rationnelle réside dans le <strong>Jus Ante Bellum</strong> : un droit avant la guerre contraignant dès la planche à dessin industrielle.
+                    </p>
+                    <p>
+                        Cette approche impose la transparence technique des flottes commerciales : limitation des composants offensifs masqués sur les satellites duaux, balises de positionnement inviolables et désorbitation automatique certifiée. Si cette discipline n'est pas adoptée en amont, l'encombrement rendra tout contrôle mutuel impossible.
+                    </p>
+                    <div class="consequence-card smv">
+                        <span class="consequence-title">DISCIPLINE TECHNIQUE PRÉVENTIVE</span>
+                        <p>La transparence des spécifications dès l'usine prévient la paranoïa d'une arme clandestine dissimulée sous le statut d'un satellite civil de maintenance.</p>
+                    </div>
+                </article>
+
+                <!-- Étape 03 -->
+                <article class="chapter-step" data-step="2">
+                    <span class="step-kicker-gold">ÉTAPE 03 — FRICTION DANS LA ZONE GRISE</span>
+                    <h2>Guerre Hybride et Brouillages Sous le Seuil</h2>
+                    <p>
+                        Faute d'une discipline amont, la compétition bascule dans la confrontation grise. Pour tester les défenses adverses sans déclencher de riposte armée directe, les puissances recourent à des actions troubles : brouillage intermittent des signaux GNSS, cyber-harcèlement des stations terrestres et manœuvres d'approche non déclarées (RPO).
+                    </p>
+                    <p>
+                        La dualité technologique permanente (un bras robotique de maintenance pouvant neutraliser un satellite) transforme la moindre avarie en suspicion d'agression, usant silencieusement les marges de décision des centres de commandement.
+                    </p>
+                    <div class="consequence-card alert">
+                        <span class="consequence-title">ÉROSION DES MARGES DE SÉCURITÉ</span>
+                        <p>L'opacité technique favorise l'erreur d'interprétation : une simple défaillance de composant civil risque d'être perçue comme une frappe asymétrique préventive.</p>
+                    </div>
+                </article>
+
+                <!-- Étape 04 -->
+                <article class="chapter-step" data-step="3">
+                    <span class="step-kicker-gold">ÉTAPE 04 — SCÉNARIO SANS GUERRE OUVERTE</span>
+                    <h2>Saturation Civile et Domination d'Infrastructure</h2>
+                    <p>
+                        Même sans conflit militaire ouvert, le système peut dériver vers une impasse civile : la saturation physique des meilleures orbites et des fréquences radio par les premiers conglomérats privés dominants.
+                    </p>
+                    <p>
+                        Une coordination technique minimale du trafic évite les collisions immédiates, mais cette saturation verrouille durablement le milieu. Les pays émergents et les nouveaux acteurs industriels se retrouvent exclus de tout accès souverain, instaurant une rente monopolistique captive.
+                    </p>
+                    <div class="consequence-card yellow">
+                        <span class="consequence-title">VERROUILLAGE ÉCONOMIQUE ET NORMATIF</span>
+                        <p>Une stabilité précaire sous tension : le milieu reste praticable, mais la frustration géopolitique des exclus prépare de futures contestations asymétriques.</p>
+                    </div>
+                </article>
+
+                <!-- Étape 05 -->
+                <article class="chapter-step" data-step="4">
+                    <span class="step-kicker-gold">ÉTAPE 05 — CONTAGION TERRESTRE</span>
+                    <h2>Choc Géopolitique et Escalade Multi-Champs</h2>
+                    <p>
+                        L'orbite n'est pas un sanctuaire isolé : elle absorbe les crises terrestres. Lors d'un conflit géopolitique majeur au sol (détroit de Taïwan, Europe orientale), la tentation de neutraliser les yeux et les relais de communication de l'adversaire devient une priorité militaire immédiate.
+                    </p>
+                    <p>
+                        Les doctrines de déni d'accès (A2/AD) s'étendent à l'espace. Le brouillage offensif d'un théâtre régional contamine les systèmes de navigation des avions de ligne et des navires marchands sur des milliers de kilomètres.
+                    </p>
+                    <div class="consequence-card alert">
+                        <span class="consequence-title">EXTENSION DU CHAMP DE BATAILLE</span>
+                        <p>L'intrication étroite entre télécoms militaires et services civils sur les mêmes constellations expose directement les populations aux effets de la guerre électronique.</p>
+                    </div>
+                </article>
+
+                <!-- Étape 06 -->
+                <article class="chapter-step" data-step="5">
+                    <span class="step-kicker-gold">ÉTAPE 06 — POINT DE NON-RETOUR</span>
+                    <h2>Rupture Cinétique et Syndrome de Kessler</h2>
+                    <p>
+                        L'effondrement physique de l'écosystème orbital peut survenir par deux chemins convergents : soit par l'usage d'une arme cinétique de destruction (missile antisatellite ou fragmentation volontaire), soit par la saturation extrême provoquant un carambolage en cascade.
+                    </p>
+                    <p>
+                        Les débris projetés à 28 000 km/h pulvérisent les autres constellations sans distinction d'opérateur ou de drapeau. Détruire les actifs ennemis anéantit instantanément ses propres capacités : c'est un suicide technologique mondial scellant l'enfermement terrestre pour des siècles.
+                    </p>
+                    <div class="consequence-card alert">
+                        <span class="consequence-title">RUPTURE CIVILISATIONNELLE</span>
+                        <p>L'interruption brutale des signaux de positionnement et de météo d'urgence paralyse les secours maritimes, le guidage des flottes aériennes et l'alerte précoce lors de catastrophes climatiques.</p>
+                    </div>
+                </article>
+
+                <!-- Étape 07 -->
+                <article class="chapter-step" data-step="6">
+                    <span class="step-kicker-gold">ÉTAPE 07 — ÉQUILIBRE DOCTRINAL</span>
+                    <h2>Stabilité Doctrinale (Space Mutual Vulnerability)</h2>
+                    <p>
+                        L'unique horizon rationnel n'est pas un désarmement spontané irréaliste, mais la doctrine de la <strong>Space Mutual Vulnerability (S.M.V.)</strong>. Les puissances intègrent qu'aucune victoire militaire classique n'est possible dans l'espace et que la force brute cinétique détruit l'instrument de sa propre puissance.
+                    </p>
+                    <p>
+                        La stabilité repose sur la sanctuarisation concertée des moyens d'observation partagée et la transparence doctrinale. La souveraineté ne s'exprime plus par la capacité d'écraser l'autre, mais par la responsabilité partagée de préserver un milieu dont dépend la survie de nos sociétés.
+                    </p>
+                    <div class="consequence-card smv">
+                        <span class="consequence-title">MAÎTRISE DU MILIEU PAR LA RETENUE</span>
+                        <p>Sanctuarisation des lignes de communication vitales et partage des données de surveillance orbitale pour empêcher qu'une méprise ne déclenche la destruction mutuelle.</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Visualiseur Vectoriel Interactif (Droite) -->
+            <div class="visualizer-col">
+                <div class="viewer-top-bar">
+                    <span class="viewer-title">ARBORESCENCE DYNAMIQUE DES POSSIBLES</span>
+                    <div class="viewer-tools">
+                        <button class="btn-tool" onclick="recenterCurrentStep()">Recentrer</button>
+                        <button class="btn-tool btn-tool-gold" onclick="resetCanvasView()">Vue Globale</button>
+                        <button class="btn-tool" onclick="zoomCanvas(1.2)">+ Zoom</button>
+                        <button class="btn-tool" onclick="zoomCanvas(0.8)">- Zoom</button>
+                    </div>
+                </div>
+
+                <div class="canvas-container" id="canvasBox">
+                    <canvas id="contingencyCanvas"></canvas>
+                    <div class="canvas-zoom-badge mono" id="canvasZoomVal">ZOOM : 105%</div>
+                </div>
+
+                <!-- Ligne de télémétrie directe sans boîte de widget -->
+                <div class="console-clean-row">
+                    <div class="console-item">
+                        <span class="console-label">Situation Sélectionnée</span>
+                        <span class="console-value" id="dispTitle">
+                            <span class="status-badge-dot" id="dispDot" style="background: var(--color-gold);"></span>
+                            <span id="dispName">Astro-Capitalisme</span>
+                        </span>
+                    </div>
+                    <div class="console-item">
+                        <span class="console-label">Impact Système &amp; Société</span>
+                        <span class="console-value mono" id="dispImpact" style="font-size: 0.78rem; color: var(--color-text-silver);">Dépendance bancaire &amp; logistique</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3 : ENSEIGNEMENTS D'UNE ANALYSE PAR LA CONTINGENCE APPLIQUÉE AU SPATIAL -->
+    <section class="synthesis-section scroll-reveal" id="enseignements-spatial">
+        <div class="partners-header-note" style="padding-left: 0;">RÉSULTATS DE RECHERCHE DOCTRINALE</div>
+        <h2 class="section-block-title" style="margin-bottom: 24px;">LES ENSEIGNEMENTS D'UNE ANALYSE PAR LA CONTINGENCE APPLIQUÉE AU SPATIAL</h2>
+        
+        <p class="manifesto-lead-sub">
+            Tout comme le spatial, rien n'évolue en vase clos. Les équilibres stratégiques sont perpétuellement traversés et façonnés par des forces transversales : dynamiques économiques de marché, calculs politiques de souveraineté, contraintes industrielles et flux financiers globaux. Dès lors qu'une infrastructure devient vitale, mondialisée et soumise à des limites physiques strictes, les outils d'analyse traditionnels fondés sur la souveraineté territoriale classique et la force brute deviennent inopérants.
+        </p>
+
+        <div class="synthesis-pillars-flow" style="margin-top: 40px;">
+            
+            <div class="synthesis-node-row">
+                <div class="synthesis-num-tag">ENSEIGNEMENT 01</div>
+                <div class="synthesis-node-title">Substituer la dynamique de seuil à l'attente de l'événement</div>
+                <p>
+                    Les plans stratégiques échouent souvent parce qu'ils attendent une déclaration de guerre formelle ou une catastrophe soudaine pour agir. La contingence démontre que les ruptures irréversibles sont le produit cumulatif de <strong>micro-actes ordinaires</strong>, tolérés un par un dans une zone grise. Gouverner l'incertitude exige d'identifier les marges d'élasticité du milieu avant que l'accumulation silencieuse des frictions n'atteigne le point de non-retour.
+                </p>
+            </div>
+
+            <div class="synthesis-node-row">
+                <div class="synthesis-num-tag">ENSEIGNEMENT 02</div>
+                <div class="synthesis-node-title">Reconnaître l'impasse de la force brute dans les milieux partagés</div>
+                <p>
+                    Dans les environnements sans frontières (espace orbital, câbles sous-marins, climat, finance internationale), chercher une sécurité unilatérale par l'agression cinétique ou la saturation monopolistique détruit l'infrastructure même dont dépend l'agresseur. La véritable puissance ne réside pas dans l'illusion d'une victoire par écrasement, mais dans la <strong>capacité à garantir l'intégrité et la praticabilité durable</strong> du milieu partagé.
+                </p>
+            </div>
+
+            <div class="synthesis-node-row">
+                <div class="synthesis-num-tag">ENSEIGNEMENT 03</div>
+                <div class="synthesis-node-title">Déplacer l'éthique et le droit vers les architectures amont</div>
+                <p>
+                    Lorsque les dommages causés à un milieu sont irréparables, toute régulation intervenant pendant ou après la crise est un constat d'échec. L'exigence politique et normative doit être inscrite directement dans l'ingénierie technique et les protocoles industriels dès la conception (<strong>Jus Ante Bellum</strong>). Cette discipline s'applique directement aux réseaux optiques sous-marins, à l'interconnexion électrique continentale et au déploiement de l'intelligence artificielle.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- SECTION 4 : CONTINGENCE | DÉMARCHE HOLISTIQUE & PLURIDISCIPLINAIRE -->
+        <div class="holistic-framework-ambient" id="demarche-holistique">
+            <div class="partners-header-note" style="padding-left: 0; color: var(--color-gold);">CONTINGENCE | MÉTHODE D'ANALYSE SYSTÉMIQUE</div>
+            <h3 class="section-block-title" style="font-size: 1.85rem; margin-bottom: 20px;">DÉMARCHE HOLISTIQUE &amp; PLURIDISCIPLINAIRE</h3>
+            
+            <p class="manifesto-lead-sub">
+                Pourquoi employer la méthode de contingence dans l'analyse de crise, l'audit stratégique et la prise de décision publique ou industrielle ? Parce qu'elle refuse le cloisonnement disciplinaire et fournit une grille de lecture directe pour identifier les véritables points d'étranglement d'un système.
+            </p>
+
+            <div class="operational-grid">
+                
+                <div class="operational-card">
+                    <div class="operational-card-tag">01 | DÉCLOISONNEMENT</div>
+                    <h4>L'intrication holistique comme exigence technique</h4>
+                    <p>
+                        À l'image des sciences dures où l'astrophysique dépend de la microélectronique et de la science des matériaux, aucun enjeu stratégique ne peut être compris isolément. La contingence articule en continu les flux financiers, les contraintes physiques d'infrastructure, le droit international et la paranoïa cognitive des états-majors.
+                    </p>
+                </div>
+
+                <div class="operational-card">
+                    <div class="operational-card-tag">02 | DIAGNOSTIC</div>
+                    <h4>Cartographier les vrais nœuds de blocage</h4>
+                    <p>
+                        Face à une crise complexe, la méthode permet d'isoler les causes profondes des symptômes de surface. Elle révèle où se situent les véritables goulots d'étranglement matériels et doctrinaux, permettant d'élaborer des scénarios de Red Teaming et des politiques de prévention ciblées.
+                    </p>
+                </div>
+
+                <div class="operational-card">
+                    <div class="operational-card-tag">03 | DÉCISION</div>
+                    <h4>Agir sur les leviers ou s'adapter à l'inévitable</h4>
+                    <p>
+                        La lucidité stratégique repose sur un double constat : identifier précisément les paramètres sur lesquels une intervention précoce peut dévier la trajectoire du système, mais aussi reconnaître le poids des inerties structurelles pour construire une résilience active adaptée à la réalité.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SCRIPTS MODULAIRES DU STUDIO -->
+    <script src="js/header.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/summary-anim.js"></script>
+
+    <!-- SCRIPT DU MOTEUR CANVAS VECTORIEL OPTIMISÉ (ZÉRO LAG) -->
+    <script>
+        function togglePillar(headerBtn) {
+            const item = headerBtn.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.pillar-accordion-item').forEach(el => el.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+
+        // Sommaire Flottant via IntersectionObserver (Zéro lag au scroll)
+        const tocBar = document.getElementById('pageToc');
+        const tocLinks = document.querySelectorAll('.toc-nav-link');
+        const trackedSections = document.querySelectorAll('#manifeste, #piliers, #etude-spatiale, #enseignements-spatial, #demarche-holistique');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 380) {
+                tocBar.classList.add('visible');
+            } else {
+                tocBar.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    tocLinks.forEach(link => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        trackedSections.forEach(sec => sectionObserver.observe(sec));
+
+        // Canvas Vectoriel Interactif & Optimisation Rendu
+        const canvas = document.getElementById('contingencyCanvas');
+        const ctx = canvas.getContext('2d');
+        const canvasBox = document.getElementById('canvasBox');
+        const zoomBadge = document.getElementById('canvasZoomVal');
+
+        let width = 0, height = 0;
+        let selectedStep = 0;
+        let hoveredNode = null;
+        let isCanvasVisible = true;
+
+        let cam = { x: 40, y: 0, scale: 1.05 };
+        let targetCam = { x: 40, y: 0, scale: 1.05 };
+        let isDragging = false;
+        let startDragX = 0, startDragY = 0;
+
+        const graphNodes = [
+            { id: 0, x: 60, y: 300, label: 'Astro-Capitalisme', sub: '', cat: 'base', step: 0 },
+            { id: 1, x: 260, y: 480, label: 'Régulation industrielle', sub: '(Jus Ante Bellum)', cat: 'stable', step: 1 },
+            { id: 2, x: 260, y: 300, label: 'Guerre hybride', sub: '(Friction sous le seuil)', cat: 'friction', step: 2 },
+            { id: 3, x: 480, y: 380, label: 'Saturation civile', sub: '(Gestion du trafic)', cat: 'yellow', step: 3 },
+            { id: 4, x: 480, y: 220, label: 'Choc géopolitique', sub: '(Escalade multi-champs)', cat: 'alert', step: 4 },
+            { id: 5, x: 760, y: 380, label: "Rivalité & blocage d'accès", sub: '(Exclusion des émergents)', cat: 'yellow', step: 3 },
+            { id: 6, x: 1040, y: 380, label: "Domination d'infrastructure", sub: '(Hégémonie)', cat: 'yellow', step: 3 },
+            { id: 7, x: 760, y: 220, label: 'Escalade économique & rivalité', sub: '(Course agressive)', cat: 'alert', step: 4 },
+            { id: 8, x: 1140, y: 460, label: 'Sanctuarisation tardive', sub: '(Sous contrainte)', cat: 'stable', step: 6 },
+            { id: 9, x: 1380, y: 240, label: 'Militarisation clandestine', sub: '(Dissimulation)', cat: 'alert', step: 2 },
+            { id: 10, x: 760, y: 70, label: 'Syndrome de Kessler', sub: '(Frappe cinétique)', cat: 'rupture', step: 5 },
+            { id: 11, x: 980, y: 70, label: 'Syndrome de Kessler', sub: '(Pollution & saturation)', cat: 'rupture', step: 5 },
+            { id: 20, x: 1540, y: 70, label: 'Rupture cinétique tardive', sub: '(Kessler différé)', cat: 'rupture', step: 5 },
+            { id: 12, x: 1760, y: 70, label: 'Rupture Systémique', sub: '(Cécité globale)', cat: 'rupture', step: 5 },
+            { id: 13, x: 1980, y: 10, label: 'Paralysie financière & bancaire', sub: '', cat: 'rupture-leaf', step: 5 },
+            { id: 14, x: 2000, y: 40, label: 'Désynchronisation réseaux électriques', sub: '', cat: 'rupture-leaf', step: 5 },
+            { id: 15, x: 2010, y: 70, label: 'Cécité climatique & météo', sub: '', cat: 'rupture-leaf', step: 5 },
+            { id: 16, x: 2000, y: 100, label: 'Rupture logistique & maritime', sub: '', cat: 'rupture-leaf', step: 5 },
+            { id: 17, x: 1980, y: 130, label: 'Pertes humaines (Urgences & secours)', sub: '', cat: 'rupture-leaf', step: 5 },
+            { id: 18, x: 760, y: 540, label: 'Stabilité doctrinale', sub: '(Équilibre S.M.V.)', cat: 'stable', step: 6 },
+            { id: 19, x: 1260, y: 540, label: "Sanctuarisation de l'orbite", sub: '', cat: 'stable', step: 6 }
+        ];
+
+        const graphEdges = [
+            { from: 0, to: 1, color: '#38bdf8', dash: [4, 4] },
+            { from: 0, to: 2, color: '#d4af37', width: 2.5 },
+            { from: 1, to: 2, color: '#f43f5e', dash: [3, 3] },
+            { from: 1, to: 18, color: '#38bdf8', width: 2 },
+            { from: 2, to: 3, color: '#eab308', width: 2 },
+            { from: 2, to: 4, color: '#f43f5e', width: 2.5 },
+            { from: 3, to: 5, color: '#eab308', width: 2 },
+            { from: 5, to: 6, color: '#eab308', width: 2.5 },
+            { from: 5, to: 7, color: '#f43f5e', dash: [4, 4] },
+            { from: 7, to: 11, color: '#f43f5e', dash: [4, 4] },
+            { from: 6, to: 8, color: '#38bdf8', dash: [4, 4] },
+            { from: 8, to: 19, color: '#38bdf8', width: 2 },
+            { from: 4, to: 10, color: '#f43f5e', width: 2.5 },
+            { from: 4, to: 18, color: '#38bdf8', dash: [4, 4] },
+            { from: 10, to: 11, color: '#f43f5e', width: 2.5 },
+            { from: 11, to: 20, color: '#f43f5e', width: 2.5 },
+            { from: 20, to: 12, color: '#f43f5e', width: 2.5 },
+            { from: 12, to: 13, color: '#f43f5e', width: 1.2 },
+            { from: 12, to: 14, color: '#f43f5e', width: 1.2 },
+            { from: 12, to: 15, color: '#f43f5e', width: 1.2 },
+            { from: 12, to: 16, color: '#f43f5e', width: 1.2 },
+            { from: 12, to: 17, color: '#f43f5e', width: 1.2 },
+            { from: 18, to: 19, color: '#38bdf8', width: 2.5 },
+            { from: 19, to: 9, color: '#f43f5e', dash: [4, 4] },
+            { from: 9, to: 20, color: '#f43f5e', dash: [4, 4] }
+        ];
+
+        function updateZoomBadge() {
+            zoomBadge.textContent = 'ZOOM : ' + Math.round(cam.scale * 100) + '%';
+        }
+
+        function resizeCanvas() {
+            width = canvasBox.clientWidth;
+            height = canvasBox.clientHeight;
+            canvas.width = width * window.devicePixelRatio;
+            canvas.height = height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function setInitialCamera() {
+            targetCam.scale = 1.05;
+            targetCam.x = 40;
+            targetCam.y = (height - 600 * targetCam.scale) / 2 + 10;
+            cam.scale = targetCam.scale;
+            cam.x = targetCam.x;
+            cam.y = targetCam.y;
+            updateZoomBadge();
+        }
+        setInitialCamera();
+
+        function resetCanvasView() {
+            const graphWidth = 2240;
+            const graphHeight = 650;
+            const scaleX = (width - 40) / graphWidth;
+            const scaleY = (height - 40) / graphHeight;
+            targetCam.scale = Math.min(scaleX, scaleY, 0.72);
+            targetCam.x = 20;
+            targetCam.y = (height - graphHeight * targetCam.scale) / 2 + 10;
+        }
+
+        function zoomCanvas(factor) {
+            const prevScale = targetCam.scale;
+            targetCam.scale = Math.max(0.40, Math.min(2.4, targetCam.scale * factor));
+            const cx = width / 2;
+            const cy = height / 2;
+            targetCam.x = cx - (cx - targetCam.x) * (targetCam.scale / prevScale);
+            targetCam.y = cy - (cy - targetCam.y) * (targetCam.scale / prevScale);
+        }
+
+        function autoPanToStep(stepIdx) {
+            const targetScale = 1.05;
+            let targetPanX, targetPanY;
+
+            if (stepIdx === 3) {
+                targetPanX = (width * 0.40) - (760 * targetScale);
+                targetPanY = (height * 0.50) - (380 * targetScale);
+            } else if (stepIdx === 5) {
+                targetPanX = (width * 0.45) - (1760 * targetScale);
+                targetPanY = (height * 0.45) - (70 * targetScale);
+            } else {
+                const activeNode = graphNodes.find(n => n.step === stepIdx);
+                if (activeNode) {
+                    targetPanX = (width * 0.35) - (activeNode.x * targetScale);
+                    targetPanY = (height * 0.48) - (activeNode.y * targetScale);
+                }
+            }
+
+            targetCam.scale = targetScale;
+            targetCam.x = targetPanX;
+            targetCam.y = targetPanY;
+        }
+
+        function recenterCurrentStep() {
+            autoPanToStep(selectedStep);
+        }
+
+        function drawVectorNetwork() {
+            if (!isCanvasVisible) {
+                requestAnimationFrame(drawVectorNetwork);
+                return;
+            }
+
+            if (!isDragging) {
+                cam.x += (targetCam.x - cam.x) * 0.12;
+                cam.y += (targetCam.y - cam.y) * 0.12;
+                cam.scale += (targetCam.scale - cam.scale) * 0.12;
+                updateZoomBadge();
+            }
+
+            ctx.clearRect(0, 0, width, height);
+
+            ctx.save();
+            ctx.translate(cam.x, cam.y);
+            ctx.scale(cam.scale, cam.scale);
+
+            // Grille optimisée
+            const minX = -cam.x / cam.scale - 120;
+            const maxX = (width - cam.x) / cam.scale + 120;
+            const minY = -cam.y / cam.scale - 120;
+            const maxY = (height - cam.y) / cam.scale + 120;
+
+            const startX = Math.floor(minX / 60) * 60;
+            const endX = Math.ceil(maxX / 60) * 60;
+            const startY = Math.floor(minY / 60) * 60;
+            const endY = Math.ceil(maxY / 60) * 60;
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let x = startX; x <= endX; x += 60) {
+                ctx.moveTo(x, minY); ctx.lineTo(x, maxY);
+            }
+            for (let y = startY; y <= endY; y += 60) {
+                ctx.moveTo(minX, y); ctx.lineTo(maxX, y);
+            }
+            ctx.stroke();
+
+            // Seuil d'irréversibilité physique (Ligne pointillée rouge)
+            ctx.strokeStyle = 'rgba(229, 25, 55, 0.45)';
+            ctx.lineWidth = 1.8;
+            ctx.setLineDash([6, 6]);
+            ctx.beginPath();
+            ctx.moveTo(-4000, 140);
+            ctx.lineTo(6000, 140);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            ctx.fillStyle = 'rgba(229, 25, 55, 0.65)';
+            ctx.font = '10px "JetBrains Mono"';
+            for (let lx = -2400; lx <= 4800; lx += 800) {
+                ctx.fillText("SEUIL D'IRRÉVERSIBILITÉ PHYSIQUE (KESSLER)", lx, 130);
+            }
+
+            // Lignes directrices de projection
+            ctx.strokeStyle = 'rgba(234, 179, 8, 0.45)';
+            ctx.setLineDash([5, 5]);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(1040, 380);
+            ctx.lineTo(6000, 380);
+            ctx.stroke();
+
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+            ctx.beginPath();
+            ctx.moveTo(1260, 540);
+            ctx.lineTo(6000, 540);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Liens Bézier
+            graphEdges.forEach(edge => {
+                const fromN = graphNodes.find(n => n.id === edge.from);
+                const toN = graphNodes.find(n => n.id === edge.to);
+
+                const x1 = fromN.x;
+                const y1 = fromN.y;
+                const x2 = toN.x;
+                const y2 = toN.y;
+                const cx = x1 + (x2 - x1) * 0.5;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.bezierCurveTo(cx, y1, cx, y2, x2, y2);
+
+                const isActive = (fromN.step <= selectedStep && toN.step <= selectedStep);
+                ctx.strokeStyle = isActive ? edge.color : 'rgba(255, 255, 255, 0.08)';
+                ctx.lineWidth = isActive ? (edge.width || 2) : 1;
+                if (edge.dash) ctx.setLineDash(edge.dash);
+                else ctx.setLineDash([]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            });
+
+            // Nœuds et Cartouches de texte
+            graphNodes.forEach(node => {
+                const isHovered = hoveredNode === node.id;
+                const isSelected = selectedStep === node.step;
+
+                let col = '#d4af37';
+                if (node.cat === 'stable') col = '#38bdf8';
+                if (node.cat === 'alert' || node.cat === 'rupture' || node.cat === 'rupture-leaf') col = '#e51937';
+                if (node.cat === 'yellow') col = '#eab308';
+
+                if (isSelected || isHovered) {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 11, 0, Math.PI * 2);
+                    ctx.fillStyle = col.replace(')', ', 0.15)').replace('rgb', 'rgba');
+                    ctx.fill();
+                }
+
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, (node.cat === 'rupture-leaf') ? 3 : (isSelected ? 5.5 : 4), 0, Math.PI * 2);
+                ctx.fillStyle = col;
+                ctx.fill();
+
+                if (node.cat === 'rupture-leaf') {
+                    ctx.font = '10px "Plus Jakarta Sans", sans-serif';
+                    ctx.fillStyle = isSelected ? '#ffffff' : 'rgba(229, 25, 55, 0.85)';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(node.label, node.x + 10, node.y + 3);
+                } else {
+                    ctx.font = `${isSelected ? '600 ' : '400 '}11px "Plus Jakarta Sans", sans-serif`;
+                    const labelW = ctx.measureText(node.label).width;
+                    ctx.font = '9px "JetBrains Mono"';
+                    const subW = node.sub ? ctx.measureText(node.sub).width : 0;
+                    const boxW = Math.max(labelW, subW) + 16;
+                    const boxH = node.sub ? 30 : 20;
+
+                    ctx.fillStyle = 'rgba(7, 8, 11, 0.94)';
+                    ctx.fillRect(node.x - boxW / 2, node.y + 10, boxW, boxH);
+                    ctx.strokeStyle = isSelected ? col : 'rgba(255, 255, 255, 0.08)';
+                    ctx.lineWidth = 1;
+                    ctx.strokeRect(node.x - boxW / 2, node.y + 10, boxW, boxH);
+
+                    ctx.font = `${isSelected ? '600 ' : '400 '}11px "Plus Jakarta Sans", sans-serif`;
+                    ctx.fillStyle = isSelected ? '#ffffff' : (isHovered ? '#ffffff' : '#9ba3b5');
+                    ctx.textAlign = 'center';
+                    ctx.fillText(node.label, node.x, node.y + (node.sub ? 22 : 24));
+
+                    if (node.sub) {
+                        ctx.font = '9px "JetBrains Mono"';
+                        ctx.fillStyle = isSelected ? col : 'rgba(255, 255, 255, 0.45)';
+                        ctx.fillText(node.sub, node.x, node.y + 34);
+                    }
+                }
+            });
+
+            ctx.restore();
+            requestAnimationFrame(drawVectorNetwork);
+        }
+
+        // Observer de visibilité du canvas (Évite tout lag hors champ)
+        const canvasVisibilityObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isCanvasVisible = entry.isIntersecting;
+            });
+        }, { threshold: 0.05 });
+        canvasVisibilityObserver.observe(canvasBox);
+
+        drawVectorNetwork();
+
+        canvasBox.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
+            zoomCanvas(zoomFactor);
+        }, { passive: false });
+
+        canvasBox.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startDragX = e.clientX - cam.x;
+            startDragY = e.clientY - cam.y;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                cam.x = e.clientX - startDragX;
+                cam.y = e.clientY - startDragY;
+                targetCam.x = cam.x;
+                targetCam.y = cam.y;
+                return;
+            }
+
+            const rect = canvas.getBoundingClientRect();
+            const mouseCanvasX = (e.clientX - rect.left - cam.x) / cam.scale;
+            const mouseCanvasY = (e.clientY - rect.top - cam.y) / cam.scale;
+
+            let found = null;
+            graphNodes.forEach(node => {
+                const dist = Math.hypot(mouseCanvasX - node.x, mouseCanvasY - node.y);
+                if (dist < 26) found = node.id;
+            });
+
+            hoveredNode = found;
+            canvas.style.cursor = found !== null ? 'pointer' : (isDragging ? 'grabbing' : 'grab');
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        canvas.addEventListener('click', () => {
+            if (hoveredNode !== null) {
+                const node = graphNodes.find(n => n.id === hoveredNode);
+                if (node && node.step !== undefined) {
+                    activateStep(node.step);
+                    const targetArticle = document.querySelector(`.chapter-step[data-step="${node.step}"]`);
+                    if (targetArticle) {
+                        targetArticle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            }
+        });
+
+        const steps = document.querySelectorAll('.chapter-step');
+        const dispName = document.getElementById('dispName');
+        const dispImpact = document.getElementById('dispImpact');
+        const dispDot = document.getElementById('dispDot');
+
+        const stepTelemetryData = [
+            { name: 'Astro-Capitalisme', impact: 'Dépendance bancaire & logistique', color: 'var(--color-gold)' },
+            { name: 'Régulation Amont (Jus Ante Bellum)', impact: 'Transparence dès la conception usine', color: '#38bdf8' },
+            { name: 'Guerre Hybride & Zone Grise', impact: 'Brouillages et paranoïa décisionnelle', color: 'var(--color-gold)' },
+            { name: 'Saturation Civile & Domination', impact: "Exclusion d'accès & Hégémonie", color: '#eab308' },
+            { name: 'Choc Géopolitique & Escalade', impact: 'Cécité radar et risques sur le trafic civil', color: 'var(--color-red)' },
+            { name: 'Syndrome de Kessler & Non-Retour', impact: 'Suicide technologique et pertes humaines', color: 'var(--color-red)' },
+            { name: 'Stabilité Doctrinale (S.M.V.)', impact: 'Dissuasion par préservation du milieu', color: '#38bdf8' }
+        ];
+
+        function activateStep(idx) {
+            selectedStep = idx;
+            steps.forEach((s, i) => {
+                if (i === idx) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            const data = stepTelemetryData[idx];
+            if (data) {
+                dispName.textContent = data.name;
+                dispImpact.textContent = data.impact;
+                dispDot.style.background = data.color;
+            }
+
+            autoPanToStep(idx);
+        }
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stepIdx = parseInt(entry.target.getAttribute('data-step'), 10);
+                    activateStep(stepIdx);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        steps.forEach((step, idx) => {
+            scrollObserver.observe(step);
+            step.addEventListener('click', () => activateStep(idx));
+        });
+    </script>
+</body>
+</html>
